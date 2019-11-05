@@ -9,9 +9,12 @@
   },
   "dependencies": {
     "expo": "^33.0.0",
+    "expo-camera": "~5.0.1",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native-material-dropdown": "^0.11.1",
+    "react-native-modal-dropdown": "^0.7.0",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0"
   },

@@ -1,10 +1,39 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-import HomeScreen from './src/screens/HomeScreen';
-import LayoutScreen from './src/screens/LayoutScreen';
 
-const navigator = createStackNavigator({
-  Home: HomeScreen,
-  Layout: LayoutScreen
-});
+
+import HomePage from './src/screens/HomePage';
+import SellRent from './src/screens/SellRent';
+import Report from './src/screens/Report';
+import PriceTrends from './src/screens/PriceTrends';
+import currListings from './src/screens/currListings';
+import BuyRent from './src/screens/BuyRent';
+import Form from './src/screens/Form';
+
+
+
+
+
+const navigator = createStackNavigator(
+  {
+   
+
+    Page: HomePage,
+    SR : SellRent,
+    Rep : Report,
+    Price : PriceTrends,
+    Current : currListings,
+    BR : BuyRent,
+    form : Form,
+   
+
+
+  },
+  {
+    initialRouteName: 'Page', //What should show up first when app opens
+    defaultNavigationOptions: {
+      title: 'TritonClick'
+    }
+  }
+);
 
 export default createAppContainer(navigator);
