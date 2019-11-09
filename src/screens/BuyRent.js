@@ -9,7 +9,7 @@ const BuyRent = () =>{
                 <Button title="FILTER" />
             </View>
         </View>
-        );
+    );
 }
 
 export default BuyRent;

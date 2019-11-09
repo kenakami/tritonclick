@@ -17,13 +17,11 @@ const HomePage = (props) => {
                 <Text style={styles.text} >Sell</Text>
             </TouchableOpacity>
 
-
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('form')}>
                 <Text style={styles.text}>Rent Out</Text>
             </TouchableOpacity>
 
-
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Current')}>
+            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('myListings')}>
                 <Text style={styles.text} >View My Listings</Text>
             </TouchableOpacity>
 
@@ -48,9 +46,6 @@ const styles = StyleSheet.create({
         backgroundColor: '#DDDDDD',
         padding: 10,
         marginBottom: 20
-
-
-
     }
 });
 

@@ -8,6 +8,7 @@ import PriceTrends from './src/screens/PriceTrends';
 import currListings from './src/screens/currListings';
 import BuyRent from './src/screens/BuyRent';
 import Form from './src/screens/Form';
+import myListings from "./src/screens/myListings";
 
 
 
@@ -22,6 +23,7 @@ const navigator = createStackNavigator(
     Rep : Report,
     Price : PriceTrends,
     Current : currListings,
+    myListings: myListings,
     BR : BuyRent,
     form : Form,
    
