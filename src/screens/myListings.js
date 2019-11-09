@@ -83,15 +83,11 @@ const styles = StyleSheet.create({
         paddingTop:20
     },
     text: {
-        fontsize: 100
+        fontSize: 100
     },
     button: {
         backgroundColor: '#DDDDDD',
         padding: 10,
-    },
-    list: {
-        flexDirection: 'centered'
-
     }
 });
 
