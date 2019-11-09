@@ -4,16 +4,19 @@ import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, FlatList} f
 
 const DATA = [
     {
+        id: '1',
         picture: 'Something',
         description: 'New iClicker 2',
         price: '$20',
     },
     {
+        id: '2',
         picture: 'Do you know',
         description: 'Used iClicker 2',
         price: '$15',
     },
     {
+        id: '3',
         picture: 'Wowee Dog',
         description: 'Used iClicker 1',
         price: '$10',
@@ -68,7 +71,7 @@ const myListings = (props) =>{
                          price={item.price}
                      />
                  )}
-                 keyExtractor={item => item.picture}
+                 keyExtractor={item => item.id}
              />
          </View>
      </View>
