@@ -88,10 +88,6 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#DDDDDD',
         padding: 10,
-    },
-    list: {
-        flexDirection: 'centered'
-
     }
 });
 
