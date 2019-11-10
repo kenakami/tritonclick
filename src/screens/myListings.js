@@ -26,7 +26,7 @@ const DATA = [
 
 function Item({ picture, description, price }) {
     return (
-        <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => props.navigation.navigate('Current')}>
+        <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => props.navigation.navigate('Listing')}>
             <Text style={{marginLeft: 10, marginRight: 20}}>{picture}</Text>
             <Text style={{marginRight: 50}}>{description}</Text>
             <Text>{price}</Text>
