@@ -1,4 +1,4 @@
 # tritonclick
-Install the following libraries to use Login.js:
-npm install firebase
-expo install expo-google-app-auth
+Install the following libraries to use Login.js:<br />
+npm install firebase<br />
+expo install expo-google-app-auth<br />
