@@ -33,6 +33,10 @@ const HomePage = (props) => {
                 <Text style={styles.text} >Reports</Text>
             </TouchableOpacity>
 
+            {/*Testing purposes for viewListings */}
+            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('viewListingSeller')}>
+                <Text style={styles.text} >viewListingsSeller</Text>
+            </TouchableOpacity>
         </View>
     )
 }
