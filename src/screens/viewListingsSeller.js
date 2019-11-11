@@ -2,37 +2,55 @@ import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 
-/*const viewListingsSeller = () => {
-    return <Text>This is the view listings for the Seller Page</Text>
-}*/
+
 export default class viewListingsSeller extends React.Component {
-  
+    render() {
 
-    //Create Save and Delete Buttons//
 
-      let type = [{
+      const type = [{
         value: 'iClicker 1',
       }, {
         value: 'iClicker 2',
       }];
   
-      let cond = [{
+      const cond = [{
         value: 'Like New',
       }, {
         value: 'Used',
       }];
   
-      let trans = [{
+      const trans = [{
         value: 'Selling',
       }, {
         value: 'Renting Out',
       }];
   
       return (
-  
+
         <View style={styles.container}>
   
           <ScrollView>
+            
+            {/*Save and Delete buttons on the top*/}
+            <View style={styles.buttonContainer}>
+                <TouchableOpacity style={styles.saveButton}>
+                    <Text style={styles.saveButtonText} onPress={() => alert("Changes saved")} >Save</Text>
+                  {/* TODO implement functionality */}
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.saveButton}>
+                  <Text style={styles.saveButtonText}>Delete</Text>
+                  {/* TODO implement functionality */}
+                </TouchableOpacity>
+            </View>
+
+            {/* Test */}
+            <View style={styles.buttonContainer}>
+                <Button title="Save" />
+                <Button title="Delete" />
+            </View>
+
+            {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
   
               <TextInput
@@ -73,16 +91,15 @@ export default class viewListingsSeller extends React.Component {
                 data={trans}
               />
   
+              {/* TODO Create Picture Input*/}
   
-              <View style={styles.inputContainer}>
+              <View style={styles.buttonContainer}>
                 <TouchableOpacity
                   style={styles.saveButton}
                 >
                   <Text style={styles.saveButtonText} onPress={() => alert("You have responded to Buyer")} >Email</Text>
                 </TouchableOpacity>
-              </View>
-  
-              <View style={styles.inputContainer}>
+
                 <TouchableOpacity
                   style={styles.saveButton}
                 >
@@ -112,6 +129,10 @@ export default class viewListingsSeller extends React.Component {
     },
     inputContainer: {
       paddingTop: 15
+    },
+    buttonContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between'
     },
     textInput: {
       borderColor: '#CCCCCC',

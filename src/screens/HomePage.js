@@ -34,7 +34,7 @@ const HomePage = (props) => {
             </TouchableOpacity>
 
             {/*Testing purposes for viewListings */}
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('viewListingSeller')}>
+            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('ListingSeller')}>
                 <Text style={styles.text} >viewListingsSeller</Text>
             </TouchableOpacity>
         </View>
