@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         paddingTop:20
     },
     text: {
-        fontSize: 100
+        fontSize: 16
     },
     button: {
         backgroundColor: '#DDDDDD',
