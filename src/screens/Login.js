@@ -112,6 +112,7 @@ class Login extends React.Component {
                   .ref('/users/' + result.user.uid)
                   .set({
                     gmail: result.user.email,
+                    user_id: result.user.uid,
                     profile_picture: result.additionalUserInfo.profile.picture,
                     first_name: result.additionalUserInfo.profile.given_name,
                     last_name: result.additionalUserInfo.profile.family_name,
