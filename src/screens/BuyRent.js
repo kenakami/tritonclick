@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Button, FlatList, View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import iClickerData from '../../testData/iClickerData';
 import Constants from 'expo-constants';
 const DATA = [
   {
