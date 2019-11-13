@@ -20,9 +20,11 @@ const DATA = [
 ];
 
 function Item({ id, title, selected, onSelect }) {
+  const {navigate} = this.props.navigation;
   return (
     <TouchableOpacity
-      onPress={() => onSelect(id)}
+      //onPress={() => onSelect(id)}
+      onPress={() => navigate('Page')}
       //onPress={() => this.props.navigation.navigate('Page')}
       style={[
         styles.item,
