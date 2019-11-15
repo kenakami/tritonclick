@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import * as firebase from 'firebase';
 
@@ -14,8 +14,6 @@ const firebaseConfig = {
       //measurementId: "G-DN5HSXKVV0"
 };
 
-firebase.initializeApp(firebaseConfig);
-
 class Login extends React.Component {
 
   constructor(props) {
@@ -26,33 +24,13 @@ class Login extends React.Component {
       password: ''
     })
   }
+  
+  componentWillMount() {
+    firebase.initializeApp(firebaseConfig);
+  }
 
   componentDidMount() {
     this.checkIfLoggedIn();
-  }
-  
-  signUpUser = (email, password) => {
-    try{
-      if(this.state.password.length < 6) {
-        alert("Please enter more than six")
-        return;
-      }
-      firebase.auth().createUserWithEmailAndPassword(email, password);
-    }
-    catch(error) {
-      console.log(error.toString())
-    }
-  }
-
-  loginUser = (email, password) => {
-    try{
-      firebase.auth().signInWithEmailAndPassword(email, password).then(function (user) {
-        console.log(user)
-      }) 
-    }
-    catch(error) {
-      console.log(error.toString())
-    }
   }
 
   checkIfLoggedIn = () => {
@@ -60,6 +38,13 @@ class Login extends React.Component {
       function(user) {
         console.log('AUTH STATE CHANGED CALLED ')
         if (user) {
+          var index = user.email.indexOf("@");
+          var domain = user.email.substring(index + 1);
+          console.log(domain);
+          if(!(domain === "ucsd.edu")) {
+            firebase.auth().signOut();
+            alert("Please sign in with your UCSD email.");
+          }
           this.props.navigation.navigate('Page');
           console.log('should went to homepage now');
         } else {
@@ -138,7 +123,6 @@ class Login extends React.Component {
               var email = error.email;
               // The firebase.auth.AuthCredential type that was used.
               var credential = error.credential;
-              // ...
             });
         } else {
           console.log('User already signed-in Firebase.');
@@ -171,13 +155,13 @@ class Login extends React.Component {
 
   render() {
     return (
-        <View style={styles.container}>
-        <Text style={{textAlign: 'center'}}>Triton Clikers</Text>
-        <Button
-          title="Sign In With Google"
-          onPress={() => this.signInWithGoogleAsync()}
-        />
-        <Text style={{textAlign: 'center'}}>By logging in, you accept the Terms and Conditions.</Text>
+      <View style={styles.container}>
+        <Text style={styles.logoText}>Triton Click</Text>
+        <TouchableOpacity style={styles.loginButton} onPress={() => this.signInWithGoogleAsync()}
+        >
+          <Text style={styles.loginText}>Sign in with UCSD email</Text>
+        </TouchableOpacity>
+        <Text style={{textAlign: 'center'}}>By logging in, you accepted the Terms and Conditions.</Text>
       </View>
       
     );
@@ -189,8 +173,32 @@ export default Login;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: "center",
+    paddingHorizontal: 10
+    /*
     backgroundColor: '#fff', 
     justifyContent: 'center',
     padding: 10 
+    */
   },
+
+  loginButton: {
+    alignItems: 'center',
+    backgroundColor: '#3897f1',
+    padding: 10,
+    marginBottom: 20
+  },
+
+  logoText: {
+    fontSize: 40,
+    fontWeight: "800",
+    marginTop: 10,
+    marginBottom: 250,
+    textAlign: 'center',
+  },
+
+  loginText: {
+    color: 'white',
+    fontSize: 20
+  }
 });
