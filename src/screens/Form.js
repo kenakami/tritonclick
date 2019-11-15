@@ -1,9 +1,45 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
+import db from '../base'
 
 
 export default class SettingsScreen extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      email: '',
+      barcode: '',
+      price: '',
+      type: '',
+      condition: ''
+    };
+  }
+  writeUserData(Email, Barcode, Price, Type, Condition) {
+    
+    //This would be to get the current user
+    //const{ currentUser } = db.auth();
+    //db.database().ref(`Users/${currentUser.uid}/Selling/`)
+    
+    
+    db.database().ref('Users/UserID/Selling/').push({
+      Email,
+      Barcode,
+      Price,
+      Type,
+      Condition
+    }).then((data) => {
+      //success callback
+      console.log('data ', data)
+    }).catch((error) => {
+      //error callback
+      console.log('error ', error)
+    })
+  }
+
+
   render() {
 
     let type = [{
@@ -30,13 +66,15 @@ export default class SettingsScreen extends React.Component {
 
         <ScrollView>
           <View style={styles.inputContainer}>
-
+          <Text style={styles.text}>Email:</Text>
             <TextInput
               style={styles.textInput}
               placeholder="Your Email"
               maxLength={20}
               keyboardType="email-address"
               autoCorrect={false}
+              onChangeText={(email) => this.setState({ email })}
+              value={this.state.email}
             />
 
             <View>
@@ -46,43 +84,51 @@ export default class SettingsScreen extends React.Component {
                 placeholder="Barcode"
                 maxLength={8}
                 autoCorrect={false}
+                onChangeText={(barcode) => this.setState({ barcode })}
+                value={this.state.barcode}
               />
             </View>
 
+            <Text style={styles.text}>Price:</Text>
             <TextInput
               style={styles.textInput}
               placeholder="Price"
               keyboardType="numeric"
+              onChangeText={(price) => this.setState({ price })}
+              value={this.state.price}
             />
+
+
             <Dropdown
               label='Type of iClicker'
               data={type}
+              onChangeText={(type) => this.setState({ type })}
+              value={this.state.type}
             />
 
             <Dropdown
               label='Condition of iClicker'
               data={cond}
+              onChangeText={(condition) => this.setState({ condition })}
+              value={this.state.condition}
             />
 
-            <Dropdown
+            {/*<Dropdown
               label='Selling or Renting Out?'
               data={trans}
-            />
+            />*/}
 
-
-            <View style={styles.inputContainer}>
-              <TouchableOpacity
-                style={styles.saveButton}
-              >
-                <Text style={styles.saveButtonText} onPress={() => alert("Thank you for submitting")} >Save</Text>
-              </TouchableOpacity>
-            </View>
+          
+            {/*<Button
+              title="Save"
+              onPress={() => this.writeUserData(this.state.email,this.state.barcode,this.state.price,this.state.type,this.state.condition)}
+            /> */}
 
             <View style={styles.inputContainer}>
               <TouchableOpacity
-                style={styles.saveButton}
+                style={styles.saveButton} onPress={() => this.writeUserData(this.state.email,this.state.barcode,this.state.price,this.state.type,this.state.condition)}
               >
-                <Text style={styles.saveButtonText}>Cancel</Text>
+                <Text style={styles.saveButtonText}>Save</Text>
               </TouchableOpacity>
             </View>
 
