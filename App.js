@@ -12,6 +12,7 @@ import viewListingsRenter from "./src/screens/viewListingsRenter";
 import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
 import Form from './src/screens/Form';
+import Login from './src/screens/Login';
 
 
 
@@ -21,7 +22,7 @@ const navigator = createStackNavigator(
   {
    
 
-
+      Login: Login,
       Page: HomePage,
       SR : SellRent,
       Rep : Report,
@@ -36,7 +37,7 @@ const navigator = createStackNavigator(
 
   },
   {
-    initialRouteName: 'Page', //What should show up first when app opens
+    initialRouteName: 'Login', //What should show up first when app opens
     defaultNavigationOptions: {
       title: 'TritonClick'
     }
