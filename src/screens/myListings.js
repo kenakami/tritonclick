@@ -26,7 +26,7 @@ const DATA = [
 
 function Item({ picture, description, price }) {
     return (
-        <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => props.navigation.navigate('Listing')}>
+        <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => props.navigation.navigate('ListingBuyer')}>
             <Text style={{marginLeft: 10, marginRight: 20}}>{picture}</Text>
             <Text style={{marginRight: 50}}>{description}</Text>
             <Text>{price}</Text>
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
         paddingTop:20
     },
     text: {
-        fontSize: 100
+        fontSize: 16
     },
     button: {
         backgroundColor: '#DDDDDD',
