@@ -42,6 +42,7 @@ class Login extends React.Component {
           var domain = user.email.substring(index + 1);
           console.log(domain);
           if(!(domain === "ucsd.edu")) {
+            firebase.database().ref('/users/' + user.uid).remove();
             firebase.auth().signOut();
             alert("Please sign in with your UCSD email.");
           }
