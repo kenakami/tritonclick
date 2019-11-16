@@ -4,8 +4,11 @@ import { Dropdown } from 'react-native-material-dropdown';
 
 
 export default class viewListingsSeller extends React.Component {
-    render() {
+  static navigationOptions = {
+    title: 'viewListingsSell',
+  };
 
+    render() {
 
       const type = [{
         value: 'iClicker 1',
@@ -86,24 +89,16 @@ export default class viewListingsSeller extends React.Component {
                 data={cond}
               />
   
-              <Dropdown
-                label='Selling or Renting Out?'
-                data={trans}
-              />
-  
               {/* TODO Create Picture Input*/}
   
               <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                  style={styles.saveButton}
-                >
+                <TouchableOpacity style={styles.saveButton}>
                   <Text style={styles.saveButtonText} onPress={() => alert("You have responded to Buyer")} >Email</Text>
+                  {/* Navigate Back */}
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={styles.saveButton}
-                >
-                  <Text style={styles.saveButtonText}>Purchase</Text>
+                <TouchableOpacity style={styles.saveButton}>
+                  <Text style={styles.saveButtonText}>Sold</Text>
                 </TouchableOpacity>
               </View>
   
