@@ -12,7 +12,7 @@ import viewListingsRenter from "./src/screens/viewListingsRenter";
 import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
 import Form from './src/screens/Form';
-import Login from './src/screens/Login';
+import Login from './src/screens/Login'
 
 
 
