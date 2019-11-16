@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, StyleSheet, View, Button, TouchableOpacity } from 'react-native';
+import * as firebase from 'firebase';
 
 const HomePage = (props) => {
     return (
@@ -32,7 +33,7 @@ const HomePage = (props) => {
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Report')}>
                 <Text style={styles.text} >Reports</Text>
             </TouchableOpacity>
-
+            <Button title="Sign out" onPress={() => firebase.auth().signOut()} />
         </View>
     )
 }

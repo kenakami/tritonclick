@@ -17,10 +17,10 @@ import Login from './src/screens/Login'
 
 
 
-
 const navigator = createStackNavigator(
   {
    
+//<<<<<<< HEAD
 
       Login: Login,
       Page: HomePage,
@@ -34,6 +34,19 @@ const navigator = createStackNavigator(
       myListings: myListings,
       BR : BuyRent,
       form : Form,
+//=======
+/*
+    Login: Login,
+    Page: HomePage,
+    SR : SellRent,
+    Rep : Report,
+    Price : PriceTrends,
+    Current : currListings,
+    BR : BuyRent,
+    form : Form,
+  */ 
+
+//>>>>>>> login
 
   },
   {
