@@ -12,6 +12,7 @@ import viewListingsRenter from "./src/screens/viewListingsRenter";
 import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
 import Form from './src/screens/Form';
+import Item from "./src/screens/components/Item";
 
 
 
@@ -33,7 +34,7 @@ const navigator = createStackNavigator(
       myListings: myListings,
       BR : BuyRent,
       form : Form,
-
+      item: Item
   },
   {
     initialRouteName: 'Page', //What should show up first when app opens
