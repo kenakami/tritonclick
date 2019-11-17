@@ -12,36 +12,51 @@ import viewListingsRenter from "./src/screens/viewListingsRenter";
 import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
 import Form from './src/screens/Form';
-import Item from "./src/screens/components/Item";
-
+import Login from './src/screens/Login';
+import Item from './src/screens/components/Item';
 
 
 
 
 const navigator = createStackNavigator(
-  {
-   
+    {
 
+//<<<<<<< HEAD
 
-      Page: HomePage,
-      SR : SellRent,
-      Rep : Report,
-      Price : PriceTrends,
-      ListingBuyer : viewListingsBuyer,
-      ListingRentee : viewListingsRentee,
-      ListingSeller : viewListingsSeller,
-      ListingRenter : viewListingsRenter,
-      myListings: myListings,
-      BR : BuyRent,
-      form : Form,
-      item: Item
-  },
-  {
-    initialRouteName: 'Page', //What should show up first when app opens
-    defaultNavigationOptions: {
-      title: 'TritonClick'
+        Login: Login,
+        Page: HomePage,
+        SR : SellRent,
+        Rep : Report,
+        Price : PriceTrends,
+        ListingBuyer : viewListingsBuyer,
+        ListingRentee : viewListingsRentee,
+        ListingSeller : viewListingsSeller,
+        ListingRenter : viewListingsRenter,
+        myListings: myListings,
+        BR : BuyRent,
+        form : Form,
+        item: Item
+//=======
+        /*
+            Login: Login,
+            Page: HomePage,
+            SR : SellRent,
+            Rep : Report,
+            Price : PriceTrends,
+            Current : currListings,
+            BR : BuyRent,
+            form : Form,
+          */
+
+//>>>>>>> login
+
+    },
+    {
+        initialRouteName: 'Login', //What should show up first when app opens
+        defaultNavigationOptions: {
+            title: 'TritonClick'
+        }
     }
-  }
 );
 
 export default createAppContainer(navigator);
