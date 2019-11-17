@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 
 
-export default class viewListingsRent extends React.Component {
-    render() {
-  
+const viewListingsRent = (props) => {
       return (
 
         <View style={styles.container}>
@@ -14,21 +12,21 @@ export default class viewListingsRent extends React.Component {
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
   
-              <Text>Seller Email goes here</Text>
+              <Text style={styles.textInput}>Loaner Email goes here</Text>
   
-              <Text>Price goes here</Text>
+              <Text style={styles.textInput}>Price per timeframe goes here</Text>
 
-              <Text>Type of iClicker goes here</Text>
+              <Text style={styles.textInput}>Type of iClicker goes here</Text>
   
-              <Text>Condition of iClicker goes here</Text>
+              <Text style={styles.textInput}>Condition of iClicker goes here</Text>
   
               {/* TODO Display Picture*/}
   
-              <View style={styles.buttonContainer}>
+              <View style={styles.inputContainer}>
                 <TouchableOpacity
                   style={styles.saveButton}
                 >
-                  <Text style={styles.saveButtonText} onPress={() => alert("You have responded to Loaner")} >Email</Text>
+                  <Text style={styles.saveButtonText} onPress={() => alert("You have responded to the Loaner")} >Email</Text>
                 </TouchableOpacity>
 
               </View>
@@ -39,7 +37,6 @@ export default class viewListingsRent extends React.Component {
         </View>
       );
     };
-  }
   
   const styles = StyleSheet.create({
     container: {
@@ -58,7 +55,7 @@ export default class viewListingsRent extends React.Component {
     },
     buttonContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-between'
+      justifyContent: 'flex-end',
     },
     textInput: {
       borderColor: '#CCCCCC',
@@ -87,3 +84,5 @@ export default class viewListingsRent extends React.Component {
     }
   
   });
+
+  export default viewListingsRent;

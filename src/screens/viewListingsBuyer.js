@@ -13,17 +13,17 @@ const viewListingsBuyer = (props) => {
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
   
-              <Text>Seller Email goes here</Text>
+              <Text style={styles.textInput}>Seller Email goes here</Text>
   
-              <Text>Price goes here</Text>
+              <Text style={styles.textInput}>Price goes here</Text>
 
-              <Text>Type of iClicker goes here</Text>
+              <Text style={styles.textInput}>Type of iClicker goes here</Text>
   
-              <Text>Condition of iClicker goes here</Text>
+              <Text style={styles.textInput}>Condition of iClicker goes here</Text>
   
               {/* TODO Display Picture*/}
   
-              <View style={styles.buttonContainer}>
+              <View style={styles.inputContainer}>
                 <TouchableOpacity
                   style={styles.saveButton}
                 >
