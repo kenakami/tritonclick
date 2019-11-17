@@ -9,6 +9,10 @@ const viewListingsLoan = (props) => {
       title: 'viewListingsLoan',
   };
 
+  function Separator() {
+    return <View style={styles.separator} />;
+  }
+
   const type = [{value: 'iClicker 1',}, {value: 'iClicker 2',}];
   const cond = [{value: 'Like New',}, {value: 'Used',}];
   const trans = [{value: 'Selling',}, {value: 'Renting Out',}];
@@ -19,25 +23,6 @@ const viewListingsLoan = (props) => {
 
       <ScrollView>
         
-        {/*Save and Delete buttons on the top*/}
-        <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.saveButton}>
-                <Text style={styles.saveButtonText} onPress={() => alert("Changes saved")} >Save</Text>
-              {/* TODO implement functionality */}
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.saveButton}>
-              <Text style={styles.saveButtonText}>Delete</Text>
-              {/* TODO implement functionality */}
-            </TouchableOpacity>
-        </View>
-
-        {/* Test */}
-        <View style={styles.buttonContainer}>
-            <Button title="Save" />
-            <Button title="Delete" />
-        </View>
-
         {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
         <View style={styles.inputContainer}>
 
@@ -82,30 +67,16 @@ const viewListingsLoan = (props) => {
 
 
           {/* TODO Create Picture Input*/}
+          <Separator />
 
           <View style={styles.buttonContainer}>
-            <TouchableOpacity style={styles.saveButton}>
-              <Text style={styles.saveButtonText} onPress={() => alert("You have responded to Renter")} >Email</Text>
-              {/* Navigate Back */}
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.saveButton}>
-              <Text style={styles.saveButtonText}>Start</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.saveButton}>
-              <Text style={styles.saveButtonText}>End</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.buttonContainer}>
-            <Button title="Start" color='green' onPress={() => alert("Transaction started")}/>
-            <Button title="End" color='red' onPress={() => alert("Transaction ended")}/>
-          </View>
-
-          <View style={styles.buttonContainer}>
-            <Button title="Save" onPress={() => alert("Changes saved")} />
-            <Button title="Delete" color='red' onPress={() => alert("Listing deleted")} />
+            <Button title="Save" style={styles.button} onPress={() => alert("Changes saved")} />
+            <Separator />
+            <Button title="Start" style={styles.button} color='green' onPress={() => alert("Transaction started")}/>
+            <Separator />
+            <Button title="End" style={styles.button} color='red' onPress={() => alert("Transaction ended")}/>
+            <Separator />
+            <Button title="Delete" style={styles.button} color='red' onPress={() => alert("Listing deleted")} />
           </View>
 
         </View>
@@ -132,8 +103,9 @@ const styles = StyleSheet.create({
     paddingTop: 15
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between'
+  },
+  button: {
+    paddingTop: 10,
   },
   textInput: {
     borderColor: '#CCCCCC',
@@ -161,6 +133,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 12
+  },
+  separator: {
+    marginVertical: 10,
   }
 
 });

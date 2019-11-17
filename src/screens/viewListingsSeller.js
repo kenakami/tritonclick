@@ -7,6 +7,10 @@ const viewListingsSeller = (props) => {
   navigationOptions = {
     title: 'viewListingsSell',
   };
+  
+  function Separator() {
+    return <View style={styles.separator} />;
+  }
 
   const type = [{value: 'iClicker 1',}, {value: 'iClicker 2',}];
   const cond = [{value: 'Like New',}, {value: 'Used',}];
@@ -60,10 +64,14 @@ const viewListingsSeller = (props) => {
           {/*Buttons go on the bottom */}
           {/* To implement functionality */}
 
+          <Separator />
+
           <View style={styles.buttonContainer}>
-            <Button title="Save" onPress={() => alert("Changes saved")}/>
-            <Button title="Sold" color='green' onPress={() => alert("Marked as sold")} />
-            <Button title="Delete" color='red' onPress={() => alert("Listing deleted")} />
+            <Button title="Save" style={styles.button} onPress={() => alert("Changes saved")}/>
+            <Separator />
+            <Button title="Sold" style={styles.button} color='green' onPress={() => alert("Marked as sold")} />
+            <Separator />
+            <Button title="Delete" style={styles.button} color='red' onPress={() => alert("Listing deleted")} />
           </View>
 
         </View>
@@ -87,10 +95,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   inputContainer: {
-    paddingTop: 15
+    paddingTop: 15,
   },
   buttonContainer: {
-    
+    paddingTop: 10,
+  },
+  button: {
+    paddingTop: 10,
   },
   textInput: {
     borderColor: '#CCCCCC',
@@ -106,6 +117,9 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 12
+  },
+  separator: {
+    marginVertical: 10,
   }
 });
 
