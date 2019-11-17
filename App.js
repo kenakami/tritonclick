@@ -2,7 +2,6 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 
 
 import HomePage from './src/screens/HomePage';
-import SellRent from './src/screens/SellRent';
 import Report from './src/screens/Report';
 import PriceTrends from './src/screens/PriceTrends';
 import viewListingsBuyer from "./src/screens/viewListingsBuyer";
@@ -25,7 +24,6 @@ const navigator = createStackNavigator(
 
         Login: Login,
         Page: HomePage,
-        SR : SellRent,
         Rep : Report,
         Price : PriceTrends,
         ListingBuyer : viewListingsBuyer,
