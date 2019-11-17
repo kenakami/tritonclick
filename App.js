@@ -9,10 +9,11 @@ import viewListingsBuyer from "./src/screens/viewListingsBuyer";
 import viewListingsRent from "./src/screens/viewListingsRent";
 import viewListingsSeller from "./src/screens/viewListingsSeller";
 import viewListingsLoan from "./src/screens/viewListingsLoan";
+import viewListingsTest from "./src/screens/viewListingsTest";
 import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
 import Form from './src/screens/Form';
-import Login from './src/screens/Login'
+import Login from './src/screens/Login';
 
 
 const navigator = createStackNavigator(
@@ -29,6 +30,7 @@ const navigator = createStackNavigator(
       ListingRent : viewListingsRent,
       ListingSeller : viewListingsSeller,
       ListingLoan : viewListingsLoan,
+      ListingTest : viewListingsTest,
       myListings: myListings,
       BR : BuyRent,
       form : Form,

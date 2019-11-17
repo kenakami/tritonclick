@@ -15,7 +15,7 @@ const HomePage = (props) => {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('form')}>
-                <Text style={styles.text} >Sell</Text>
+                <Text style={styles.texHomePaget} >Sell</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('form')}>
@@ -32,6 +32,10 @@ const HomePage = (props) => {
 
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Report')}>
                 <Text style={styles.text} >Reports</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('ListingSell')}>
+                <Text style={styles.text} >viewListingTest</Text>
             </TouchableOpacity>
 
             <Button title="Sign out" onPress={() => firebase.auth().signOut()} />
