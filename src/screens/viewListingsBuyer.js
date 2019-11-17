@@ -87,4 +87,4 @@ const viewListingsBuyer = (props) => {
   
   });
 
-  export default ListingsBuyer;
+  export default viewListingsBuyer;

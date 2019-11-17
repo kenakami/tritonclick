@@ -6,9 +6,9 @@ import SellRent from './src/screens/SellRent';
 import Report from './src/screens/Report';
 import PriceTrends from './src/screens/PriceTrends';
 import viewListingsBuyer from "./src/screens/viewListingsBuyer";
-import viewListingsRentee from "./src/screens/viewListingsRentee";
+import viewListingsRent from "./src/screens/viewListingsRent";
 import viewListingsSeller from "./src/screens/viewListingsSeller";
-import viewListingsRenter from "./src/screens/viewListingsRenter";
+import viewListingsLoan from "./src/screens/viewListingsLoan";
 import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
 import Form from './src/screens/Form';
@@ -29,9 +29,9 @@ const navigator = createStackNavigator(
         Rep : Report,
         Price : PriceTrends,
         ListingBuyer : viewListingsBuyer,
-        ListingRentee : viewListingsRentee,
+        ListingRent : viewListingsRent,
         ListingSeller : viewListingsSeller,
-        ListingRenter : viewListingsRenter,
+        ListingLoan : viewListingsLoan,
         myListings: myListings,
         BR : BuyRent,
         form : Form,

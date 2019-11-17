@@ -15,7 +15,7 @@ const HomePage = (props) => {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('form')}>
-                <Text style={styles.texHomePaget} >Sell</Text>
+                <Text style={styles.text} >Sell</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('form')}>
