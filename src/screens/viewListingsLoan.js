@@ -98,6 +98,16 @@ const viewListingsLoan = (props) => {
             </TouchableOpacity>
           </View>
 
+          <View style={styles.buttonContainer}>
+            <Button title="Start" color='green' onPress={() => alert("Transaction started")}/>
+            <Button title="End" color='red' onPress={() => alert("Transaction ended")}/>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            <Button title="Save" onPress={() => alert("Changes saved")} />
+            <Button title="Delete" color='red' onPress={() => alert("Listing deleted")} />
+          </View>
+
         </View>
       </ScrollView>
 
@@ -109,6 +119,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 45,
+    padding: 10,
     backgroundColor: '#F5FCFF',
   },
   header: {
@@ -128,6 +139,8 @@ const styles = StyleSheet.create({
     borderColor: '#CCCCCC',
     borderTopWidth: 1,
     borderBottomWidth: 1,
+    borderLeftWidth: 1,
+    borderRightWidth: 1,
     height: 50,
     fontSize: 25,
     paddingLeft: 20,
