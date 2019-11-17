@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 
 
-export default class viewListingsBuyer extends React.Component {
-    render() {
+const viewListingsBuyer = (props) => {
 
       return (
 
@@ -37,9 +36,9 @@ export default class viewListingsBuyer extends React.Component {
           </ScrollView>
   
         </View>
-      );
-    };
-  }
+      )
+    }
+
   
   const styles = StyleSheet.create({
     container: {
@@ -87,3 +86,5 @@ export default class viewListingsBuyer extends React.Component {
     }
   
   });
+
+  export default ListingsBuyer;

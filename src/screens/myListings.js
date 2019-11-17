@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, ScrollView, TouchableOpacity, Image, FlatList} from 'react-native';
-
+import {View, Text, StyleSheet, FlatList, ScrollView} from 'react-native';
+import Item from "./components/Item";
 
 const DATA = [
     {
@@ -21,66 +21,111 @@ const DATA = [
         description: 'Used iClicker 1',
         price: '$10',
     },
+    {
+        id: '4',
+        picture: 'Test',
+        description: 'New iClicker 1',
+        price: '$15',
+    },
+    {
+        id: '5',
+        picture: 'another one',
+        description: 'New iClicker 1',
+        price: '$15',
+    },
+    {
+        id: '6',
+        picture: 'one one',
+        description: 'New iClicker 1',
+        price: '$15',
+    },
 ];
 
+export default class myListings extends React.Component {
+    toViewBuyer = () => {
+        this.props.navigation.navigate('ListingBuyer');
+    };
 
-function Item({ picture, description, price }) {
-    return (
-        <TouchableOpacity style={{flexDirection: 'row'}} onPress={() => props.navigation.navigate('ListingBuyer')}>
-            <Text style={{marginLeft: 10, marginRight: 20}}>{picture}</Text>
-            <Text style={{marginRight: 50}}>{description}</Text>
-            <Text>{price}</Text>
-        </TouchableOpacity>
-    );
+    toViewSeller = () => {
+        this.props.navigation.navigate('ListingSeller');
+    };
+
+    toViewRenter = () => {
+        this.props.navigation.navigate('ListingRenter');
+    };
+
+    toViewRentee = () => {
+        this.props.navigation.navigate('ListingRentee');
+    };
+
+    render() {
+        return(
+            <ScrollView>
+                <ScrollView style={styles.container} nestedScrollEnabled={false}>
+                    <FlatList
+                        data={DATA}
+                        renderItem={({ item }) => (
+                            <Item
+                                picture={item.picture}
+                                description={item.description}
+                                price={item.price}
+                                toViewListing={this.toViewBuyer}
+                            />
+                        )}
+                        keyExtractor={item => item.id}
+                    />
+                </ScrollView>
+                <ScrollView style={styles.container} nestedScrollEnabled={true}>
+                    <FlatList
+                        data={DATA}
+                        renderItem={({ item }) => (
+                            <Item
+                                picture={item.picture}
+                                description={item.description}
+                                price={item.price}
+                                toViewListing={this.toViewSeller}
+                            />
+                        )}
+                        keyExtractor={item => item.id}
+                    />
+                </ScrollView>
+                <ScrollView style={styles.container} nestedScrollEnabled={true}>
+                    <FlatList
+                        data={DATA}
+                        renderItem={({ item }) => (
+                            <Item
+                                picture={item.picture}
+                                description={item.description}
+                                price={item.price}
+                                toViewListing={this.toViewRentee}
+                            />
+                        )}
+                        keyExtractor={item => item.id}
+                    />
+                </ScrollView>
+                <ScrollView style={styles.container} nestedScrollEnabled={true}>
+                    <FlatList
+                        data={DATA}
+                        renderItem={({ item }) => (
+                            <Item
+                                picture={item.picture}
+                                description={item.description}
+                                price={item.price}
+                                toViewListing={this.toViewRenter}
+                            />
+                        )}
+                        keyExtractor={item => item.id}
+                    />
+                </ScrollView>
+            </ScrollView>
+        )
+    }
 }
 
-const myListings = (props) =>{
-    return(
-
-     <View style={styles.container}>
-         <View style={{flexDirection: 'row', justifyContent: 'space-around', marginBottom: 30}}>
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.text}>Sort</Text>
-            </TouchableOpacity>
-
-
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.text}>Filter</Text>
-            </TouchableOpacity>
-         </View>
-         <View style={{flexDirection:'row', justifyContent: 'flex-start', backgroundColor: '#DDDDDD', padding: 10}}>
-            <Text style={{marginLeft: 10, marginRight: 20}}>
-                 Image
-            </Text>
-            <Text style={{marginRight: 80}}>
-                Description
-            </Text>
-            <Text>
-                Price
-            </Text>
-         </View>
-
-
-         <View style={styles.container}>
-             <FlatList
-                 data={DATA}
-                 renderItem={({ item }) => (
-                     <Item
-                         picture={item.picture}
-                         description={item.description}
-                         price={item.price}
-                     />
-                 )}
-                 keyExtractor={item => item.id}
-             />
-         </View>
-     </View>
-    )
-}
 
 const styles = StyleSheet.create({
     container:{
-        paddingTop:20
+        paddingTop: 20
     },
     text: {
         fontSize: 16
@@ -90,5 +135,3 @@ const styles = StyleSheet.create({
         padding: 10,
     }
 });
-
-export default myListings;
