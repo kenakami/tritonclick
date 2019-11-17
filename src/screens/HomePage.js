@@ -34,10 +34,6 @@ const HomePage = (props) => {
                 <Text style={styles.text} >Reports</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('ListingSell')}>
-                <Text style={styles.text} >viewListingTest</Text>
-            </TouchableOpacity>
-
             <Button title="Sign out" onPress={() => firebase.auth().signOut()} />
         </View>
     )
