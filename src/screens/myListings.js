@@ -51,11 +51,11 @@ export default class myListings extends React.Component {
     };
 
     toViewRenter = () => {
-        this.props.navigation.navigate('ListingRenter');
+        this.props.navigation.navigate('ListingRent');
     };
 
     toViewRentee = () => {
-        this.props.navigation.navigate('ListingRentee');
+        this.props.navigation.navigate('ListingLoan');
     };
 
     render() {
