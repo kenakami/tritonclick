@@ -33,7 +33,7 @@ const HomePage = (props) => {
             <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Report')}>
                 <Text style={styles.text} >Reports</Text>
             </TouchableOpacity>
-=======
+
             <Button title="Sign out" onPress={() => firebase.auth().signOut()} />
         </View>
     )

@@ -15,8 +15,6 @@ import Form from './src/screens/Form';
 import Login from './src/screens/Login'
 
 
-
-
 const navigator = createStackNavigator(
   {
    
@@ -41,15 +39,11 @@ const navigator = createStackNavigator(
     SR : SellRent,
     Rep : Report,
     Price : PriceTrends,
-<<<<<<< HEAD
     ListingBuyer : viewListingsBuyer,
     ListingSeller : viewListingsSeller,
     ListingRent : viewListingsRent,
     ListingLoan : viewListingsLoan,
     myListings: myListings,
-=======
-    Current : currListings,
->>>>>>> af4db3c5e2875a98619092fb4e2821c586dc68c0
     BR : BuyRent,
     form : Form,
   */ 
