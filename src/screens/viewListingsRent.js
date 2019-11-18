@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 
 
-const viewListingsBuyer = (props) => {
-
+const viewListingsRent = (props) => {
       return (
 
         <View style={styles.container}>
@@ -13,9 +12,9 @@ const viewListingsBuyer = (props) => {
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
   
-              <Text style={styles.textInput}>Seller Email goes here</Text>
+              <Text style={styles.textInput}>Loaner Email goes here</Text>
   
-              <Text style={styles.textInput}>Price goes here</Text>
+              <Text style={styles.textInput}>Price per timeframe goes here</Text>
 
               <Text style={styles.textInput}>Type of iClicker goes here</Text>
   
@@ -27,7 +26,7 @@ const viewListingsBuyer = (props) => {
                 <TouchableOpacity
                   style={styles.saveButton}
                 >
-                  <Text style={styles.saveButtonText} onPress={() => alert("You have responded to Seller")} >Email</Text>
+                  <Text style={styles.saveButtonText} onPress={() => alert("You have responded to the Loaner")} >Email</Text>
                 </TouchableOpacity>
 
               </View>
@@ -36,9 +35,8 @@ const viewListingsBuyer = (props) => {
           </ScrollView>
   
         </View>
-      )
-    }
-
+      );
+    };
   
   const styles = StyleSheet.create({
     container: {
@@ -57,7 +55,7 @@ const viewListingsBuyer = (props) => {
     },
     buttonContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-between'
+      justifyContent: 'flex-end',
     },
     textInput: {
       borderColor: '#CCCCCC',
@@ -87,4 +85,4 @@ const viewListingsBuyer = (props) => {
   
   });
 
-  export default viewListingsBuyer;
+  export default viewListingsRent;

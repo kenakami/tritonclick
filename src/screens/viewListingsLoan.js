@@ -3,11 +3,12 @@ import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity
 import { Dropdown } from 'react-native-material-dropdown';
 
 
-const viewListingsSeller = (props) => {
+const viewListingsLoan = (props) => {
+
   navigationOptions = {
-    title: 'viewListingsSell',
+      title: 'viewListingsLoan',
   };
-  
+
   function Separator() {
     return <View style={styles.separator} />;
   }
@@ -15,14 +16,13 @@ const viewListingsSeller = (props) => {
   const type = [{value: 'iClicker 1',}, {value: 'iClicker 2',}];
   const cond = [{value: 'Like New',}, {value: 'Used',}];
   const trans = [{value: 'Selling',}, {value: 'Renting Out',}];
-  
+
   return (
 
     <View style={styles.container}>
 
       <ScrollView>
         
-
         {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
         <View style={styles.inputContainer}>
 
@@ -46,6 +46,12 @@ const viewListingsSeller = (props) => {
 
           <TextInput
             style={styles.textInput}
+            placeholder="Number of quarters"
+            keyboardType="numeric"
+          />
+
+          <TextInput
+            style={styles.textInput}
             placeholder="Price"
             keyboardType="numeric"
           />
@@ -59,17 +65,16 @@ const viewListingsSeller = (props) => {
             data={cond}
           />
 
+
           {/* TODO Create Picture Input*/}
-
-          {/*Buttons go on the bottom */}
-          {/* To implement functionality */}
-
           <Separator />
 
           <View style={styles.buttonContainer}>
-            <Button title="Save" style={styles.button} onPress={() => alert("Changes saved")}/>
+            <Button title="Save" style={styles.button} onPress={() => alert("Changes saved")} />
             <Separator />
-            <Button title="Sold" style={styles.button} color='green' onPress={() => alert("Marked as sold")} />
+            <Button title="Start" style={styles.button} color='green' onPress={() => alert("Transaction started")}/>
+            <Separator />
+            <Button title="End" style={styles.button} color='red' onPress={() => alert("Transaction ended")}/>
             <Separator />
             <Button title="Delete" style={styles.button} color='red' onPress={() => alert("Listing deleted")} />
           </View>
@@ -95,10 +100,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   inputContainer: {
-    paddingTop: 15,
+    paddingTop: 15
   },
   buttonContainer: {
-    paddingTop: 10,
   },
   button: {
     paddingTop: 10,
@@ -115,12 +119,25 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     marginBottom: 20
   },
+  saveButton: {
+    borderWidth: 1,
+    borderColor: '#007BFF',
+    backgroundColor: '#007BFF',
+    padding: 15,
+    margin: 5
+  },
+  saveButtonText: {
+    color: '#FFFFFF',
+    fontSize: 20,
+    textAlign: 'center'
+  },
   text: {
     fontSize: 12
   },
   separator: {
     marginVertical: 10,
   }
+
 });
 
-export default viewListingsSeller;
+export default viewListingsLoan;
