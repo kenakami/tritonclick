@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, FlatList, ScrollView} from 'react-native';
 import Item from "./components/Item";
+import EStyleSheet from "react-native-extended-stylesheet";
 
 const DATA = [
     {
@@ -123,9 +124,9 @@ export default class myListings extends React.Component {
 }
 
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     container:{
-        paddingTop: 20
+        paddingTop: '2rem'
     },
     text: {
         fontSize: 16

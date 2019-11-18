@@ -14,9 +14,11 @@ import myListings from "./src/screens/myListings";
 import Form from './src/screens/Form';
 import Login from './src/screens/Login';
 import Item from './src/screens/components/Item';
+import EStyleSheet from "react-native-extended-stylesheet";
 
 
-
+EStyleSheet.build({
+});
 
 const navigator = createStackNavigator(
     {
