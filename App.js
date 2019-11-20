@@ -25,7 +25,13 @@ const navigator = createStackNavigator(
 //<<<<<<< HEAD
 
         Login: Login,
-        Page: HomePage,
+        Page: {
+            screen: HomePage,
+            navigationOptions: {
+                headerLeft: null,
+                gesturesEnabled: false,
+            }
+        },
         Rep : Report,
         Price : PriceTrends,
         ListingBuyer : viewListingsBuyer,
@@ -54,8 +60,9 @@ const navigator = createStackNavigator(
     {
         initialRouteName: 'Login', //What should show up first when app opens
         defaultNavigationOptions: {
-            title: 'TritonClick'
-        }
+            title: 'TritonClick',
+        },
+
     }
 );
 
