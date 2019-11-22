@@ -5,7 +5,7 @@ import * as firebase from 'firebase';
 export default class HomePage extends React.Component {
    render() {
        return (
-           <ScrollView style={{
+           <ScrollView contentContainerStyle={{
                flex: 1,
                justifyContent: "center",
                paddingHorizontal: 10,
