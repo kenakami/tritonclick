@@ -1,6 +1,4 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
-
-
 import HomePage from './src/screens/HomePage';
 import Report from './src/screens/Report';
 import PriceTrends from './src/screens/PriceTrends';
@@ -12,18 +10,19 @@ import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
 import Login from './src/screens/Login';
 import Item from './src/screens/components/Item';
-import EStyleSheet from "react-native-extended-stylesheet";
-import sellForm from "./src/screens/sellForm";
 import loanForm from "./src/screens/loanForm";
+import sellForm from "./src/screens/sellForm";
+import EStyleSheet from "react-native-extended-stylesheet";
+
 
 EStyleSheet.build({
 });
 
+
+
+
 const navigator = createStackNavigator(
     {
-
-//<<<<<<< HEAD
-
         Login: Login,
         Page: {
             screen: HomePage,
@@ -31,6 +30,9 @@ const navigator = createStackNavigator(
                 gesturesEnabled: false,
             }
         },
+
+//<<<<<<< HEAD
+
         Rep : Report,
         Price : PriceTrends,
         ListingBuyer : viewListingsBuyer,
@@ -40,8 +42,8 @@ const navigator = createStackNavigator(
         myListings: myListings,
         BR : BuyRent,
         item: Item,
-        sell: sellForm,
-        loan: loanForm
+        loan: loanForm,
+        sell: sellForm
 //=======
         /*
             Login: Login,
