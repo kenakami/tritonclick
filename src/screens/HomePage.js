@@ -5,7 +5,7 @@ const HomePage = (props) => {
     return (
         <ScrollView contentContainerStyle={{ flex: 1, justifyContent: "center", paddingHorizontal: 10, backgroundColor: color = '#6cb0d0', paddingTop: 20}}>
             <View style={styles.iclicker}>
-                <View>
+            {/*    <View>
                     <View style={styles.leftBox} />
                     <View style={styles.rightBox} />
                 </View>
@@ -18,7 +18,7 @@ const HomePage = (props) => {
                 <View>
                     <View style={styles.del} />
                     <View style={styles.delRight} />
-                </View>
+            </View>*/}
 
 
                 <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('BR')}>

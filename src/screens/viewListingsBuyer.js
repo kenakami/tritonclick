@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
-
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
+import * as firebase from 'firebase';
 
 const viewListingsBuyer = (props) => {
+
+      const { navigation } = this.props;
 
       return (
 
@@ -13,13 +18,13 @@ const viewListingsBuyer = (props) => {
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
   
-              <Text style={styles.textInput}>Seller Email goes here</Text>
+              <Text style={styles.textInput}>Seller: {JSON.stringify(navigation.getParam('users/'+(navigation.userid)+'/Selling/'+(navigation.iclickerid)+'/Email'))}@ucsd.edu</Text>
   
-              <Text style={styles.textInput}>Price goes here</Text>
+              <Text style={styles.textInput}>Price: ${JSON.stringify(navigation.getParam('users/'+(navigation.userid)+'/Selling/'+(navigation.iclickerid)+'Price'))}</Text>
 
-              <Text style={styles.textInput}>Type of iClicker goes here</Text>
+              <Text style={styles.textInput}>Type: {JSON.stringify(navigation.getParam('users/'+(navigation.userid)+'/Selling/'+(navigation.iclickerid)+'Type'))}</Text>
   
-              <Text style={styles.textInput}>Condition of iClicker goes here</Text>
+              <Text style={styles.textInput}>Condition: {JSON.stringify(navigation.getParam('users/'+(navigation.userid)+'/Selling/'+(navigation.iclickerid)+'Condition'))}</Text>
   
               {/* TODO Display Picture*/}
   
