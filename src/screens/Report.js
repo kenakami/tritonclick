@@ -68,6 +68,10 @@ export default class Settings extends React.Component {
               </TouchableOpacity>
             </View>
 
+            <View style={styles.inputContainer}>
+            <Button title="Sign out" onPress={() => firebase.auth().signOut()} />
+            </View>
+
 
 
 
