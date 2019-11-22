@@ -10,11 +10,11 @@ import viewListingsSeller from "./src/screens/viewListingsSeller";
 import viewListingsLoan from "./src/screens/viewListingsLoan";
 import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
-import Form from './src/screens/Form';
 import Login from './src/screens/Login';
 import Item from './src/screens/components/Item';
 import EStyleSheet from "react-native-extended-stylesheet";
-
+import sellForm from "./src/screens/sellForm";
+import loanForm from "./src/screens/loanForm";
 
 EStyleSheet.build({
 });
@@ -28,7 +28,6 @@ const navigator = createStackNavigator(
         Page: {
             screen: HomePage,
             navigationOptions: {
-                headerLeft: null,
                 gesturesEnabled: false,
             }
         },
@@ -40,8 +39,9 @@ const navigator = createStackNavigator(
         ListingLoan : viewListingsLoan,
         myListings: myListings,
         BR : BuyRent,
-        form : Form,
-        item: Item
+        item: Item,
+        sell: sellForm,
+        loan: loanForm
 //=======
         /*
             Login: Login,
@@ -61,6 +61,7 @@ const navigator = createStackNavigator(
         initialRouteName: 'Login', //What should show up first when app opens
         defaultNavigationOptions: {
             title: 'TritonClick',
+            header: null,
         },
 
     }
