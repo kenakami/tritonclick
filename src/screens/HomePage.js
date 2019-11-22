@@ -1,6 +1,5 @@
 import React from 'react';
 import { Text, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
-import { StackActions, NavigationActions } from 'react-navigation';
 import * as firebase from 'firebase';
 
 export default class HomePage extends React.Component {
