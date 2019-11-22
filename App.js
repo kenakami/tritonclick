@@ -13,17 +13,19 @@ import myListings from "./src/screens/myListings";
 import Form from './src/screens/Form';
 import Login from './src/screens/Login';
 import Item from './src/screens/components/Item';
+import Loan from './src/screens/loanForm';
+import Sell from './src/screens/sellForm';
 import EStyleSheet from "react-native-extended-stylesheet";
 
 
 EStyleSheet.build({
 });
 
+
+
+
 const navigator = createStackNavigator(
     {
-
-//<<<<<<< HEAD
-
         Login: Login,
         Page: {
             screen: HomePage,
@@ -32,6 +34,9 @@ const navigator = createStackNavigator(
                 gesturesEnabled: false,
             }
         },
+
+//<<<<<<< HEAD
+
         Rep : Report,
         Price : PriceTrends,
         ListingBuyer : viewListingsBuyer,
@@ -41,7 +46,9 @@ const navigator = createStackNavigator(
         myListings: myListings,
         BR : BuyRent,
         form : Form,
-        item: Item
+        item: Item,
+        loan: Loan,
+        sell: Sell
 //=======
         /*
             Login: Login,
@@ -56,14 +63,14 @@ const navigator = createStackNavigator(
 
 //>>>>>>> login
 
+},
+{
+    initialRouteName: 'Login', //What should show up first when app opens
+    defaultNavigationOptions: {
+        title: 'TritonClick',
     },
-    {
-        initialRouteName: 'Login', //What should show up first when app opens
-        defaultNavigationOptions: {
-            title: 'TritonClick',
-        },
 
-    }
+}
 );
 
 export default createAppContainer(navigator);
