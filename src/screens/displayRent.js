@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet, Text, View, ScrollView, FlatList,ActivityIndicator } from 'react-native';
+import {StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, Button} from 'react-native';
 import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
 
@@ -69,6 +69,10 @@ export default class displayRent extends React.Component {
         else {
             return (
                 <ScrollView>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                        <Button title="SORT"/>
+                        <Button title="FILTER"/>
+                    </View>
                     <FlatList
                         data={dataArr}
                         renderItem={({ item }) => (

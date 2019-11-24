@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { SafeAreaView, Button, FlatList, View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
 import Item from "./components/Item";
+import displayBuy from "./displayBuy";
+import displayRent from "./displayRent";
 
 const DATA = [
     {

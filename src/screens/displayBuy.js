@@ -2,6 +2,7 @@ import * as React from 'react';
 import {StyleSheet, Text, View, ScrollView, FlatList,ActivityIndicator } from 'react-native';
 import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
+import SortFilter from "./components/SortFilter";
 
 var dataArr = []
 
@@ -76,6 +77,7 @@ export default class displayBuy extends React.Component {
         else {
             return (
                 <ScrollView>
+                    <SortFilter/>
                     <FlatList
                         data={dataArr}
                         renderItem={({ item }) => (
