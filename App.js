@@ -16,8 +16,7 @@ import Item from './src/screens/components/Item';
 import Loan from './src/screens/loanForm';
 import Sell from './src/screens/sellForm';
 import EStyleSheet from "react-native-extended-stylesheet";
-import Example from "./src/screens/displayBuy";
-import Test from "./src/screens/test";
+
 import DisplayBuy from "./src/screens/displayBuy";
 import DisplayRent from "./src/screens/displayRent";
 
