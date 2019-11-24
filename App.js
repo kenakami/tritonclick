@@ -1,4 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
+
+
 import HomePage from './src/screens/HomePage';
 import Report from './src/screens/Report';
 import PriceTrends from './src/screens/PriceTrends';
@@ -8,11 +10,18 @@ import viewListingsSeller from "./src/screens/viewListingsSeller";
 import viewListingsLoan from "./src/screens/viewListingsLoan";
 import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
+import Form from './src/screens/Form';
 import Login from './src/screens/Login';
 import Item from './src/screens/components/Item';
-import loanForm from "./src/screens/loanForm";
-import sellForm from "./src/screens/sellForm";
+import Loan from './src/screens/loanForm';
+import Sell from './src/screens/sellForm';
 import EStyleSheet from "react-native-extended-stylesheet";
+
+import DisplayBuy from "./src/screens/displayBuy";
+import DisplayRent from "./src/screens/displayRent";
+
+
+
 
 
 EStyleSheet.build({
@@ -41,9 +50,12 @@ const navigator = createStackNavigator(
         ListingLoan : viewListingsLoan,
         myListings: myListings,
         BR : BuyRent,
+        form : Form,
         item: Item,
-        loan: loanForm,
-        sell: sellForm
+        loan: Loan,
+        sell: Sell,
+        displayBuy : DisplayBuy,
+        displayRent : DisplayRent
 //=======
         /*
             Login: Login,
@@ -63,7 +75,7 @@ const navigator = createStackNavigator(
         initialRouteName: 'Login', //What should show up first when app opens
         defaultNavigationOptions: {
             title: 'TritonClick',
-            header: null,
+            header: 'null',
         },
 
     }

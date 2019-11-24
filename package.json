@@ -10,14 +10,16 @@
   "dependencies": {
     "expo": "^33.0.0",
     "expo-camera": "~5.0.1",
-    "expo-constants": "^7.0.1",
+    "expo-constants": "^5.0.1",
     "expo-google-app-auth": "^7.0.0",
     "expo-image-picker": "^7.0.0",
     "expo-permissions": "^7.0.0",
     "firebase": "^7.4.0",
+    "image-picker": "^0.3.1",
     "react": "16.8.3",
     "react-dom": "^16.8.6",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
+    "react-native-elements": "^1.2.7",
     "react-native-extended-stylesheet": "^0.12.0",
     "react-native-material-dropdown": "^0.11.1",
     "react-native-modal-dropdown": "^0.7.0",
@@ -25,7 +27,8 @@
     "react-navigation": "^3.11.0"
   },
   "devDependencies": {
-    "babel-preset-expo": "^5.1.1"
+    "babel-preset-expo": "^5.1.1",
+    "reactstrap": "^8.1.1"
   },
   "private": true
 }

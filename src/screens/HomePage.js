@@ -3,56 +3,59 @@ import { Text, StyleSheet, View, Button, TouchableOpacity,ScrollView } from 'rea
 
 const HomePage = (props) => {
     return (
-        <ScrollView contentContainerStyle={{ justifyContent: "center", paddingHorizontal: 10, backgroundColor: color = '#6cb0d0', paddingTop: 20}}>
-            <View style={styles.iclicker}>
-                <View>
-                    <View style={styles.leftBox} />
-                    <View style={styles.rightBox} />
+        <View style={{ justifyContent: "center", paddingHorizontal: 10, backgroundColor: color = '#6cb0d0' }}>
+            <ScrollView>
+                <View style={styles.iclicker}>
+                    <View>
+                        <View style={styles.leftBox} />
+                        <View style={styles.rightBox} />
+                    </View>
+
+                    <View style={styles.cross}>
+                        <View style={styles.crossUp} />
+                        <View style={styles.crossFlat} />
+                    </View>
+
+                    <View>
+                        <View style={styles.del} />
+                        <View style={styles.delRight} />
+                    </View>
+
+
+                    <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('displayBuy')}>
+                        <Text style={styles.text} >Buy</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('displayRent')}>
+                        <Text style={styles.text}>Rent</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('sell')}>
+                        <Text style={styles.text} >Sell</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('loan')}>
+                        <Text style={styles.text}>Loan</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('myListings')}>
+                        <Text style={styles.text} >View My Listings</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Price')}>
+                        <Text style={styles.text} >Price Trends</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('example')}>
+                        <Text style={styles.text} >Settings</Text>
+                    </TouchableOpacity>
+
+
                 </View>
+            </ScrollView>
 
-                <View style={styles.cross}>
-                    <View style={styles.crossUp} />
-                    <View style={styles.crossFlat} />
-                </View>
-
-                <View>
-                    <View style={styles.del} />
-                    <View style={styles.delRight} />
-                </View>
-
-
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('BR')}>
-                    <Text style={styles.text} >Buy</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('BR')}>
-                    <Text style={styles.text}>Rent</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('sell')}>
-                    <Text style={styles.text} >Sell</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('loan')}>
-                    <Text style={styles.text}>Loan</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('myListings')}>
-                    <Text style={styles.text} >View My Listings</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Price')}>
-                    <Text style={styles.text} >Price Trends</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Rep')}>
-                    <Text style={styles.text} >Settings</Text>
-                </TouchableOpacity>
-
-
-            </View>
             {/*<Button title="Sign out" onPress={() => firebase.auth().signOut()} />*/}
-        </ScrollView>
+        </View>
     )
 }
 
@@ -131,7 +134,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: 30,
         width: 70,
-        
+
         backgroundColor: '#DDDDDD',
         marginLeft: 50,
         marginBottom: 10,
@@ -144,7 +147,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         height: 30,
         width: 70,
-     
+
         position: 'absolute',
         right: -10,
         backgroundColor: '#DDDDDD',
