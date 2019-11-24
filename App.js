@@ -10,7 +10,6 @@ import viewListingsSeller from "./src/screens/viewListingsSeller";
 import viewListingsLoan from "./src/screens/viewListingsLoan";
 import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
-import Form from './src/screens/Form';
 import Login from './src/screens/Login';
 import Item from './src/screens/components/Item';
 import Loan from './src/screens/loanForm';
@@ -50,7 +49,6 @@ const navigator = createStackNavigator(
         ListingLoan : viewListingsLoan,
         myListings: myListings,
         BR : BuyRent,
-        form : Form,
         item: Item,
         loan: Loan,
         sell: Sell,
@@ -75,7 +73,7 @@ const navigator = createStackNavigator(
         initialRouteName: 'Login', //What should show up first when app opens
         defaultNavigationOptions: {
             title: 'TritonClick',
-            header: 'null',
+            header: null,
         },
 
     }

@@ -3,7 +3,7 @@ import { Text, StyleSheet, View, Button, TouchableOpacity,ScrollView } from 'rea
 
 const HomePage = (props) => {
     return (
-        <View style={{ justifyContent: "center", paddingHorizontal: 10, backgroundColor: color = '#6cb0d0' }}>
+        <View style={{ justifyContent: "center", paddingHorizontal: 10, backgroundColor: color = '#6cb0d0', paddingTop: 20 }}>
             <ScrollView>
                 <View style={styles.iclicker}>
                     <View>
