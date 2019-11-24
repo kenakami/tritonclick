@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Button, FlatList, View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import Constants from 'expo-constants';
+import Item from "./components/Item";
+
 const DATA = [
     {
         id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
@@ -23,10 +25,10 @@ const DATA = [
     },
 ];
 
+/**
 function Item({ id, title, description, price }) {
     return (
-        <TouchableOpacity
-            onPress={() => props.navigation.navigate('ListingBuyer')}
+        <TouchableOpacity onPress={this.toViewListing}
             style={
                 styles.item
                 //{ backgroundColor: selected ? '#6e3b6e' : '#f9c2ff' },
@@ -38,8 +40,25 @@ function Item({ id, title, description, price }) {
         </TouchableOpacity>
     );
 }
+ **/
 
-const BuyRent = (props) =>{
+export default class BuyRent extends React.Component {
+
+    toViewBuyer = () => {
+        this.props.navigation.navigate('ListingBuyer');
+    };
+
+    toViewSeller = () => {
+        this.props.navigation.navigate('ListingSeller');
+    };
+
+    toViewRenter = () => {
+        this.props.navigation.navigate('ListingRent');
+    };
+
+    toViewRentee = () => {
+        this.props.navigation.navigate('ListingLoan');
+    };
     /**
     const [selected, setSelected] = React.useState(new Map());
 
@@ -54,29 +73,32 @@ const BuyRent = (props) =>{
     );
      **/
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
-                <Button title="SORT" />
-                <Button title="FILTER" />
-            </View>
-            <FlatList
-                data={DATA}
-                renderItem={({ item }) => (
-                    <Item
-                        id={item.id}
-                        title={item.title}
-                        description={item.description}
-                        price={item.price}
-                        //selected={!!selected.get(item.id)}
-                        //onSelect={onSelect}
-                    />
-                )}
-                keyExtractor={item => item.id}
-                //extraData={selected}
-            />
-        </SafeAreaView>
-    );
+    render() {
+        return (
+            <SafeAreaView style={styles.container}>
+                <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                    <Button title="SORT"/>
+                    <Button title="FILTER"/>
+                </View>
+                <FlatList
+                    data={DATA}
+                    renderItem={({item}) => (
+                        <Item
+                            id={item.id}
+                            title={item.title}
+                            description={item.description}
+                            price={item.price}
+                            toViewListing={this.toViewBuyer}
+                            //selected={!!selected.get(item.id)}
+                            //onSelect={onSelect}
+                        />
+                    )}
+                    keyExtractor={item => item.id}
+                    //extraData={selected}
+                />
+            </SafeAreaView>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -106,4 +128,3 @@ const styles = StyleSheet.create({
         );
 }
 */
-export default BuyRent;
