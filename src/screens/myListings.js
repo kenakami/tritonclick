@@ -1,125 +1,105 @@
 import React from 'react';
-import {View, Text, StyleSheet, FlatList, ScrollView} from 'react-native';
+import {Text, View, FlatList, ScrollView} from 'react-native';
 import Item from "./components/Item";
-import EStyleSheet from "react-native-extended-stylesheet";
+import EStyleSheet, {child} from "react-native-extended-stylesheet";
+import * as firebase from 'firebase';
 
-const DATA = [
-    {
-        id: '1',
-        picture: 'Something',
-        description: 'New iClicker 2',
-        price: '$20',
-    },
-    {
-        id: '2',
-        picture: 'Do you know',
-        description: 'Used iClicker 2',
-        price: '$15',
-    },
-    {
-        id: '3',
-        picture: 'Wowee Dog',
-        description: 'Used iClicker 1',
-        price: '$10',
-    },
-    {
-        id: '4',
-        picture: 'Test',
-        description: 'New iClicker 1',
-        price: '$15',
-    },
-    {
-        id: '5',
-        picture: 'another one',
-        description: 'New iClicker 1',
-        price: '$15',
-    },
-    {
-        id: '6',
-        picture: 'one one',
-        description: 'New iClicker 1',
-        price: '$15',
-    },
-];
+let dataArr = [];
 
 export default class myListings extends React.Component {
-    toViewBuyer = () => {
-        this.props.navigation.navigate('ListingBuyer');
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            timePassed: false
+        }
 
-    toViewSeller = () => {
-        this.props.navigation.navigate('ListingSeller');
-    };
+        let database = firebase.database();
+        const { currentUser } = firebase.auth();
+        let fer = database.ref(`users/${currentUser.uid}/Selling/`);
+        fer.on('value', getData, errData);
 
-    toViewRenter = () => {
-        this.props.navigation.navigate('ListingRent');
-    };
+        function getData(data) {
+            let clicker = data.val();
+            let keys = Object.keys(clicker);
+            for( var i = 0; i < keys.length; i++ ) {
+                let k = keys[i];
+                clicker[k] .clickerid = k;
+                dataArr[i] = clicker[k];
+            }
+        }
+        function errData(err) {
+            console.log("error");
+        }
+    }
 
-    toViewRentee = () => {
-        this.props.navigation.navigate('ListingLoan');
-    };
+    componentDidMount() {
+        setTimeout(() =>{
+            this.setTimePassed();
+        }, 1000)
+    }
+
+    setTimePassed() {
+        this.setState({timePassed:true});
+    }
 
     render() {
-        return(
-            <ScrollView>
-                <ScrollView style={styles.container} nestedScrollEnabled={false}>
-                    <FlatList
-                        data={DATA}
-                        renderItem={({ item }) => (
-                            <Item
-                                picture={item.picture}
-                                description={item.description}
-                                price={item.price}
-                                toViewListing={this.toViewBuyer}
-                            />
-                        )}
-                        keyExtractor={item => item.id}
-                    />
+        if( !this.state.timePassed ) {
+            return (
+                <View>
+                    <Text>Loading...</Text>
+                </View>)
+        } else {
+            return(
+                <ScrollView>
+                    <View style={styles.container} nestedScrollEnabled={true}>
+                        <FlatList
+                            data={dataArr}
+                            renderItem={({ item }) => (
+                                <Item
+                                    picture={item.Barcode}
+                                    description={item.Condition + item.Type}
+                                    price={item.Price}
+                                    toViewListing={
+                                        () => {this.props.navigation.navigate('ListingSeller', item)}
+                                    }
+                                />
+                            )}
+                        />
+                    </View>
+                    {/*
+                    <View style={styles.container} nestedScrollEnabled={true}>
+                        <FlatList
+                            data={dataArr}
+                            renderItem={({ item }) => (
+                                <Item
+                                    picture={item.picture}
+                                    description={item.description}
+                                    price={item.price}
+                                    toViewListing={
+                                        () => {this.props.navigation.navigate('ListingLoan')}
+                                    }
+                                />
+                            )}
+                        />
+                    </View>
+                    <View style={styles.container} nestedScrollEnabled={true}>
+                        <FlatList
+                            data={dataArr}
+                            renderItem={({ item }) => (
+                                <Item
+                                    picture={item.picture}
+                                    description={item.description}
+                                    price={item.price}
+                                    toViewListing={
+                                        () => {this.props.navigation.navigate('ListingRent')}
+                                    }
+                                />
+                            )}
+                        />
+                    </View> */}
                 </ScrollView>
-                <ScrollView style={styles.container} nestedScrollEnabled={true}>
-                    <FlatList
-                        data={DATA}
-                        renderItem={({ item }) => (
-                            <Item
-                                picture={item.picture}
-                                description={item.description}
-                                price={item.price}
-                                toViewListing={this.toViewSeller}
-                            />
-                        )}
-                        keyExtractor={item => item.id}
-                    />
-                </ScrollView>
-                <ScrollView style={styles.container} nestedScrollEnabled={true}>
-                    <FlatList
-                        data={DATA}
-                        renderItem={({ item }) => (
-                            <Item
-                                picture={item.picture}
-                                description={item.description}
-                                price={item.price}
-                                toViewListing={this.toViewRentee}
-                            />
-                        )}
-                        keyExtractor={item => item.id}
-                    />
-                </ScrollView>
-                <ScrollView style={styles.container} nestedScrollEnabled={true}>
-                    <FlatList
-                        data={DATA}
-                        renderItem={({ item }) => (
-                            <Item
-                                picture={item.picture}
-                                description={item.description}
-                                price={item.price}
-                                toViewListing={this.toViewRenter}
-                            />
-                        )}
-                        keyExtractor={item => item.id}
-                    />
-                </ScrollView>
-            </ScrollView>
-        )
+            )
+        }
     }
 }
 
