@@ -24,11 +24,11 @@ const HomePage = (props) => {
             </View>
 
 
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('BR')}>
+            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('displayBuy')}>
                 <Text style={styles.text} >Buy</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('BR')}>
+            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('displayRent')}>
                 <Text style={styles.text}>Rent</Text>
             </TouchableOpacity>
 
@@ -48,7 +48,7 @@ const HomePage = (props) => {
                 <Text style={styles.text} >Price Trends</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Rep')}>
+            <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('example')}>
                 <Text style={styles.text} >Settings</Text>
             </TouchableOpacity>
 
