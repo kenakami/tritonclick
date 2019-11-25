@@ -46,7 +46,7 @@ export default class viewListingsBuyer extends React.Component {
     }
   }
   
-  const styles = StyleSheet.create({
+  const styles = EStyleSheet.create({
     container: {
       flex: 1,
       paddingTop: 45,
