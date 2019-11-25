@@ -1,5 +1,6 @@
 import React from 'react';
-import { Text, StyleSheet, View, Button, TouchableOpacity,ScrollView } from 'react-native';
+import { Text, View, Button, TouchableOpacity,ScrollView } from 'react-native';
+import EStyleSheet from "react-native-extended-stylesheet";
 
 const HomePage = (props) => {
     return (
@@ -59,7 +60,7 @@ const HomePage = (props) => {
     )
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     text: {
         fontSize: 30
     },

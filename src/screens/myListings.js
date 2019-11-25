@@ -51,7 +51,7 @@ export default class myListings extends React.Component {
     componentDidMount() {
         setTimeout(() =>{
             this.setTimePassed();
-        }, 400)
+        }, 1000)
     }
 
     setTimePassed() {
@@ -66,15 +66,15 @@ export default class myListings extends React.Component {
                 </View>)
         } else {
             return(
-                <ScrollView>
-                    <View style={styles.container} nestedScrollEnabled={true}>
-                        <Text>Temp</Text>
+                <View nestedScrollEnabled={true}>
+                    <View style={styles.container}>
+                        <Text style={styles.text}>Temp</Text>
                         <FlatList
                             data={sellArr}
                             renderItem={({ item }) => (
                                     <Item
                                         picture={item.Barcode}
-                                        description={item.Condition + item.Type}
+                                        description={item.Condition + " " + item.Type}
                                         price={item.Price}
                                         toViewListing={
                                             () => {this.props.navigation.navigate('ListingBuyer', item)}
@@ -84,14 +84,14 @@ export default class myListings extends React.Component {
                             keyExtractor={(item,index) => item.clickerid}
                         />
                     </View>
-                    <View style={styles.container} nestedScrollEnabled={true}>
-                        <Text>Selling iClickers</Text>
+                    <View style={styles.container}>
+                        <Text style={styles.text}>Selling iClickers</Text>
                         <FlatList
                             data={sellArr}
                             renderItem={({ item }) => (
                                     <Item
                                         picture={item.Barcode}
-                                        description={item.Condition + item.Type}
+                                        description={item.Condition + " " + item.Type}
                                         price={item.Price}
                                         toViewListing={
                                             () => {this.props.navigation.navigate('ListingSeller', item)}
@@ -101,40 +101,24 @@ export default class myListings extends React.Component {
                             keyExtractor={(item,index) => item.clickerid}
                         />
                     </View>
-                    <View style={styles.container} nestedScrollEnabled={true}>
-                        <Text>Loaning iClickers</Text>
+                    <View style={styles.container}>
+                        <Text style={styles.text}>Loaning iClickers</Text>
                         <FlatList
                             data={loanArr}
                             renderItem={({ item }) => (
-                                    <Item
-                                        picture={item.picture}
-                                        description={item.description}
-                                        price={item.price}
-                                        toViewListing={
-                                            () => {this.props.navigation.navigate('ListingLoan')}
-                                        }
-                                    />
+                                <Item
+                                    picture={item.Barcode}
+                                    description={item.Condition + " " + item.Type}
+                                    price={item.Price}
+                                    toViewListing={
+                                        () => {this.props.navigation.navigate('ListingLoan', item)}
+                                    }
+                                />
                             )}
                             keyExtractor={(item,index) => item.clickerid}
                         />
                     </View>
-                    {/*
-                    <View style={styles.container} nestedScrollEnabled={true}>
-                        <FlatList
-                            data={sellArr}
-                            renderItem={({ item }) => (
-                                <Item
-                                    picture={item.picture}
-                                    description={item.description}
-                                    price={item.price}
-                                    toViewListing={
-                                        () => {this.props.navigation.navigate('ListingRent')}
-                                    }
-                                />
-                            )}
-                        />
-                    </View> */}
-                </ScrollView>
+                </View>
             )
         }
     }
@@ -143,10 +127,10 @@ export default class myListings extends React.Component {
 
 const styles = EStyleSheet.create({
     container:{
-        paddingTop: '2rem'
+        paddingTop: '1rem'
     },
     text: {
-        fontSize: 16
+        fontSize: 20,
     },
     button: {
         backgroundColor: '#DDDDDD',
