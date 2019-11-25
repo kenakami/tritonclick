@@ -4,7 +4,8 @@ import Item from "./components/Item";
 import EStyleSheet, {child} from "react-native-extended-stylesheet";
 import * as firebase from 'firebase';
 
-let dataArr = [];
+let sellArr = [];
+let loanArr = [];
 
 export default class myListings extends React.Component {
     constructor(props) {
@@ -15,18 +16,33 @@ export default class myListings extends React.Component {
 
         let database = firebase.database();
         const { currentUser } = firebase.auth();
-        let fer = database.ref(`users/${currentUser.uid}/Selling/`);
-        fer.on('value', getData, errData);
+        let sellRef = database.ref(`users/${currentUser.uid}/Selling/`);
+        let loanRef = database.ref(`users/${currentUser.uid}/Loaning/`);
+        sellRef.on('value', getSellData, errData);
+        loanRef.on('value', getLoanData, errData);
 
-        function getData(data) {
+        function getSellData(data) {
             let clicker = data.val();
             let keys = Object.keys(clicker);
-            for( var i = 0; i < keys.length; i++ ) {
+            for( let i = 0; i < keys.length; i++ ) {
                 let k = keys[i];
                 clicker[k] .clickerid = k;
-                dataArr[i] = clicker[k];
+                sellArr[i] = clicker[k];
             }
         }
+        function getLoanData(data) {
+            let clicker = data.val();
+            if( clicker == null){
+                return;
+            }
+            let keys = Object.keys(clicker);
+            for( let i = 0; i < keys.length; i++ ) {
+                let k = keys[i];
+                clicker[k] .clickerid = k;
+                loanArr[i] = clicker[k];
+            }
+        }
+
         function errData(err) {
             console.log("error");
         }
@@ -35,7 +51,7 @@ export default class myListings extends React.Component {
     componentDidMount() {
         setTimeout(() =>{
             this.setTimePassed();
-        }, 1000)
+        }, 400)
     }
 
     setTimePassed() {
@@ -45,46 +61,67 @@ export default class myListings extends React.Component {
     render() {
         if( !this.state.timePassed ) {
             return (
-                <View>
+                <View style={styles.container}>
                     <Text>Loading...</Text>
                 </View>)
         } else {
             return(
                 <ScrollView>
                     <View style={styles.container} nestedScrollEnabled={true}>
+                        <Text>Temp</Text>
                         <FlatList
-                            data={dataArr}
+                            data={sellArr}
                             renderItem={({ item }) => (
-                                <Item
-                                    picture={item.Barcode}
-                                    description={item.Condition + item.Type}
-                                    price={item.Price}
-                                    toViewListing={
-                                        () => {this.props.navigation.navigate('ListingSeller', item)}
-                                    }
-                                />
+                                    <Item
+                                        picture={item.Barcode}
+                                        description={item.Condition + item.Type}
+                                        price={item.Price}
+                                        toViewListing={
+                                            () => {this.props.navigation.navigate('ListingBuyer', item)}
+                                        }
+                                    />
                             )}
+                            keyExtractor={(item,index) => item.clickerid}
+                        />
+                    </View>
+                    <View style={styles.container} nestedScrollEnabled={true}>
+                        <Text>Selling iClickers</Text>
+                        <FlatList
+                            data={sellArr}
+                            renderItem={({ item }) => (
+                                    <Item
+                                        picture={item.Barcode}
+                                        description={item.Condition + item.Type}
+                                        price={item.Price}
+                                        toViewListing={
+                                            () => {this.props.navigation.navigate('ListingSeller', item)}
+                                        }
+                                    />
+                            )}
+                            keyExtractor={(item,index) => item.clickerid}
+                        />
+                    </View>
+                    <View style={styles.container} nestedScrollEnabled={true}>
+                        <Text>Loaning iClickers</Text>
+                        <FlatList
+                            data={loanArr}
+                            renderItem={({ item }) => (
+                                    <Item
+                                        picture={item.picture}
+                                        description={item.description}
+                                        price={item.price}
+                                        toViewListing={
+                                            () => {this.props.navigation.navigate('ListingLoan')}
+                                        }
+                                    />
+                            )}
+                            keyExtractor={(item,index) => item.clickerid}
                         />
                     </View>
                     {/*
                     <View style={styles.container} nestedScrollEnabled={true}>
                         <FlatList
-                            data={dataArr}
-                            renderItem={({ item }) => (
-                                <Item
-                                    picture={item.picture}
-                                    description={item.description}
-                                    price={item.price}
-                                    toViewListing={
-                                        () => {this.props.navigation.navigate('ListingLoan')}
-                                    }
-                                />
-                            )}
-                        />
-                    </View>
-                    <View style={styles.container} nestedScrollEnabled={true}>
-                        <FlatList
-                            data={dataArr}
+                            data={sellArr}
                             renderItem={({ item }) => (
                                 <Item
                                     picture={item.picture}
