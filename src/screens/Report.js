@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
+import * as firebase from 'firebase';
+
 
 export default class Settings extends React.Component {
   render() {
@@ -67,10 +69,7 @@ export default class Settings extends React.Component {
                 <Text style={styles.saveButtonText}>Cancel</Text>
               </TouchableOpacity>
             </View>
-
-
-
-
+              <Button title="Sign out" onPress={() => firebase.auth().signOut()} />
 
           </View>
         </ScrollView>

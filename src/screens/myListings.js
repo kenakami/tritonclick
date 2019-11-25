@@ -23,6 +23,9 @@ export default class myListings extends React.Component {
 
         function getSellData(data) {
             let clicker = data.val();
+            if( clicker == null){
+                return;
+            }
             let keys = Object.keys(clicker);
             for( let i = 0; i < keys.length; i++ ) {
                 let k = keys[i];
@@ -81,7 +84,7 @@ export default class myListings extends React.Component {
                                         }
                                     />
                             )}
-                            keyExtractor={(item,index) => item.clickerid}
+                            keyExtractor={(item) => item.clickerid}
                         />
                     </View>
                     <View style={styles.container}>
@@ -98,7 +101,7 @@ export default class myListings extends React.Component {
                                         }
                                     />
                             )}
-                            keyExtractor={(item,index) => item.clickerid}
+                            keyExtractor={(item) => item.clickerid}
                         />
                     </View>
                     <View style={styles.container}>
@@ -115,7 +118,7 @@ export default class myListings extends React.Component {
                                     }
                                 />
                             )}
-                            keyExtractor={(item,index) => item.clickerid}
+                            keyExtractor={(item) => item.clickerid}
                         />
                     </View>
                 </View>
@@ -127,7 +130,9 @@ export default class myListings extends React.Component {
 
 const styles = EStyleSheet.create({
     container:{
-        paddingTop: '1rem'
+        paddingTop: '1rem',
+        width: '20rem',
+        height: '8rem',
     },
     text: {
         fontSize: 20,

@@ -44,7 +44,6 @@ const styles = EStyleSheet.create({
     },
     whole: {
         paddingHorizontal: '1rem',
-        justifyContent: 'centered',
         flexDirection: 'row'
     }
 })
