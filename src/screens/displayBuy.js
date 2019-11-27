@@ -1,7 +1,8 @@
 import * as React from 'react';
-import {StyleSheet, Text, View, ScrollView, FlatList,ActivityIndicator } from 'react-native';
+import {StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, TextInput} from 'react-native';
 import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
+import {Dropdown} from "react-native-material-dropdown";
 
 var dataArr = []
 
@@ -11,7 +12,9 @@ export default class displayBuy extends React.Component {
         super(props)
 
         this.state = {
-
+            type: 'All',
+            condition: 'All',
+            sort: 'Price',
             timePassed: false
         };
 
@@ -32,6 +35,11 @@ export default class displayBuy extends React.Component {
             }
             return dataArr;
         }
+
+
+
+        let self = this.state;
+
         function gotData(data) {
             let clicker = data.val();
             let keys;
@@ -42,10 +50,16 @@ export default class displayBuy extends React.Component {
                 for (var i = 0; i < keys.length; i++) {
                     let k = keys[i];
                     clicker[k].clickerId = k;
-                    dataArr[i] = clicker[k];
                     //dataArr.push(clicker[k]);
 
-                    console.log(dataArr[i]);
+                    if ((self.condition === 'All' || self.condition === clicker[k].Condition) &&
+                            (self.type === 'All' || self.type === clicker[k].Type)){
+                        alert(self.condition);
+                        dataArr[i] = clicker[k];
+                    }
+
+
+                    //dataArr[i] = clicker[k];
 
                 }
             }catch(Exception){}
@@ -71,7 +85,28 @@ export default class displayBuy extends React.Component {
     }
 
 
+
     render() {
+
+        let type = [{
+            value: 'iClicker 1',
+        }, {
+            value: 'iClicker 2',
+        }];
+
+        let cond = [{
+            value: 'Like New',
+        }, {
+            value: 'Used',
+        }];
+
+        let S = [{
+            value: 'Price',
+        }, {
+            value: 'Posted Date',
+        }];
+
+
         if (!this.state.timePassed) {
             return <View style={styles.loadScreen}>
                 <ActivityIndicator size="large" style={styles.wheel}/>
@@ -81,6 +116,26 @@ export default class displayBuy extends React.Component {
         else {
             return (
                 <ScrollView>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                        <Dropdown
+                            autosize={false}
+                            label='Type'
+                            data={type}
+                            onChangeText={(type) => this.setState({ type })}
+                        />
+                        <Dropdown
+                            autosize={false}
+                            label='Condition'
+                            data={cond}
+                            onChangeText={(condition) => this.setState({condition})}
+                        />
+                        <Dropdown
+                            autosize={false}
+                            label='Sort By'
+                            data={S}
+                            onChangeText={(sort) => this.setState({ sort })}
+                        />
+                    </View>
                     <FlatList
                         data={dataArr}
                         renderItem={({ item }) => (
