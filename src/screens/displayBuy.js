@@ -2,7 +2,6 @@ import * as React from 'react';
 import {StyleSheet, Text, View, ScrollView, FlatList,ActivityIndicator } from 'react-native';
 import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
-import SortFilter from "./components/SortFilter";
 
 var dataArr = []
 
@@ -12,7 +11,7 @@ export default class displayBuy extends React.Component {
         super(props)
 
         this.state = {
-           
+
             timePassed: false
         };
 
@@ -25,7 +24,7 @@ export default class displayBuy extends React.Component {
             let keys = Object.keys(users);
             for (var i = 0; i < keys.length; i++) {
                 let k = keys[i]
-                if (users[k].Selling != null) {
+                if (users[k].Selling !== null) {
                     let userID = users[k].user_id;
                     let ref = database.ref(`users/${userID}/Selling/`);
                     ref.on('value', gotData, errData);
@@ -35,16 +34,21 @@ export default class displayBuy extends React.Component {
         }
         function gotData(data) {
             let clicker = data.val();
-            let keys = Object.keys(clicker);
-            for (var i = 0; i < keys.length; i++) {
-                let k = keys[i];
-                clicker[k].clickerId = k;
-                dataArr[i] = clicker[k];
-                //dataArr.push(clicker[k]);
+            let keys;
+            try {
+                keys = Object.keys(clicker);
+            }catch(Exception){}
+            try{
+                for (var i = 0; i < keys.length; i++) {
+                    let k = keys[i];
+                    clicker[k].clickerId = k;
+                    dataArr[i] = clicker[k];
+                    //dataArr.push(clicker[k]);
 
-                console.log(dataArr[i]);
+                    console.log(dataArr[i]);
 
-            }
+                }
+            }catch(Exception){}
 
         }
 
@@ -77,7 +81,6 @@ export default class displayBuy extends React.Component {
         else {
             return (
                 <ScrollView>
-                    <SortFilter/>
                     <FlatList
                         data={dataArr}
                         renderItem={({ item }) => (
