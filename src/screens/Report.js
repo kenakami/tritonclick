@@ -1,10 +1,38 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, Modal, TouchableHighlight, Alert } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
+import { Dialog } from 'react-native-simple-dialogs';
 import * as firebase from 'firebase';
 
-
 export default class Settings extends React.Component {
+	constructor(props) {
+        super(props);
+
+this.state = {
+	dialogVisible: false,
+	allowNotification: '',
+	feedback: '',
+
+
+};
+}
+writeToggle(AllowNotification) {
+	this.currentUser = firebase.auth().currentUser;
+	firebase
+	.database()
+	.ref('users/' + this.currentUser.uid + '/allow_notifications')
+	.set(AllowNotification);
+}
+
+showDialog = () => {
+    this.setState({ dialogVisible: true });
+  };
+
+
+ handleCancel = () => {
+ this.setState({ dialogVisible: false });
+};
+
   render() {
 
     let type = [{
@@ -21,6 +49,11 @@ export default class Settings extends React.Component {
       <View style={styles.container}>
 
         <ScrollView>
+
+
+
+
+
           <View style={styles.inputContainer}>
 
             <TextInput
@@ -42,23 +75,43 @@ export default class Settings extends React.Component {
 			  <TouchableOpacity
 				style={styles.saveButton}
 			  >
-				<Text style={styles.saveButtonText} onPress={() => alert("Redirecting")} >View Terms and Conditions</Text>
+				<Text style={styles.saveButtonText} onPress={() => this.setState({dialogVisible: true})} >View Terms and Conditions</Text>
+			  </TouchableOpacity>
+			</View>
+
+
+			<View style={styles.inputContainer}>
+			  <TouchableOpacity
+				style={styles.saveButton}
+			  >
+				<Text style={styles.saveButtonText} onPress={() => firebase.auth().signOut()} >Sign out</Text>
 			  </TouchableOpacity>
 			</View>
 
             <Dropdown
               label='Notifications'
               data={type}
+			  onChangeText={(allowNotification) => this.setState({ allowNotification })}
+			  allowNotification ={this.state.allowNotification}
             />
-
-
-
 
             <View style={styles.inputContainer}>
               <TouchableOpacity
                 style={styles.saveButton}
               >
-                <Text style={styles.saveButtonText} onPress={() => alert("Your preferences have been saved")} >Save</Text>
+                <Text style={styles.saveButtonText} onPress={() => {
+
+					if (this.state.allowNotification === '') {
+						alert("No changes made");
+					}
+					else {
+						alert("Your preferences have been saved");
+						this.writeToggle(this.state.allowNotification);
+					}
+
+
+
+					}} >Save</Text>
               </TouchableOpacity>
             </View>
 
@@ -69,7 +122,20 @@ export default class Settings extends React.Component {
                 <Text style={styles.saveButtonText}>Cancel</Text>
               </TouchableOpacity>
             </View>
-              <Button title="Sign out" onPress={() => firebase.auth().signOut()} />
+
+			<Dialog
+			    visible={this.state.dialogVisible}
+			    title="Terms and Conditions"
+			    onTouchOutside={() => this.setState({dialogVisible: false})} >
+			    <View>
+				<Text>
+				Users of this app assume all risks associated with its use.
+				</Text>
+			    </View>
+			</Dialog>
+
+
+
 
           </View>
         </ScrollView>
