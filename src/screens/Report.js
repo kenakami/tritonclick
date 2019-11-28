@@ -12,8 +12,6 @@ this.state = {
 	dialogVisible: false,
 	allowNotification: '',
 	feedback: '',
-
-
 };
 }
 writeToggle(AllowNotification) {
@@ -33,6 +31,21 @@ showDialog = () => {
  this.setState({ dialogVisible: false });
 };
 
+submitFeedback(text){
+  alert("Thank you for submitting feedback")
+  firebase.database().ref(`feedback`).push({
+    feedback: text, 
+
+  }).then((data) => {
+      //success callback
+      console.log('data ', data)
+  }).catch((error) => {
+      //error callback
+      console.log('error ', error)
+  })
+};
+
+
   render() {
 
     let type = [{
@@ -49,11 +62,6 @@ showDialog = () => {
       <View style={styles.container}>
 
         <ScrollView>
-
-
-
-
-
           <View style={styles.inputContainer}>
 
             <TextInput
@@ -62,12 +70,18 @@ showDialog = () => {
               maxLength={100}
               keyboardType="default"
               autoCorrect={true}
+              value={this.state.feedback}
+              multiline={true}
+              maxHeight={200}
+              onChangeText={(feedback) => {
+                this.setState({feedback})
+              }}
             />
             <View style={styles.inputContainer}>
               <TouchableOpacity
                 style={styles.saveButton}
               >
-                <Text style={styles.saveButtonText} onPress={() => alert("Thank you for your feedback")} >Submit</Text>
+                <Text style={styles.saveButtonText} onPress={() => {this.submitFeedback(this.state.feedback)}} >Submit</Text>
               </TouchableOpacity>
             </View>
 
@@ -164,7 +178,7 @@ const styles = StyleSheet.create({
     borderColor: '#CCCCCC',
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    height: 50,
+    height: 125,
     fontSize: 25,
     paddingLeft: 20,
     paddingRight: 20,
