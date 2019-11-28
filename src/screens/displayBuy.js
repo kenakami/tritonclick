@@ -1,10 +1,16 @@
 import * as React from 'react';
-import {StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, TextInput} from 'react-native';
+import { StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, TextInput } from 'react-native';
 import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
-import {Dropdown} from "react-native-material-dropdown";
+import { Dropdown } from "react-native-material-dropdown";
 
+/* Array of iCLickers */
 var dataArr = []
+
+/* Options for each dropdown menu */
+type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
+cond = [{ value: 'New', }, { value: 'Like New', }, { value: 'Used', }];
+sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }];
 
 export default class displayBuy extends React.Component {
 
@@ -17,11 +23,11 @@ export default class displayBuy extends React.Component {
             sort: 'Price',
             timePassed: false
         };
-
-
+        /* Call to database */
         let database = firebase.database();
         let fer = database.ref('users/');
         fer.on('value', getUsers, errData)
+
         function getUsers(data) {
             let users = data.val();
             let keys = Object.keys(users);
@@ -36,8 +42,6 @@ export default class displayBuy extends React.Component {
             return dataArr;
         }
 
-
-
         let self = this.state;
 
         function gotData(data) {
@@ -45,24 +49,23 @@ export default class displayBuy extends React.Component {
             let keys;
             try {
                 keys = Object.keys(clicker);
-            }catch(Exception){}
-            try{
+            } catch (Exception) { }
+            try {
                 for (var i = 0; i < keys.length; i++) {
                     let k = keys[i];
                     clicker[k].clickerId = k;
                     //dataArr.push(clicker[k]);
 
                     if ((self.condition === 'All' || self.condition === clicker[k].Condition) &&
-                            (self.type === 'All' || self.type === clicker[k].Type)){
-                        alert(self.condition);
+                        (self.type === 'All' || self.type === clicker[k].Type)) {
+                        //alert(self.condition);
                         dataArr[i] = clicker[k];
                     }
-
 
                     //dataArr[i] = clicker[k];
 
                 }
-            }catch(Exception){}
+            } catch (Exception) { }
 
         }
 
@@ -71,8 +74,6 @@ export default class displayBuy extends React.Component {
         }
 
     }
-
-
 
     componentDidMount() {
         setTimeout(() => {
@@ -84,56 +85,35 @@ export default class displayBuy extends React.Component {
         this.setState({ timePassed: true });
     }
 
-
-
     render() {
-
-        let type = [{
-            value: 'iClicker 1',
-        }, {
-            value: 'iClicker 2',
-        }];
-
-        let cond = [{
-            value: 'Like New',
-        }, {
-            value: 'Used',
-        }];
-
-        let S = [{
-            value: 'Price',
-        }, {
-            value: 'Posted Date',
-        }];
-
 
         if (!this.state.timePassed) {
             return <View style={styles.loadScreen}>
-                <ActivityIndicator size="large" style={styles.wheel}/>
+                <ActivityIndicator size="large" style={styles.wheel} />
             </View>;
         }
 
         else {
             return (
+                /* Type, Condition, and Sort dropdown menusa */
+                /* TODO: Figure out how to make each dropdown's text fully viewable */
+                /* TODO: Implement sort function */
                 <ScrollView>
-                    <View style={{flexDirection: 'row', justifyContent: 'space-around'}}>
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                         <Dropdown
                             autosize={false}
                             label='Type'
                             data={type}
-                            onChangeText={(type) => this.setState({ type })}
                         />
                         <Dropdown
                             autosize={false}
                             label='Condition'
                             data={cond}
-                            onChangeText={(condition) => this.setState({condition})}
                         />
                         <Dropdown
                             autosize={false}
                             label='Sort By'
-                            data={S}
-                            onChangeText={(sort) => this.setState({ sort })}
+                            data={sortConditions}
                         />
                     </View>
                     <FlatList
@@ -156,10 +136,10 @@ export default class displayBuy extends React.Component {
     }
 }
 const styles = StyleSheet.create({
-    loadScreen:{
+    loadScreen: {
         alignSelf: "center"
     },
-    wheel:{
+    wheel: {
         marginTop: "50%"
     }
 })
