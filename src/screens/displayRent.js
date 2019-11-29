@@ -21,7 +21,7 @@ export default class displayRent extends React.Component {
 
         let database = firebase.database();
         let fer = database.ref('users/');
-        fer.on('value', getUsers, errData)
+        fer.once('value', getUsers, errData)
         function getUsers(data) {
             let users = data.val();
             let keys = Object.keys(users);
@@ -30,7 +30,7 @@ export default class displayRent extends React.Component {
                 if (users[k].Loan != null) {
                     let userID = users[k].user_id;
                     let ref = database.ref(`users/${userID}/Loan/`);
-                    ref.on('value', gotData, errData);
+                    ref.once('value', gotData, errData);
                 }
             }
             return dataArr;
@@ -41,7 +41,8 @@ export default class displayRent extends React.Component {
             for (var i = 0; i < keys.length; i++) {
                 let k = keys[i];
                 clicker[k].clickerId = k;
-                dataArr[i] = clicker[k];
+                //dataArr[i] = clicker[k];
+                dataArr.push(clicker[k]);
                 console.log(dataArr[i]);
             }
 
@@ -58,6 +59,10 @@ export default class displayRent extends React.Component {
         }, 1000);
     }
 
+    componentWillUnmount() {
+        dataArr = [];
+    }
+
     setTimePassed() {
         this.setState({ timePassed: true });
     }
@@ -72,12 +77,29 @@ export default class displayRent extends React.Component {
             }
         }
         if (this.state.sort === 'Price') {
-            currData.sort((a, b) => (a.Price > b.Price) ? 1 : -1)
+            currData.sort((a, b) => {return a.Price - b.Price});
+        } else if(this.state.sort === 'Condition') {
+            currData.sort((a, b) => {
+                var x = a.Condition.toLowerCase();
+                var y = b.Condition.toLowerCase();
+                if (x < y) {return -1;}
+                if (x > y) {return 1;}
+                return 0;
+            });
+        } else if(this.state.sort  == 'Type') {
+            currData.sort((a, b) => {
+                var x = a.Type.toLowerCase();
+                var y = b.Type.toLowerCase();
+                if (x < y) {return -1;}
+                if (x > y) {return 1;}
+                return 0;
+            });
+        
         }
 
         let type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
         let cond = [{ value: 'New', }, { value: 'Like New', }, { value: 'Used', }];
-        let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }];
+        let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }, { value: 'Condition', }, { value: 'Type', }];
 
 
         if (!this.state.timePassed) {
@@ -119,11 +141,13 @@ export default class displayRent extends React.Component {
                         renderItem={({ item }) => (
                             <View>
                                 <Card title={item.Barcode}>
-                                    <Text>{item.Condition + " " + item.Type}</Text>
-                                    <Text>{item.Price}</Text>
+                                    <Text>{"Condition: " + item.Condition}</Text>
+                                    <Text>{"Type: " + item.Type}</Text>
+                                    <Text>{"$" + item.Price}</Text>
                                 </Card>
                             </View>
                         )}
+                        keyExtractor={(item, index) => {return index.toString()}}
                     >
 
                     </FlatList>
