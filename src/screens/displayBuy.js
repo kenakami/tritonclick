@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, TextInput } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, TextInput} from 'react-native';
 import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
 import { Dropdown } from "react-native-material-dropdown";
@@ -21,7 +21,7 @@ export default class displayBuy extends React.Component {
         /* Call to database */
         let database = firebase.database();
         let fer = database.ref('users/');
-        fer.on('value', getUsers, errData)
+        fer.once('value', getUsers, errData)
 
         function getUsers(data) {
             let users = data.val();
@@ -31,7 +31,7 @@ export default class displayBuy extends React.Component {
                 if (users[k].Selling !== null) {
                     let userID = users[k].user_id;
                     let ref = database.ref(`users/${userID}/Selling/`);
-                    ref.on('value', gotData, errData);
+                    ref.once('value', gotData, errData);
                 }
             }
             return dataArr;
@@ -49,7 +49,8 @@ export default class displayBuy extends React.Component {
                 for (var i = 0; i < keys.length; i++) {
                     let k = keys[i];
                     clicker[k].clickerId = k;
-                    dataArr[i] = clicker[k];
+                    //dataArr[i] = clicker[k];
+                    dataArr.push(clicker[k]);
                 }
             } catch (Exception) { }
 
@@ -67,6 +68,10 @@ export default class displayBuy extends React.Component {
         }, 1000);
     }
 
+    componentWillUnmount() {
+        dataArr = [];
+    }
+
     setTimePassed() {
         this.setState({ timePassed: true });
     }
@@ -81,13 +86,31 @@ export default class displayBuy extends React.Component {
             }
         }
         if (this.state.sort === 'Price') {
-            currData.sort((a, b) => (a.Price > b.Price) ? 1 : -1)
+            currData.sort((a, b) => {return a.Price - b.Price});
+        } else if(this.state.sort === 'Condition') {
+            currData.sort((a, b) => {
+                var x = a.Condition.toLowerCase();
+                var y = b.Condition.toLowerCase();
+                if (x < y) {return -1;}
+                if (x > y) {return 1;}
+                return 0;
+            });
+        } else if(this.state.sort  == 'Type') {
+            currData.sort((a, b) => {
+                var x = a.Type.toLowerCase();
+                var y = b.Type.toLowerCase();
+                if (x < y) {return -1;}
+                if (x > y) {return 1;}
+                return 0;
+            });
+        
         }
 
         /* Options for each dropdown menu */
         let type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
         let cond = [{ value: 'New', }, { value: 'Like New', }, { value: 'Used', }];
-        let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }];
+        let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }, { value: 'Condition', }, { value: 'Type', }];
+
 
         if (!this.state.timePassed) {
             return <View style={styles.loadScreen}>
@@ -131,11 +154,13 @@ export default class displayBuy extends React.Component {
                         renderItem={({ item }) => (
                             <View>
                                 <Card title={item.Barcode}>
-                                    <Text>{item.Condition + " " + item.Type}</Text>
-                                    <Text>{item.Price}</Text>
+                                    <Text>{"Condition: " + item.Condition}</Text>
+                                    <Text>{"Type: " + item.Type}</Text>
+                                    <Text>{"$" + item.Price}</Text>
                                 </Card>
                             </View>
                         )}
+                        keyExtractor={(item, index) => {return index.toString()}}
                     >
 
                     </FlatList>
