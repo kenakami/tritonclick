@@ -103,6 +103,7 @@ export default class displayBuy extends React.Component {
                 <ScrollView>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                         <Dropdown
+                            containerStyle={{width: 140, top: 30}}
                             autosize={false}
                             label='Type'
                             data={type}
@@ -110,6 +111,7 @@ export default class displayBuy extends React.Component {
                             value = {this.state.type}
                         />
                         <Dropdown
+                            containerStyle={{width: 140, top: 30}}
                             autosize={false}
                             label='Condition'
                             data={cond}
@@ -117,6 +119,7 @@ export default class displayBuy extends React.Component {
                             value = {this.state.condition}
                         />
                         <Dropdown
+                            containerStyle={{width: 140, top: 30}}
                             autosize={false}
                             label='Sort By'
                             data={sortConditions}
