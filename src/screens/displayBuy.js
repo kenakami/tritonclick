@@ -50,10 +50,6 @@ export default class displayBuy extends React.Component {
                     let k = keys[i];
                     clicker[k].clickerId = k;
                     dataArr[i] = clicker[k];
-
-
-                    //dataArr[i] = clicker[k];
-
                 }
             } catch (Exception) { }
 
@@ -83,6 +79,9 @@ export default class displayBuy extends React.Component {
                 (this.state.type === 'All' || this.state.type === dataArr[i].Type)) {
                 currData.push(dataArr[i]);
             }
+        }
+        if (this.state.sort === 'Price') {
+            currData.sort((a, b) => (a.Price > b.Price) ? 1 : -1)
         }
 
         /* Options for each dropdown menu */
@@ -121,6 +120,7 @@ export default class displayBuy extends React.Component {
                             autosize={false}
                             label='Sort By'
                             data={sortConditions}
+                            onChangeText={(value) => this.changeSort(value)}
                         />
                     </View>
                     <FlatList
@@ -144,7 +144,6 @@ export default class displayBuy extends React.Component {
 
     changeType = (value) => {
         this.setState({type: value});
-        //alert(this.state.type)
         this.forceUpdate()
     }
 
@@ -152,7 +151,13 @@ export default class displayBuy extends React.Component {
         this.setState({condition: value});
         this.forceUpdate()
     }
+
+    changeSort = (value) => {
+        this.setState({sort: value})
+        this.forceUpdate()
+    }
 }
+
 const styles = StyleSheet.create({
     loadScreen: {
         alignSelf: "center"
