@@ -7,11 +7,6 @@ import { Dropdown } from "react-native-material-dropdown";
 /* Array of iCLickers */
 var dataArr = []
 
-/* Options for each dropdown menu */
-type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
-cond = [{ value: 'New', }, { value: 'Like New', }, { value: 'Used', }];
-sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }];
-
 export default class displayBuy extends React.Component {
 
     constructor(props) {
@@ -42,7 +37,7 @@ export default class displayBuy extends React.Component {
             return dataArr;
         }
 
-        let self = this.state;
+        //let self = this.state;
 
         function gotData(data) {
             let clicker = data.val();
@@ -54,13 +49,8 @@ export default class displayBuy extends React.Component {
                 for (var i = 0; i < keys.length; i++) {
                     let k = keys[i];
                     clicker[k].clickerId = k;
-                    //dataArr.push(clicker[k]);
+                    dataArr[i] = clicker[k];
 
-                    if ((self.condition === 'All' || self.condition === clicker[k].Condition) &&
-                        (self.type === 'All' || self.type === clicker[k].Type)) {
-                        //alert(self.condition);
-                        dataArr[i] = clicker[k];
-                    }
 
                     //dataArr[i] = clicker[k];
 
@@ -87,6 +77,19 @@ export default class displayBuy extends React.Component {
 
     render() {
 
+        var currData = []
+        for (var i = 0; i < dataArr.length; i++){
+            if ((this.state.condition === 'All' || this.state.condition === dataArr[i].Condition) &&
+                (this.state.type === 'All' || this.state.type === dataArr[i].Type)) {
+                currData.push(dataArr[i]);
+            }
+        }
+
+        /* Options for each dropdown menu */
+        let type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
+        let cond = [{ value: 'New', }, { value: 'Like New', }, { value: 'Used', }];
+        let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }];
+
         if (!this.state.timePassed) {
             return <View style={styles.loadScreen}>
                 <ActivityIndicator size="large" style={styles.wheel} />
@@ -104,11 +107,15 @@ export default class displayBuy extends React.Component {
                             autosize={false}
                             label='Type'
                             data={type}
+                            onChangeText={(value) => this.changeType(value)}
+                            value = {this.state.type}
                         />
                         <Dropdown
                             autosize={false}
                             label='Condition'
                             data={cond}
+                            onChangeText={(value) => this.changeCond(value)}
+                            value = {this.state.condition}
                         />
                         <Dropdown
                             autosize={false}
@@ -117,7 +124,7 @@ export default class displayBuy extends React.Component {
                         />
                     </View>
                     <FlatList
-                        data={dataArr}
+                        data={currData}
                         renderItem={({ item }) => (
                             <View>
                                 <Card title={item.Barcode}>
@@ -133,6 +140,17 @@ export default class displayBuy extends React.Component {
             )
         }
 
+    }
+
+    changeType = (value) => {
+        this.setState({type: value});
+        //alert(this.state.type)
+        this.forceUpdate()
+    }
+
+    changeCond = (value) => {
+        this.setState({condition: value});
+        this.forceUpdate()
     }
 }
 const styles = StyleSheet.create({
