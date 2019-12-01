@@ -2,28 +2,36 @@ import React from 'react';
 import * as firebase from 'firebase';
 import {Permissions, Notifications} from 'expo';
 /* import * as fromNotification from "../Notification"; then use fromNotification.method()*/
-export const sendPushNotification = (title, body) => {
-	 this.currentUser = firebase.auth().currentUser;
-	 var ref = firebase.database().ref('users/' + this.currentUser.uid + '/push_token');
-	 ref.once("value")
-	   .then(function(snapshot) {
-	     const key = snapshot.val();
-		 let response = fetch('https://exp.host/--/api/v2/push/send', {
-	  	 method: 'POST',
-	  	 headers: {
-	  	   Accept: 'application/json',
-	  	   'Content-Type': 'application/json'
-	  	 },
-	  	 body: JSON.stringify({
-		   to: key,
-	  	   sound: 'default',
-	  	   title: title,
-	  	   body: body,
-	  	 })
-	     });
-	   });
+export const sendPushNotification = (title, body, uid) => {
+	 //this.currentUser = firebase.auth().currentUser;
+	// var ref = firebase.database().ref('users/' + this.currentUser.uid + '/push_token');
+	var fer = firebase.database().ref('users/' + uid + '/allow_notifications');
+	fer.once("value")
+	  .then(function(snapshot) {
+	  const allow = snapshot.val();
+	  if(allow == 'on')
+	  {
+		  var ref = firebase.database().ref('users/' + uid + '/push_token');
+		   ref.once("value")
+			 .then(function(snapshot) {
+			   const key = snapshot.val();
+			   let response = fetch('https://exp.host/--/api/v2/push/send', {
+			   method: 'POST',
+			   headers: {
+				 Accept: 'application/json',
+				 'Content-Type': 'application/json'
+			   },
+			   body: JSON.stringify({
+				 to: key,
+				 sound: 'default',
+				 title: title,
+				 body: body,
+			   })
+			   });
+			 });
+	  }
+  });
  };
-
 
  export const registerForPushNotificationsAsync = async () => {
 	 this.currentUser = await firebase.auth().currentUser;

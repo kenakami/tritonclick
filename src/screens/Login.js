@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import * as firebase from 'firebase';
+import * as fromNotification from "../Notification";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCHuRSYZ34XPBwUC1lS8n8mUQDroo_wiW4",
@@ -24,14 +25,15 @@ class Login extends React.Component {
       password: ''
     })
   }
-  
+
   componentWillMount() {
     firebase.initializeApp(firebaseConfig);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.checkIfLoggedIn();
   }
+
 
   checkIfLoggedIn = () => {
     firebase.auth().onAuthStateChanged(
@@ -46,7 +48,18 @@ class Login extends React.Component {
             firebase.auth().signOut();
             alert("Please sign in with your UCSD email.");
           }
+
           this.props.navigation.navigate('Page');
+		  var ref = firebase.database().ref('users/' + user.uid + '/push_token');
+		  ref.once("value")
+		   .then(function(snapshot) {
+			 const token = snapshot.val();
+			 if(token == null)
+			 {
+				 fromNotification.registerForPushNotificationsAsync();
+			 }
+
+		   });
           console.log('should went to homepage now');
         } else {
           this.props.navigation.navigate('Login');
@@ -91,8 +104,10 @@ class Login extends React.Component {
             .auth()
             .signInWithCredential(credential)
             .then(function(result) {
+
               console.log('user signed in ');
               if (result.additionalUserInfo.isNewUser) {
+
                 firebase
                   .database()
                   .ref('/users/' + result.user.uid)
@@ -108,6 +123,7 @@ class Login extends React.Component {
                     // console.log('Snapshot', snapshot);
                   });
               } else {
+
                 firebase
                   .database()
                   .ref('/users/' + result.user.uid)
@@ -142,7 +158,7 @@ class Login extends React.Component {
         //webClientId: '1069243591374-19q8l8ska0dhs9ejom0okds9a7bqhkpt.apps.googleusercontent.com',
         scopes: ['profile', 'email'],
       });
-  
+
       if (result.type === 'success') {
         this.onSignIn(result);
         return result.accessToken;
@@ -164,7 +180,7 @@ class Login extends React.Component {
         </TouchableOpacity>
         <Text style={{textAlign: 'center'}}>By logging in, you accepted the Terms and Conditions.</Text>
       </View>
-      
+
     );
   }
 }
@@ -177,9 +193,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 10
     /*
-    backgroundColor: '#fff', 
+    backgroundColor: '#fff',
     justifyContent: 'center',
-    padding: 10 
+    padding: 10
     */
   },
 

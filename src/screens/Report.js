@@ -34,7 +34,7 @@ showDialog = () => {
 submitFeedback(text){
   alert("Thank you for submitting feedback")
   firebase.database().ref(`feedback`).push({
-    feedback: text, 
+    feedback: text,
 
   }).then((data) => {
       //success callback
@@ -129,13 +129,13 @@ submitFeedback(text){
               </TouchableOpacity>
             </View>
 
-            <View style={styles.inputContainer}>
-              <TouchableOpacity
-                style={styles.saveButton}
-              >
-                <Text style={styles.saveButtonText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
+			<View style={styles.inputContainer}>
+			  <TouchableOpacity
+				style={styles.saveButton}
+			  >
+				<Text style={styles.saveButtonText} onPress={() => this.props.navigation.navigate('Page')} >Cancel</Text>
+			  </TouchableOpacity>
+			</View>
 
 			<Dialog
 			    visible={this.state.dialogVisible}
