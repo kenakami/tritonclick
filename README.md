@@ -1,6 +1,6 @@
 # tritonclick
-npm i -S react-native-simple-dialogs<br />
 Install the following libraries to use Login.js:<br />
+npm -S react-native-simple-dialogs<br />
 npm install firebase<br />
 expo install expo-google-app-auth<br />
 To fix the warning issue after loggin in, here are the steps:<br />
