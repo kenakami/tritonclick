@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, TextInput} from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, TextInput} from 'react-native';
 import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
 import { Dropdown } from "react-native-material-dropdown";
@@ -121,8 +121,6 @@ export default class displayBuy extends React.Component {
         else {
             return (
                 /* Type, Condition, and Sort dropdown menusa */
-                /* TODO: Figure out how to make each dropdown's text fully viewable */
-                /* TODO: Implement sort function */
                 <ScrollView>
                     <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
                         <Dropdown
@@ -153,11 +151,13 @@ export default class displayBuy extends React.Component {
                         data={currData}
                         renderItem={({ item }) => (
                             <View>
-                                <Card title={item.Barcode}>
+                              <TouchableOpacity key={item.Price} onPress={() => {this.props.navigation.navigate('ListingBuyer', item)}}>
+                                <Card title={"$" + item.Price}>
                                     <Text>{"Condition: " + item.Condition}</Text>
                                     <Text>{"Type: " + item.Type}</Text>
-                                    <Text>{"$" + item.Price}</Text>
+                                    <Text>{"Barcode: " + item.Barcode}</Text>
                                 </Card>
+                              </TouchableOpacity>
                             </View>
                         )}
                         keyExtractor={(item, index) => {return index.toString()}}
