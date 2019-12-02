@@ -17,7 +17,8 @@ export default class myListings extends React.Component {
         let database = firebase.database();
         const { currentUser } = firebase.auth();
         let sellRef = database.ref(`users/${currentUser.uid}/Selling/`);
-        let loanRef = database.ref(`users/${currentUser.uid}/Loaning/`);
+        let  storageRef;
+        let loanRef = database.ref(`users/${currentUser.uid}/Loan/`);
         sellRef.on('value', getSellData, errData);
         loanRef.on('value', getLoanData, errData);
 
@@ -29,8 +30,19 @@ export default class myListings extends React.Component {
             let keys = Object.keys(clicker);
             for( let i = 0; i < keys.length; i++ ) {
                 let k = keys[i];
-                clicker[k] .clickerid = k;
-                sellArr[i] = clicker[k];
+                clicker[k].clickerid = k;
+                storageRef = firebase.storage().ref(`/users/${currentUser.uid}/${clicker[k].Barcode}`);
+                storageRef.getDownloadURL().then( function(please) {
+                        clicker[k].url = please;
+                        console.log((please));
+                    }, function(error) {
+                        clicker[k].url = 'https://facebook.github.io/react-native/img/tiny_logo.png';
+                        console.log(error);
+                    }
+                )
+
+                sellArr.push(clicker[k]);
+                //sellArr[i] = clicker[k];
             }
         }
         function getLoanData(data) {
@@ -42,7 +54,8 @@ export default class myListings extends React.Component {
             for( let i = 0; i < keys.length; i++ ) {
                 let k = keys[i];
                 clicker[k] .clickerid = k;
-                loanArr[i] = clicker[k];
+                loanArr.push(clicker[k]);
+                //loanArr[i] = clicker[k];
             }
         }
 
@@ -54,7 +67,7 @@ export default class myListings extends React.Component {
     componentDidMount() {
         setTimeout(() =>{
             this.setTimePassed();
-        }, 1000)
+        }, 3000)
     }
 
     setTimePassed() {
@@ -76,7 +89,7 @@ export default class myListings extends React.Component {
                             data={sellArr}
                             renderItem={({ item }) => (
                                     <Item
-                                        picture={item.Barcode}
+                                        picture={item.url}
                                         description={item.Condition + " " + item.Type}
                                         price={item.Price}
                                         toViewListing={
@@ -132,7 +145,7 @@ const styles = EStyleSheet.create({
     container:{
         paddingTop: '1rem',
         width: '20rem',
-        height: '8rem',
+        height: '12rem',
     },
     text: {
         fontSize: 20,

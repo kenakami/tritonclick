@@ -8,9 +8,9 @@ export default class Settings extends React.Component {
   render() {
 
     let type = [{
-      value: 'on',
+      value: 'On',
     }, {
-      value: 'off',
+      value: 'Off',
     }];
 
 
