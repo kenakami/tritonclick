@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, Button} from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, Button} from 'react-native';
 import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
 import { Dropdown } from "react-native-material-dropdown";
@@ -140,11 +140,13 @@ export default class displayRent extends React.Component {
                         data={currData}
                         renderItem={({ item }) => (
                             <View>
-                                <Card title={item.Barcode}>
+                            <TouchableOpacity key={item.Price} onPress={() => {this.props.navigation.navigate('ListingRent', item)}}>
+                                <Card title={"$" + item.Price}>
                                     <Text>{"Condition: " + item.Condition}</Text>
                                     <Text>{"Type: " + item.Type}</Text>
-                                    <Text>{"$" + item.Price}</Text>
+                                    <Text>{"Barcode: " + item.Barcode}</Text>
                                 </Card>
+                             </TouchableOpacity>
                             </View>
                         )}
                         keyExtractor={(item, index) => {return index.toString()}}
