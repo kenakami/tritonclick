@@ -2,6 +2,7 @@
 Install the following libraries to use Login.js:<br />
 npm -S react-native-simple-dialogs<br />
 npm install firebase<br />
+npm install react-native-chart-kit<br />
 expo install expo-google-app-auth<br />
 To fix the warning issue after loggin in, here are the steps:<br />
 1. Go to node_modules/react-native/Libraries/Core/Timer/JSTimers.js<br />

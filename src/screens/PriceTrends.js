@@ -108,6 +108,35 @@ render() {
         },
       ],
     };
+	/*
+Should go before time dropdown in return statement
+<Dropdown
+    label='Type of iClicker'
+    data={type}
+    onChangeText={(type) => this.setState({ type })}
+    value={this.state.type}
+  />
+  <Dropdown
+    label='Condition of iClicker'
+    data={condition}
+    onChangeText={(condition) => this.setState({ condition })}
+    value={this.state.condition}
+  />
+   <View style={styles.inputContainer}>
+       <TouchableOpacity style={styles.saveButton} onPress={() => {
+           if (this.state.time === '') {
+                           alert("All Fields Required!");
+           }else if (this.state.condition === '') {
+                           alert("All Fields Required!");
+           }else if (this.state.type === '') {
+                           alert("All Fields Required!");
+           }else{
+               // Call on function that creates graph based on the fields that they put.
+           }}}>
+           <Text style={styles.saveButtonText}>Show Graph</Text>
+       </TouchableOpacity>
+   </View>
+*/
 
 
 return(
@@ -148,8 +177,6 @@ return(
 	  </ScrollView>
 
 	</View>
-
-
 
 
 
