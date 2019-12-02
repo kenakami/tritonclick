@@ -1,91 +1,192 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { Alert, Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
+import * as ImagePicker from 'expo-image-picker';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
+import * as firebase from 'firebase';
 
 
-const viewListingsSeller = (props) => {
-  navigationOptions = {
-    title: 'viewListingsSell',
-  };
-  
-  function Separator() {
-    return <View style={styles.separator} />;
+export default class viewListingsSeller extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    // Set state to the item information using params
+    this.state = {
+      barcode: props.navigation.getParam('Barcode', 'default'),
+      condition: props.navigation.getParam('Condition', 'default'),
+      email: props.navigation.getParam('Email', 'default'),
+      price: props.navigation.getParam('Price', 'default'),
+      type: props.navigation.getParam('Type', 'default'),
+    };
   }
 
-  const type = [{value: 'iClicker 1',}, {value: 'iClicker 2',}];
-  const cond = [{value: 'Like New',}, {value: 'Used',}];
-  const trans = [{value: 'Selling',}, {value: 'Renting Out',}];
-  
-  return (
+  updateListing(barcode, condition, email, price, type, clickerid) {
+    const { currentUser } = firebase.auth();
+    firebase.database().ref(`users/${currentUser.uid}/Selling/${clickerid}`).set({
+      Barcode: barcode,
+      Condition: condition,
+      Email: email,
+      Price: price,
+      Type: type
+    }).then((data) => {
+      //success callback
+      //console.log('data ', data)
+    }).catch((error) => {
+      //error callback
+      console.log('error ', error)
+    })
+  }
 
-    <View style={styles.container}>
+  deleteListing(clickerid) {
+    const { currentUser } = firebase.auth();
+    firebase.database().ref(`users/${currentUser.uid}/Selling/${clickerid}`).remove();
+  }
 
-      <ScrollView>
-        
+  render() {
+    // Get listing information through param
+    const { navigation } = this.props;
+    const clickerid = navigation.getParam('clickerid', 'default');
 
-        {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
-        <View style={styles.inputContainer}>
+    function Separator() {
+      return <View style={styles.separator} />;
+    }
 
-          <TextInput
-            style={styles.textInput}
-            placeholder="Your Email"
-            maxLength={20}
-            keyboardType="email-address"
-            autoCorrect={false}
-          />
+    const dd_type = [{value: 'iClicker 1',}, {value: 'iClicker 2',}];
+    const dd_cond = [{value: 'Like New',}, {value: 'Used',}];
+    const trans = [{value: 'Selling',}, {value: 'Renting Out',}];
 
-          <View>
+    return (
+
+      <View style={styles.container}>
+
+        <ScrollView>
+
+          {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
+          <View style={styles.inputContainer}>
+
+            <Text style={styles.text}>Email:</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Your Email"
+              maxLength={20}
+              keyboardType="email-address"
+              autoCorrect={false}
+              onChangeText={(email) => this.setState({ email })}
+              value={this.state.email}
+            />
+
             <Text style={styles.text}>Barcode:</Text>
             <TextInput
               style={styles.textInput}
-              placeholder="Barcode"
               maxLength={8}
               autoCorrect={false}
+              onChangeText={(barcode) => this.setState({ barcode })}
+              value={this.state.barcode}
             />
+
+            <Text style={styles.text}>Price:</Text>
+            <TextInput
+              style={styles.textInput}
+              placeholder="Price"
+              keyboardType="numeric"
+              onChangeText={(price) => this.setState({ price })}
+              value={this.state.price}
+            />
+
+            <Dropdown
+              label='Type of iClicker'
+              data={dd_type}
+              onChangeText={(type) => this.setState({ type })}
+              value={this.state.type}
+            />
+
+            <Dropdown
+              label='Condition of iClicker'
+              data={dd_cond}
+              onChangeText={(condition) => this.setState({ condition })}
+              value={this.state.condition}
+            />
+
+            {/* TODO Create Picture Input*/}
+
+            {/*Buttons go on the bottom */}
+            {/* To implement functionality */}
+           
+            <View style={styles.inputContainer}>
+
+              <TouchableOpacity style={styles.blueButton} backgroundColor='blue' borderColor='blue'
+                onPress={() => {
+                  Alert.alert(
+                    'Save',
+                    'Save your changes?',
+                    [
+                      {text: 'Cancel', style: 'cancel'},
+                      {text: 'OK', onPress: () =>{
+                        this.updateListing(this.state.barcode, this.state.condition,
+                                           this.state.email, this.state.price,
+                                           this.state.type, clickerid),
+                        this.props.navigation.goBack() }
+                      }
+                    ]
+                  );
+                }}>
+                <Text style={styles.buttonText}>Save</Text>
+              </TouchableOpacity>
+
+
+              <TouchableOpacity style={styles.greenButton} backgroundColor='green' borderColor='green'
+                onPress= {() => {
+                  Alert.alert(
+                    'Sold',
+                    'Confirm as sold?',
+                    [
+                      {text: 'Cancel', style: 'cancel'},
+                      {text: 'OK', onPress: () =>{
+                        this.deleteListing(clickerid), 
+                        this.props.navigation.goBack() }
+                      }
+                    ]
+                  );
+                }}>
+                <Text style={styles.buttonText}>Sold</Text>
+              </TouchableOpacity>
+
+
+              <TouchableOpacity style={styles.redButton} backgroundColor='red' borderColor='red'
+                onPress= {() => {
+                  this.deleteListing(clickerid );
+                  Alert.alert(
+                    'Delete',
+                    'Delete listing?',
+                    [
+                      {text: 'Cancel', style: 'cancel'},
+                      {text: 'OK', onPress: () =>{
+                        this.deleteListing(clickerid), 
+                        this.props.navigation.goBack() }
+                      }
+                    ]
+                  );
+                }}>
+                <Text style={styles.buttonText}>Delete</Text>
+              </TouchableOpacity>
+              
+            </View>
+
           </View>
+        </ScrollView>
 
-          <TextInput
-            style={styles.textInput}
-            placeholder="Price"
-            keyboardType="numeric"
-          />
-          <Dropdown
-            label='Type of iClicker'
-            data={type}
-          />
-
-          <Dropdown
-            label='Condition of iClicker'
-            data={cond}
-          />
-
-          {/* TODO Create Picture Input*/}
-
-          {/*Buttons go on the bottom */}
-          {/* To implement functionality */}
-
-          <Separator />
-
-          <View style={styles.buttonContainer}>
-            <Button title="Save" style={styles.button} onPress={() => alert("Changes saved")}/>
-            <Separator />
-            <Button title="Sold" style={styles.button} color='green' onPress={() => alert("Marked as sold")} />
-            <Separator />
-            <Button title="Delete" style={styles.button} color='red' onPress={() => alert("Listing deleted")} />
-          </View>
-
-        </View>
-      </ScrollView>
-
-    </View>
-  );
+      </View>
+    );
+  }
+  
 }
   
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 45,
-    padding: 10,
     backgroundColor: '#F5FCFF',
   },
   header: {
@@ -97,11 +198,36 @@ const styles = StyleSheet.create({
   inputContainer: {
     paddingTop: 15,
   },
+  textInput: {
+  },
   buttonContainer: {
     paddingTop: 10,
   },
-  button: {
-    paddingTop: 10,
+  blueButton: {
+    borderWidth: 1,
+    backgroundColor: 'blue',
+    borderColor: 'blue',
+    padding: 15,
+    margin: 5
+  },
+  greenButton: {
+    borderWidth: 1,
+    backgroundColor: 'green',
+    borderColor: 'green',
+    padding: 15,
+    margin: 5
+  },
+  redButton: {
+    borderWidth: 1,
+    backgroundColor: 'red',
+    borderColor: 'red',
+    padding: 15,
+    margin: 5
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 25,
+    textAlign: 'center'
   },
   textInput: {
     borderColor: '#CCCCCC',
@@ -122,5 +248,3 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   }
 });
-
-export default viewListingsSeller;

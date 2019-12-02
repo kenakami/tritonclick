@@ -1,8 +1,33 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { Button, Text, View, Image, ScrollView, TextInput, TouchableOpacity, ImageBackgroundBase } from 'react-native';
+import EStyleSheet, {child} from "react-native-extended-stylesheet";
+import * as firebase from 'firebase';
 
+export default class viewListingsBuyer extends React.Component {
 
-const viewListingsBuyer = (props) => {
+  render() {
+
+    // Shortcut provided from Listing
+    const { navigation } = this.props;
+/*
+    // Used for storage for picture
+    const { currentUser } = firebase.auth();
+
+    let storage = firebase.storage();
+    let storageRef = storage.ref(`users/${currentUser.uid}/`);
+    let picture = storageRef.child(`${navigation.getParam('Barcode')}.png`).getDownloadURL().then(function(url) {
+      // `url` is the download URL for 'images/stars.jpg'
+    
+      // This can be downloaded directly:
+      var xhr = new XMLHttpRequest();
+      xhr.responseType = 'blob';
+      xhr.onload = function(event) {
+        var blob = xhr.response;
+      };
+      xhr.open('GET', url);
+      xhr.send();
+
+    });*/
 
       return (
 
@@ -13,16 +38,17 @@ const viewListingsBuyer = (props) => {
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
   
-              <Text style={styles.textInput}>Seller Email goes here</Text>
+              <Text style={styles.textInput}>Email: {JSON.stringify(navigation.getParam('Email', 'no email'))}</Text>
   
-              <Text style={styles.textInput}>Price goes here</Text>
+              <Text style={styles.textInput}>Price: {JSON.stringify(navigation.getParam('Price', 'no price'))}</Text>
 
-              <Text style={styles.textInput}>Type of iClicker goes here</Text>
+              <Text style={styles.textInput}>Type of iClicker: {JSON.stringify(navigation.getParam('Type', 'no type'))}</Text>
   
-              <Text style={styles.textInput}>Condition of iClicker goes here</Text>
+              <Text style={styles.textInput}>Condition: {JSON.stringify(navigation.getParam('Condition', 'no condition'))}</Text>
   
               {/* TODO Display Picture*/}
-  
+              {/*<Image source={{uri:picture}}/>*/}
+              
               <View style={styles.inputContainer}>
                 <TouchableOpacity
                   style={styles.saveButton}
@@ -38,9 +64,9 @@ const viewListingsBuyer = (props) => {
         </View>
       )
     }
-
+  }
   
-  const styles = StyleSheet.create({
+  const styles = EStyleSheet.create({
     container: {
       flex: 1,
       paddingTop: 45,
@@ -86,5 +112,3 @@ const viewListingsBuyer = (props) => {
     }
   
   });
-
-  export default viewListingsBuyer;

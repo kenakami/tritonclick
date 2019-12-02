@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { Button, Text, View, Image, ScrollView, TextInput, TouchableOpacity, ImageBackgroundBase } from 'react-native';
+import EStyleSheet, {child} from "react-native-extended-stylesheet";
+import * as firebase from 'firebase';
 
+export default class viewListingsBuyer extends React.Component {
 
-const viewListingsRent = (props) => {
+  render() {
+
+    // Shortcut provided from Listing
+    const { navigation } = this.props;
+
       return (
 
         <View style={styles.container}>
@@ -12,16 +19,16 @@ const viewListingsRent = (props) => {
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
   
-              <Text style={styles.textInput}>Loaner Email goes here</Text>
+            <Text style={styles.textInput}>Email: {JSON.stringify(navigation.getParam('Email', 'no email'))}</Text>
   
-              <Text style={styles.textInput}>Price per timeframe goes here</Text>
+            <Text style={styles.textInput}>Price: {JSON.stringify(navigation.getParam('Price', 'no price'))}</Text>
 
-              <Text style={styles.textInput}>Type of iClicker goes here</Text>
-  
-              <Text style={styles.textInput}>Condition of iClicker goes here</Text>
-  
-              {/* TODO Display Picture*/}
-  
+            <Text style={styles.textInput}>Type of iClicker: {JSON.stringify(navigation.getParam('Type', 'no type'))}</Text>
+
+            <Text style={styles.textInput}>Condition: {JSON.stringify(navigation.getParam('Condition', 'no condition'))}</Text>
+
+            {/* TODO Display Picture*/}
+
               <View style={styles.inputContainer}>
                 <TouchableOpacity
                   style={styles.saveButton}
@@ -35,10 +42,11 @@ const viewListingsRent = (props) => {
           </ScrollView>
   
         </View>
-      );
-    };
+      )
+    }
+  }
   
-  const styles = StyleSheet.create({
+  const styles = EStyleSheet.create({
     container: {
       flex: 1,
       paddingTop: 45,
@@ -84,5 +92,3 @@ const viewListingsRent = (props) => {
     }
   
   });
-
-  export default viewListingsRent;
