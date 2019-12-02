@@ -23,7 +23,7 @@ export default class loanForm extends React.Component {
     state = {
         image: null,
     };
-    writeUserData(Email, Barcode, Price, Type, Condition) {
+    writeUserData(Email, Barcode, Price, Type, Condition, Date) {
         const { currentUser } = firebase.auth();
         firebase.database().ref(`users/${currentUser.uid}/Loan/`).push({
             Email,
@@ -31,6 +31,7 @@ export default class loanForm extends React.Component {
             Price,
             Type,
             Condition,
+            Date
 
         }).then((data) => {
             //success callback
@@ -131,7 +132,7 @@ export default class loanForm extends React.Component {
                                         alert("All Fields Required!");
                                     }
                                     else
-                                    {this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition);
+                                    {this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now());
                                     this.props.navigation.goBack();}
                                 }
                                 }
