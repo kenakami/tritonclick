@@ -8,7 +8,6 @@ import viewListingsBuyer from "./src/screens/viewListingsBuyer";
 import viewListingsRent from "./src/screens/viewListingsRent";
 import viewListingsSeller from "./src/screens/viewListingsSeller";
 import viewListingsLoan from "./src/screens/viewListingsLoan";
-import BuyRent from './src/screens/BuyRent';
 import myListings from "./src/screens/myListings";
 import Login from './src/screens/Login';
 import Item from './src/screens/components/Item';
@@ -48,7 +47,6 @@ const navigator = createStackNavigator(
         ListingSeller : viewListingsSeller,
         ListingLoan : viewListingsLoan,
         myListings: myListings,
-        BR : BuyRent,
         item: Item,
         loan: Loan,
         sell: Sell,

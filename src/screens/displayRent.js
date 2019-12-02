@@ -3,6 +3,7 @@ import { TouchableOpacity, StyleSheet, Text, View, ScrollView, FlatList, Activit
 import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
 import { Dropdown } from "react-native-material-dropdown";
+import Item from "./components/Item";
 
 var dataArr = []
 
@@ -21,7 +22,9 @@ export default class displayRent extends React.Component {
 
         let database = firebase.database();
         let fer = database.ref('users/');
-        fer.once('value', getUsers, errData)
+        let storageRef;
+        fer.once('value', getUsers, errData);
+
         function getUsers(data) {
             let users = data.val();
             let keys = Object.keys(users);
@@ -44,6 +47,15 @@ export default class displayRent extends React.Component {
                 //dataArr[i] = clicker[k];
                 dataArr.push(clicker[k]);
                 console.log(dataArr[i]);
+                storageRef = firebase.storage().ref(`/users/${currentUser.uid}/${clicker[k].Barcode}`);
+                storageRef.getDownloadURL().then( function(please) {
+                        clicker[k].url = please;
+                        console.log((please));
+                    }, function(error) {
+                        clicker[k].url = 'https://facebook.github.io/react-native/img/tiny_logo.png';
+                        console.log(error);
+                    }
+                )
             }
 
         }
@@ -94,11 +106,11 @@ export default class displayRent extends React.Component {
                 if (x > y) {return 1;}
                 return 0;
             });
-        
+
         }
 
         let type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
-        let cond = [{ value: 'New', }, { value: 'Like New', }, { value: 'Used', }];
+        let cond = [{ value: 'Like New', }, { value: 'Used', }];
         let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }, { value: 'Condition', }, { value: 'Type', }];
 
 
@@ -114,7 +126,6 @@ export default class displayRent extends React.Component {
                     <View style={styles.header}>
                         <Text style={{fontSize: 20}}>Rent</Text>
                     </View>
-                    <ScrollView>
                         <View style={styles.dropdown}>
                             <Dropdown
                                 containerStyle={{width: 120, top: 30}}
@@ -141,19 +152,21 @@ export default class displayRent extends React.Component {
                                 dropdownPosition={-5}
                             />
                         </View>
+                    <ScrollView>
                         <FlatList
+
                             data={currData}
                             renderItem={({ item }) => (
-                                <View>
-                                <TouchableOpacity key={item.Price} onPress={() => {this.props.navigation.navigate('ListingRent', item)}}>
-                                    <Card title={"$" + item.Price}>
-                                        <Text>{"Condition: " + item.Condition}</Text>
-                                        <Text>{"Type: " + item.Type}</Text>
-                                    </Card>
-                                </TouchableOpacity>
-                                </View>
+                                <Item
+                                    picture={item.url}
+                                    description={item.Condition + " " + item.Type}
+                                    price={item.Price}
+                                    toViewListing={
+                                        () => {this.props.navigation.navigate('ListingRent', item)}
+                                    }
+                                />
                             )}
-                            keyExtractor={(item, index) => {return index.toString()}}
+                            keyExtractor={(item) => item.clickerid}
                         >
 
                         </FlatList>
@@ -196,10 +209,10 @@ const styles = StyleSheet.create({
         borderBottomColor: "#EBECF4"
     },
     dropdown: {
-        flexDirection: 'row', 
+        flexDirection: 'row',
         justifyContent: 'space-around',
         paddingBottom: 10,
-        paddingLeft: 15, 
+        paddingLeft: 15,
         paddingRight: 15,
     }
 })

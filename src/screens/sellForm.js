@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Image, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { Button, Image, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, Vibration } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -23,6 +23,7 @@ export default class sellForm extends React.Component {
     state = {
         image: null,
     };
+
     writeUserData(Email, Barcode, Price, Type, Condition, Date) {
         const { currentUser } = firebase.auth();
         firebase.database().ref(`users/${currentUser.uid}/Selling/`).push({
@@ -94,7 +95,6 @@ export default class sellForm extends React.Component {
                             value={this.state.price}
                         />
 
-
                         <Dropdown
                             label='Type of iClicker'
                             data={type}
@@ -112,36 +112,39 @@ export default class sellForm extends React.Component {
                             title="Choose an image from camera roll"
                             onPress={this._pickImage}
                         />
-                
+
                         <View style={styles.inputContainer}>
                             <TouchableOpacity
                                 style={styles.saveButton} onPress={() => {
-                                    if (this.state.email === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.barcode === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.price === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.type === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.condition === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else
-                                    {this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now() );
-                                    this.props.navigation.goBack();}
+                                if (this.state.email === '') {
+                                    alert("All Fields Required!");
                                 }
+                                else if (this.state.barcode === '') {
+                                    alert("All Fields Required!");
                                 }
+                                else if (this.state.price === '') {
+                                    alert("All Fields Required!");
+                                }
+                                else if (this.state.type === '') {
+                                    alert("All Fields Required!");
+                                }
+                                else if (this.state.condition === '') {
+                                    alert("All Fields Required!");
+                                }
+                                else {
+                                    this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now());
+                                    this.props.navigation.goBack();
+                                }
+                            }
+                            }
                             >
                                 <Text style={styles.saveButtonText}>Save</Text>
                             </TouchableOpacity>
+
                         </View>
 
                     </View>
+
                 </ScrollView>
 
             </View>
@@ -174,12 +177,6 @@ export default class sellForm extends React.Component {
         }
     };
 
-/*
-    upload = (barcode) => {
-        console.log("Entered");
-        this.uploadImage(this.state.image, barcode)
-    }
-*/
     uploadImage = async (uri, imageName) => {
         const { currentUser } = firebase.auth();
         var str = "users/" + `${currentUser.uid}` + "/Sell/";

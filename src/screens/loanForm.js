@@ -23,7 +23,7 @@ export default class loanForm extends React.Component {
     state = {
         image: null,
     };
-    writeUserData(Email, Barcode, Price, Type, Condition, Date) {
+    writeUserData(Email, Barcode, Price, Type, Condition) {
         const { currentUser } = firebase.auth();
         firebase.database().ref(`users/${currentUser.uid}/Loan/`).push({
             Email,
@@ -31,7 +31,6 @@ export default class loanForm extends React.Component {
             Price,
             Type,
             Condition,
-            Date
 
         }).then((data) => {
             //success callback
@@ -112,30 +111,32 @@ export default class loanForm extends React.Component {
                             title="Choose an image from camera roll"
                             onPress={this._pickImage}
                         />
-                
+
                         <View style={styles.inputContainer}>
                             <TouchableOpacity
                                 style={styles.saveButton} onPress={() => {
-                                    if (this.state.email === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.barcode === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.price === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.type === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.condition === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else
-                                    {this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now());
-                                    this.props.navigation.goBack();}
+                                if (this.state.email === '') {
+                                    alert("All Fields Required!");
                                 }
+                                else if (this.state.barcode === '') {
+                                    alert("All Fields Required!");
                                 }
+                                else if (this.state.price === '') {
+                                    alert("All Fields Required!");
+                                }
+                                else if (this.state.type === '') {
+                                    alert("All Fields Required!");
+                                }
+                                else if (this.state.condition === '') {
+                                    alert("All Fields Required!");
+                                }
+                                else {
+                                    this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition);
+                                    //Vibration.vibrate(1000);
+                                    this.props.navigation.goBack();
+                                }
+                            }
+                            }
                             >
                                 <Text style={styles.saveButtonText}>Save</Text>
                             </TouchableOpacity>
@@ -174,12 +175,6 @@ export default class loanForm extends React.Component {
         }
     };
 
-/*
-    upload = (barcode) => {
-        console.log("Entered");
-        this.uploadImage(this.state.image, barcode)
-    }
-*/
     uploadImage = async (uri, imageName) => {
         const { currentUser } = firebase.auth();
         var str = "users/" + `${currentUser.uid}` + "/Loan/";

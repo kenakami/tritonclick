@@ -24,7 +24,7 @@ export default class viewListingsLoan extends React.Component {
 
   updateListing(barcode, condition, email, price, type, clickerid) {
     const { currentUser } = firebase.auth();
-    firebase.database().ref(`users/${currentUser.uid}/Loan/${clickerid}`).set({
+    firebase.database().ref(`/users/${currentUser.uid}/Loan/${clickerid}`).set({
       Barcode: barcode,
       Condition: condition,
       Email: email,
@@ -42,7 +42,7 @@ export default class viewListingsLoan extends React.Component {
 
   deleteListing(clickerid) {
     const { currentUser } = firebase.auth();
-    firebase.database().ref(`users/${currentUser.uid}/Loan/${clickerid}`).remove();
+    firebase.database().ref(`/users/${currentUser.uid}/Loan/${clickerid}`).remove();
   }
 
   render() {
@@ -127,7 +127,7 @@ export default class viewListingsLoan extends React.Component {
                         this.updateListing(this.state.barcode, this.state.condition,
                                            this.state.email, this.state.price,
                                            this.state.type, clickerid),
-                        this.props.navigation.goBack() }
+                        this.props.navigation.navigate('Page') }
                       }
                     ]
                   );
@@ -144,7 +144,7 @@ export default class viewListingsLoan extends React.Component {
                     [
                       {text: 'Cancel', style: 'cancel'},
                       {text: 'OK', onPress: () =>{
-                        this.props.navigation.goBack() }
+                        this.props.navigation.navigate('Page') }
                       }
                     ]
                   );
@@ -162,7 +162,7 @@ export default class viewListingsLoan extends React.Component {
                       {text: 'Cancel', style: 'cancel'},
                       {text: 'OK', onPress: () =>{
                         this.deleteListing(clickerid), 
-                        this.props.navigation.goBack() }
+                        this.props.navigation.navigate('Page') }
                       }
                     ]
                   );
@@ -180,7 +180,7 @@ export default class viewListingsLoan extends React.Component {
                       {text: 'Cancel', style: 'cancel'},
                       {text: 'OK', onPress: () =>{
                         this.deleteListing(clickerid), 
-                        this.props.navigation.goBack() }
+                        this.props.navigation.navigate('Page') }
                       }
                     ]
                   );
@@ -219,8 +219,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     paddingTop: 15,
-  },
-  textInput: {
   },
   buttonContainer: {
     paddingTop: 10,
