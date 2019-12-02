@@ -18,7 +18,9 @@ export default class viewListingsBuyer extends React.Component {
 
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
-  
+
+            <Text style={styles.header}>To Rent</Text>
+
             <Text style={styles.textInput}>Email: {JSON.stringify(navigation.getParam('Email', 'no email'))}</Text>
   
             <Text style={styles.textInput}>Price: {JSON.stringify(navigation.getParam('Price', 'no price'))}</Text>
@@ -33,7 +35,7 @@ export default class viewListingsBuyer extends React.Component {
                 <TouchableOpacity
                   style={styles.saveButton}
                 >
-                  <Text style={styles.saveButtonText} onPress={() => alert("You have responded to the Loaner")} >Email</Text>
+                  <Text style={styles.saveButtonText} onPress={() => alert("You have sent a message to the Loaner")} >Message</Text>
                 </TouchableOpacity>
 
               </View>
