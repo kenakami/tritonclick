@@ -12,15 +12,29 @@ export default class PriceTrends extends React.Component {
         this.state = {
             time: '',
 			dataset: [0, 0, 0, 0, 0, 0],
-			labels: ['','','','','',''],
+            labels: ['','','','','',''],
+            type: '',
+            condition: '',
         };
 }
 render() {
-	let type = [{
+	let time = [{
 	  value: 'month',
 	}, {
 	  value: 'year',
-	}];
+    }];
+    
+    let type = [{
+        value: 'iClicker 1',
+    }, {
+        value: 'iClicker 2',
+    }];
+
+    let condition = [{
+        value: 'Like New',
+    }, {
+        value: 'Used',
+    }];
 
 	const linedata = {
       labels: ['January', 'February', 'March', 'April', 'May', 'June'],
@@ -32,7 +46,36 @@ render() {
       ],
     };
 
+/*
+Should go before time dropdown in return statement
+<Dropdown
+    label='Type of iClicker'
+    data={type}
+    onChangeText={(type) => this.setState({ type })}
+    value={this.state.type}
+  />
+  <Dropdown
+    label='Condition of iClicker'
+    data={condition}
+    onChangeText={(condition) => this.setState({ condition })}
+    value={this.state.condition}
+  />
 
+   <View style={styles.inputContainer}>
+       <TouchableOpacity style={styles.saveButton} onPress={() => {
+           if (this.state.time === '') {
+                           alert("All Fields Required!");
+           }else if (this.state.condition === '') {
+                           alert("All Fields Required!");
+           }else if (this.state.type === '') {
+                           alert("All Fields Required!");
+           }else{
+               // Call on function that creates graph based on the fields that they put.
+           }}}>
+           <Text style={styles.saveButtonText}>Show Graph</Text>
+       </TouchableOpacity>
+   </View>
+*/
 return(
 	<View style={styles.container}>
 
@@ -40,11 +83,11 @@ return(
 		   <View style={styles.inputContainer}>
 			   <Dropdown
 			     label='Time'
-			     data={type}
+			     data={time}
 			     onChangeText={(time) => this.setState({ time })}
 			     time ={this.state.time}
 			   />
-			    <Text>
+			    <Text style={styles.heading}>
 			        Iclicker 2 Price Trends
 			    </Text>
 			    <LineChart
@@ -119,6 +162,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 12
+  },
+  heading:{
+    fontSize: 20,
+    textAlign: 'center',
+
   }
 
 });
