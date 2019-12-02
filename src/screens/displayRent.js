@@ -110,32 +110,11 @@ export default class displayRent extends React.Component {
 
         else {
             return (
-                <ScrollView>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                        <Dropdown
-                            containerStyle={{width: 140, top: 30}}
-                            autosize={false}
-                            label='Type'
-                            data={type}
-                            onChangeText={(value) => this.changeType(value)}
-                            value = {this.state.type}
-                        />
-                        <Dropdown
-                            containerStyle={{width: 140, top: 30}}
-                            autosize={false}
-                            label='Condition'
-                            data={cond}
-                            onChangeText={(value) => this.changeCond(value)}
-                            value = {this.state.condition}
-                        />
-                        <Dropdown
-                            containerStyle={{width: 140, top: 30}}
-                            autosize={false}
-                            label='Sort By'
-                            data={sortConditions}
-                            onChangeText={(value) => this.changeSort(value)}
-                        />
+                <View>
+                    <View style={styles.header}>
+                        <Text style={{fontSize: 20}}>Rent</Text>
                     </View>
+<<<<<<< HEAD
                     <FlatList
                         data={currData}
                         renderItem={({ item }) => (
@@ -154,6 +133,53 @@ export default class displayRent extends React.Component {
 
                     </FlatList>
                 </ScrollView>
+=======
+                    <ScrollView>
+                        <View style={styles.dropdown}>
+                            <Dropdown
+                                containerStyle={{width: 120, top: 30}}
+                                autosize={false}
+                                label='Type'
+                                data={type}
+                                onChangeText={(value) => this.changeType(value)}
+                                value = {this.state.type}
+                            />
+                            <Dropdown
+                                containerStyle={{width: 120, top: 30}}
+                                autosize={false}
+                                label='Condition'
+                                data={cond}
+                                onChangeText={(value) => this.changeCond(value)}
+                                value = {this.state.condition}
+                            />
+                            <Dropdown
+                                containerStyle={{width: 120, top: 30}}
+                                autosize={false}
+                                label='Sort By'
+                                data={sortConditions}
+                                onChangeText={(value) => this.changeSort(value)}
+                                dropdownPosition={-5}
+                            />
+                        </View>
+                        <FlatList
+                            data={currData}
+                            renderItem={({ item }) => (
+                                <View>
+                                    <Card title={item.Barcode}>
+                                        <Text>{"Condition: " + item.Condition}</Text>
+                                        <Text>{"Type: " + item.Type}</Text>
+                                        <Text>{"$" + item.Price}</Text>
+                                    </Card>
+                                </View>
+                            )}
+                            keyExtractor={(item, index) => {return index.toString()}}
+                        >
+
+                        </FlatList>
+                    </ScrollView>
+                </View>
+                
+>>>>>>> 88ae55be28baf83ddce4320c39ff65741646f138
             )
         }
 
@@ -181,5 +207,20 @@ const styles = StyleSheet.create({
     },
     wheel:{
         marginTop: "50%"
+    },
+    header: {
+        paddingTop: 50,
+        paddingBottom: 15,
+        alignItems: "center",
+        justifyContent: "center",
+        borderBottomWidth: 1,
+        borderBottomColor: "#EBECF4"
+    },
+    dropdown: {
+        flexDirection: 'row', 
+        justifyContent: 'space-around',
+        paddingBottom: 10,
+        paddingLeft: 15, 
+        paddingRight: 15,
     }
 })

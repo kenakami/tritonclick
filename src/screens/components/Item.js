@@ -1,17 +1,30 @@
-import React, {Component} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {View, Text, TouchableOpacity, Image} from 'react-native';
 import EStyleSheet from "react-native-extended-stylesheet";
+import * as firebase from "firebase";
 
 export default class Item extends React.Component {
+/*
+    componentDidMount() {
+        const db = firebase.firestore();
+        let dRef = db.collection("users");
+        const currUser = firebase.auth;
+        dref.get(`${currUser.uid}`).then()
+    }
+*/
     render() {
         return(
             <View>
                 <TouchableOpacity onPress={this.props.toViewListing}>
                     <View style={styles.whole}>
                         <View style={styles.pic}>
-                            <Text>
-                                {this.props.picture}
-                            </Text>
+                            <Image
+                                source={{ uri: this.props.picture }}
+                                style={{
+                                    width: 50,
+                                    height: 50,
+                                    resizeMode: 'center',}}
+                            />
                         </View>
                         <View style={styles.desc}>
                             <Text>
@@ -31,8 +44,9 @@ export default class Item extends React.Component {
 }
 const styles = EStyleSheet.create({
     pic: {
-        width: 60,
-        height: 20,
+        width: 50,
+        height: 50,
+        resizeMode: 'center',
     },
     desc: {
         width: 150,

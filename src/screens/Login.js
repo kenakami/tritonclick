@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import * as firebase from 'firebase';
 import * as fromNotification from "../Notification";
@@ -173,6 +173,7 @@ class Login extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        
         <Text style={styles.logoText}>Triton Click</Text>
         <TouchableOpacity style={styles.loginButton} onPress={() => this.signInWithGoogleAsync()}
         >
@@ -191,7 +192,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
+    backgroundColor: color = '#6cb0d0'
     /*
     backgroundColor: '#fff',
     justifyContent: 'center',
@@ -200,22 +202,34 @@ const styles = StyleSheet.create({
   },
 
   loginButton: {
+    /*
     alignItems: 'center',
     backgroundColor: '#3897f1',
     padding: 10,
     marginBottom: 20
+    */
+    alignSelf: 'center',
+    alignItems: 'center',
+    backgroundColor: '#DDDDDD',
+    padding: 10,
+    marginBottom: 20,
+    width: "80%",
+    borderRadius: 10,
+    shadowOffset: { width: 3, height: 10, },
+    shadowColor: '#9A9A9A',
+    shadowOpacity: 1.0,
   },
 
   logoText: {
     fontSize: 40,
-    fontWeight: "800",
-    marginTop: 10,
-    marginBottom: 250,
+    fontWeight: "700",
+    marginBottom: 50,
     textAlign: 'center',
+    paddingTop: 0
   },
 
   loginText: {
-    color: 'white',
+    color: 'black',
     fontSize: 20
   }
 });

@@ -103,7 +103,7 @@ export default class displayBuy extends React.Component {
                 if (x > y) {return 1;}
                 return 0;
             });
-        
+
         }
 
         /* Options for each dropdown menu */
@@ -121,50 +121,56 @@ export default class displayBuy extends React.Component {
         else {
             return (
                 /* Type, Condition, and Sort dropdown menusa */
-                <ScrollView>
-                    <View style={{ flexDirection: 'row', justifyContent: 'space-around' }}>
-                        <Dropdown
-                            containerStyle={{width: 140, top: 30}}
-                            autosize={false}
-                            label='Type'
-                            data={type}
-                            onChangeText={(value) => this.changeType(value)}
-                            value = {this.state.type}
-                        />
-                        <Dropdown
-                            containerStyle={{width: 140, top: 30}}
-                            autosize={false}
-                            label='Condition'
-                            data={cond}
-                            onChangeText={(value) => this.changeCond(value)}
-                            value = {this.state.condition}
-                        />
-                        <Dropdown
-                            containerStyle={{width: 140, top: 30}}
-                            autosize={false}
-                            label='Sort By'
-                            data={sortConditions}
-                            onChangeText={(value) => this.changeSort(value)}
-                        />
+                <View>
+                    <View style={styles.header}>
+                        <Text style={{fontSize: 20}}>Buy</Text>
                     </View>
-                    <FlatList
-                        data={currData}
-                        renderItem={({ item }) => (
-                            <View>
-                              <TouchableOpacity key={item.Price} onPress={() => {this.props.navigation.navigate('ListingBuyer', item)}}>
-                                <Card title={"$" + item.Price}>
-                                    <Text>{"Condition: " + item.Condition}</Text>
-                                    <Text>{"Type: " + item.Type}</Text>
-                                    <Text>{"Barcode: " + item.Barcode}</Text>
-                                </Card>
-                              </TouchableOpacity>
-                            </View>
-                        )}
-                        keyExtractor={(item, index) => {return index.toString()}}
-                    >
+                    <ScrollView>
+                        <View style={styles.dropdown}>
+                            <Dropdown
+                                containerStyle={{width: 120, top: 30}}
+                                autosize={false}
+                                label='Type'
+                                data={type}
+                                onChangeText={(value) => this.changeType(value)}
+                                value = {this.state.type}
+                            />
+                            <Dropdown
+                                containerStyle={{width: 120, top: 30}}
+                                autosize={false}
+                                label='Condition'
+                                data={cond}
+                                onChangeText={(value) => this.changeCond(value)}
+                                value = {this.state.condition}
+                            />
+                            <Dropdown
+                                containerStyle={{width: 120, top: 30}}
+                                autosize={false}
+                                label='Sort By'
+                                data={sortConditions}
+                                onChangeText={(value) => this.changeSort(value)}
+                                dropdownPosition={-5}
+                            />
+                        </View>
+                        <FlatList
+                            data={currData}
+                            renderItem={({ item }) => (
+                                <View>
+                                    <TouchableOpacity key={item.Price} onPress={() => {this.props.navigation.navigate('ListingBuyer', item)}}>
+                                        <Card title={"$" + item.Price}>
+                                            <Text>{"Condition: " + item.Condition}</Text>
+                                            <Text>{"Type: " + item.Type}</Text>
+                                            <Text>{"Barcode: " + item.Barcode}</Text>
+                                        </Card>
+                                    </TouchableOpacity>
+                                </View>
+                            )}
+                            keyExtractor={(item, index) => {return index.toString()}}
+                        >
 
-                    </FlatList>
-                </ScrollView>
+                        </FlatList>
+                    </ScrollView>
+                </View>
             )
         }
 
@@ -192,5 +198,21 @@ const styles = StyleSheet.create({
     },
     wheel: {
         marginTop: "50%"
+    },
+    header: {
+        paddingTop: 50,
+        paddingBottom: 15,
+        alignItems: "center",
+        justifyContent: "center",
+        borderBottomWidth: 1,
+        borderBottomColor: "#EBECF4"
+    },
+    dropdown: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        paddingBottom: 10,
+        paddingLeft: 15,
+        paddingRight: 15,
     }
+
 })
