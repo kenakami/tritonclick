@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
+import myListings from "./myListings";
 
 
 export default class viewListingsSeller extends React.Component {
@@ -24,7 +25,7 @@ export default class viewListingsSeller extends React.Component {
 
   updateListing(barcode, condition, email, price, type, clickerid) {
     const { currentUser } = firebase.auth();
-    firebase.database().ref(`users/${currentUser.uid}/Selling/${clickerid}`).set({
+    firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).set({
       Barcode: barcode,
       Condition: condition,
       Email: email,
@@ -41,7 +42,7 @@ export default class viewListingsSeller extends React.Component {
 
   deleteListing(clickerid) {
     const { currentUser } = firebase.auth();
-    firebase.database().ref(`users/${currentUser.uid}/Selling/${clickerid}`).remove();
+    firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).remove();
   }
 
   render() {
@@ -127,7 +128,7 @@ export default class viewListingsSeller extends React.Component {
                         this.updateListing(this.state.barcode, this.state.condition,
                                            this.state.email, this.state.price,
                                            this.state.type, clickerid),
-                        this.props.navigation.goBack() }
+                            this.props.navigation.navigate('Page') }
                       }
                     ]
                   );
@@ -144,8 +145,8 @@ export default class viewListingsSeller extends React.Component {
                     [
                       {text: 'Cancel', style: 'cancel'},
                       {text: 'OK', onPress: () =>{
-                        this.deleteListing(clickerid), 
-                        this.props.navigation.goBack() }
+                        this.deleteListing(clickerid),
+                            this.props.navigation.navigate('Page') }
                       }
                     ]
                   );
@@ -163,8 +164,8 @@ export default class viewListingsSeller extends React.Component {
                     [
                       {text: 'Cancel', style: 'cancel'},
                       {text: 'OK', onPress: () =>{
-                        this.deleteListing(clickerid), 
-                        this.props.navigation.goBack() }
+                        this.deleteListing(clickerid),
+                            this.props.navigation.navigate('Page') }
                       }
                     ]
                   );
@@ -197,8 +198,6 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     paddingTop: 15,
-  },
-  textInput: {
   },
   buttonContainer: {
     paddingTop: 10,

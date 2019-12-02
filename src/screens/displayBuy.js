@@ -3,6 +3,7 @@ import { TouchableOpacity, StyleSheet, Text, View, ScrollView, FlatList, Activit
 import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
 import { Dropdown } from "react-native-material-dropdown";
+import Item from "./components/Item";
 
 /* Array of iCLickers */
 var dataArr = []
@@ -19,6 +20,8 @@ export default class displayBuy extends React.Component {
             timePassed: false
         };
         /* Call to database */
+        let  storageRef;
+        let  currentUser = firebase.auth();
         let database = firebase.database();
         let fer = database.ref('users/');
         fer.once('value', getUsers, errData)
@@ -49,6 +52,15 @@ export default class displayBuy extends React.Component {
                 for (var i = 0; i < keys.length; i++) {
                     let k = keys[i];
                     clicker[k].clickerId = k;
+                    storageRef = firebase.storage().ref(`/users/${clicker[k].Barcode}`);
+                    storageRef.getDownloadURL().then( function(please) {
+                            clicker[k].url = please;
+                            console.log((please));
+                        }, function(error) {
+                            clicker[k].url = 'https://facebook.github.io/react-native/img/tiny_logo.png';
+                            console.log(error);
+                        }
+                    )
                     //dataArr[i] = clicker[k];
                     dataArr.push(clicker[k]);
                 }
@@ -155,19 +167,17 @@ export default class displayBuy extends React.Component {
                         <FlatList
                             data={currData}
                             renderItem={({ item }) => (
-                                <View>
-                                    <TouchableOpacity key={item.Price} onPress={() => {this.props.navigation.navigate('ListingBuyer', item)}}>
-                                        <Card title={"$" + item.Price}>
-                                            <Text>{"Condition: " + item.Condition}</Text>
-                                            <Text>{"Type: " + item.Type}</Text>
-                                            <Text>{"Barcode: " + item.Barcode}</Text>
-                                        </Card>
-                                    </TouchableOpacity>
-                                </View>
+                                <Item
+                                    picture={item.url}
+                                    description={item.Condition + " " + item.Type}
+                                    price={item.Price}
+                                    toViewListing={
+                                        () => {this.props.navigation.navigate('ListingBuyer', item)}
+                                    }
+                                />
                             )}
-                            keyExtractor={(item, index) => {return index.toString()}}
+                            keyExtractor={(item) => item.clickerid}
                         >
-
                         </FlatList>
                     </ScrollView>
                 </View>

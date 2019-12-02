@@ -220,8 +220,6 @@ const styles = StyleSheet.create({
   inputContainer: {
     paddingTop: 15,
   },
-  textInput: {
-  },
   buttonContainer: {
     paddingTop: 10,
   },

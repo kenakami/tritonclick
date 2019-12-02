@@ -14,6 +14,9 @@ export default class myListings extends React.Component {
             timePassed: false
         }
 
+        sellArr = [];
+        loanArr = [];
+
         let database = firebase.database();
         const { currentUser } = firebase.auth();
         let sellRef = database.ref(`users/${currentUser.uid}/Selling/`);
@@ -31,6 +34,7 @@ export default class myListings extends React.Component {
             for( let i = 0; i < keys.length; i++ ) {
                 let k = keys[i];
                 clicker[k].clickerid = k;
+                sellArr.push(clicker[k]);
                 storageRef = firebase.storage().ref(`/users/${currentUser.uid}/${clicker[k].Barcode}`);
                 storageRef.getDownloadURL().then( function(please) {
                         clicker[k].url = please;
@@ -41,7 +45,6 @@ export default class myListings extends React.Component {
                     }
                 )
 
-                sellArr.push(clicker[k]);
                 //sellArr[i] = clicker[k];
             }
         }
@@ -55,6 +58,15 @@ export default class myListings extends React.Component {
                 let k = keys[i];
                 clicker[k] .clickerid = k;
                 loanArr.push(clicker[k]);
+                storageRef = firebase.storage().ref(`/users/${currentUser.uid}/${clicker[k].Barcode}`);
+                storageRef.getDownloadURL().then( function(please) {
+                        clicker[k].url = please;
+                        console.log((please));
+                    }, function(error) {
+                        clicker[k].url = 'https://facebook.github.io/react-native/img/tiny_logo.png';
+                        console.log(error);
+                    }
+                )
                 //loanArr[i] = clicker[k];
             }
         }
@@ -65,6 +77,7 @@ export default class myListings extends React.Component {
     }
 
     componentDidMount() {
+
         setTimeout(() =>{
             this.setTimePassed();
         }, 3000)
@@ -84,29 +97,12 @@ export default class myListings extends React.Component {
             return(
                 <View nestedScrollEnabled={true}>
                     <View style={styles.container}>
-                        <Text style={styles.text}>Temp</Text>
-                        <FlatList
-                            data={sellArr}
-                            renderItem={({ item }) => (
-                                    <Item
-                                        picture={item.url}
-                                        description={item.Condition + " " + item.Type}
-                                        price={item.Price}
-                                        toViewListing={
-                                            () => {this.props.navigation.navigate('ListingBuyer', item)}
-                                        }
-                                    />
-                            )}
-                            keyExtractor={(item) => item.clickerid}
-                        />
-                    </View>
-                    <View style={styles.container}>
                         <Text style={styles.text}>Selling iClickers</Text>
                         <FlatList
                             data={sellArr}
                             renderItem={({ item }) => (
                                     <Item
-                                        picture={item.Barcode}
+                                        picture={item.url}
                                         description={item.Condition + " " + item.Type}
                                         price={item.Price}
                                         toViewListing={
@@ -123,7 +119,7 @@ export default class myListings extends React.Component {
                             data={loanArr}
                             renderItem={({ item }) => (
                                 <Item
-                                    picture={item.Barcode}
+                                    picture={item.url}
                                     description={item.Condition + " " + item.Type}
                                     price={item.Price}
                                     toViewListing={
@@ -145,7 +141,7 @@ const styles = EStyleSheet.create({
     container:{
         paddingTop: '1rem',
         width: '20rem',
-        height: '12rem',
+        height: '15rem',
     },
     text: {
         fontSize: 20,
