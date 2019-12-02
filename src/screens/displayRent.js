@@ -114,26 +114,6 @@ export default class displayRent extends React.Component {
                     <View style={styles.header}>
                         <Text style={{fontSize: 20}}>Rent</Text>
                     </View>
-<<<<<<< HEAD
-                    <FlatList
-                        data={currData}
-                        renderItem={({ item }) => (
-                            <View>
-                            <TouchableOpacity key={item.Price} onPress={() => {this.props.navigation.navigate('ListingRent', item)}}>
-                                <Card title={"$" + item.Price}>
-                                    <Text>{"Condition: " + item.Condition}</Text>
-                                    <Text>{"Type: " + item.Type}</Text>
-                                    <Text>{"Barcode: " + item.Barcode}</Text>
-                                </Card>
-                             </TouchableOpacity>
-                            </View>
-                        )}
-                        keyExtractor={(item, index) => {return index.toString()}}
-                    >
-
-                    </FlatList>
-                </ScrollView>
-=======
                     <ScrollView>
                         <View style={styles.dropdown}>
                             <Dropdown
@@ -165,11 +145,12 @@ export default class displayRent extends React.Component {
                             data={currData}
                             renderItem={({ item }) => (
                                 <View>
-                                    <Card title={item.Barcode}>
+                                <TouchableOpacity key={item.Price} onPress={() => {this.props.navigation.navigate('ListingRent', item)}}>
+                                    <Card title={"$" + item.Price}>
                                         <Text>{"Condition: " + item.Condition}</Text>
                                         <Text>{"Type: " + item.Type}</Text>
-                                        <Text>{"$" + item.Price}</Text>
                                     </Card>
+                                </TouchableOpacity>
                                 </View>
                             )}
                             keyExtractor={(item, index) => {return index.toString()}}
@@ -178,8 +159,6 @@ export default class displayRent extends React.Component {
                         </FlatList>
                     </ScrollView>
                 </View>
-                
->>>>>>> 88ae55be28baf83ddce4320c39ff65741646f138
             )
         }
 

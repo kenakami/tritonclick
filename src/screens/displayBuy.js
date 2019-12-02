@@ -160,7 +160,6 @@ export default class displayBuy extends React.Component {
                                         <Card title={"$" + item.Price}>
                                             <Text>{"Condition: " + item.Condition}</Text>
                                             <Text>{"Type: " + item.Type}</Text>
-                                            <Text>{"Barcode: " + item.Barcode}</Text>
                                         </Card>
                                     </TouchableOpacity>
                                 </View>
