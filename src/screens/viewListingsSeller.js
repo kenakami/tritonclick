@@ -44,13 +44,15 @@ export default class viewListingsSeller extends React.Component {
     firebase.database().ref(`users/${currentUser.uid}/Selling/${clickerid}`).remove();
   }
 
-  storeSale(clickerType, Price){
+  storeSale(clickerType, price, type, condition){
     // Stores in database for price trends
     alert("sale stored");
     if(clickerType == 'iClicker 2'){ 
       firebase.database().ref(`sales/`).push({
-          Price,
+          price,
           timestamp: new Date().toLocaleString(),
+          type,
+          condition
       }).then((data) => {
           //success callback
           console.log('data ', data)
@@ -162,7 +164,7 @@ export default class viewListingsSeller extends React.Component {
                       {text: 'Cancel', style: 'cancel'},
                       {text: 'OK', onPress: () =>{
                         this.deleteListing(clickerid), 
-                        this.storeSale(this.state.type, this.state.price),
+                        this.storeSale(this.state.type, this.state.price, this.state.ttype, this.state.condition),
                         this.props.navigation.goBack() }
                       }
                     ]
