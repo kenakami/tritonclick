@@ -44,6 +44,23 @@ export default class viewListingsSeller extends React.Component {
     firebase.database().ref(`users/${currentUser.uid}/Selling/${clickerid}`).remove();
   }
 
+  storeSale(clickerType, Price){
+    // Stores in database for price trends
+    alert("sale stored");
+    if(clickerType == 'iClicker 2'){ 
+      firebase.database().ref(`sales/`).push({
+          Price,
+          timestamp: new Date().toLocaleString(),
+      }).then((data) => {
+          //success callback
+          console.log('data ', data)
+      }).catch((error) => {
+          //error callback
+          console.log('error ', error)
+      })
+    }
+  }
+          
   render() {
     // Get listing information through param
     const { navigation } = this.props;
@@ -145,6 +162,7 @@ export default class viewListingsSeller extends React.Component {
                       {text: 'Cancel', style: 'cancel'},
                       {text: 'OK', onPress: () =>{
                         this.deleteListing(clickerid), 
+                        this.storeSale(this.state.type, this.state.price),
                         this.props.navigation.goBack() }
                       }
                     ]

@@ -44,79 +44,37 @@ return(
 			     onChangeText={(time) => this.setState({ time })}
 			     time ={this.state.time}
 			   />
-
-
-
-
-
-
-			     <Text>
-			          Iclicker 2 Price Trends
-			     </Text>
-			     <LineChart
-			       data={linedata}
-			       width={412}
-			       height={440}
-			       yAxisLabel={'$'}
-			       chartConfig={{
-			         backgroundColor: '#e26a00',
-			         backgroundGradientFrom: '#fb8c00',
-			         backgroundGradientTo: '#ffa726',
-			         decimalPlaces: 2, // optional, defaults to 2dp
-			         color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-			         style: {
-			           borderRadius: 16
-			         }
-			       }}
-			       bezier
-			       style={{
-			         marginVertical: 8,
-			         borderRadius: 16
-			       }}
+			    <Text>
+			        Iclicker 2 Price Trends
+			    </Text>
+			    <LineChart
+			        data={linedata}
+			        width={412}
+			        height={440}
+			        yAxisLabel={'$'}
+			        chartConfig={{
+			        backgroundColor: '#e26a00',
+			        backgroundGradientFrom: '#fb8c00',
+			        backgroundGradientTo: '#ffa726',
+			        decimalPlaces: 2, // optional, defaults to 2dp
+			        color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+                        style: {
+                            borderRadius: 16
+                        }
+			        }}
+			        bezier
+			        style={{
+			            marginVertical: 8,
+			            borderRadius: 16
+			        }}
 			     />
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	</View>
-	  </ScrollView>
+	    </ScrollView>
 
 	</View>
 
-
-
-
-
-);
-
-
+    );
 
 }
 }
