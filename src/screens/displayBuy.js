@@ -168,7 +168,7 @@ export default class displayBuy extends React.Component {
                                     description={item.Condition + " " + item.Type}
                                     price={item.Price}
                                     toViewListing={
-                                        () => {this.props.navigation.navigate('ListingLoan', item)}
+                                        () => {this.props.navigation.navigate('ListingBuyer', item)}
                                     }
                                 />
                             )}

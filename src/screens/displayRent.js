@@ -162,7 +162,7 @@ export default class displayRent extends React.Component {
                                     description={item.Condition + " " + item.Type}
                                     price={item.Price}
                                     toViewListing={
-                                        () => {this.props.navigation.navigate('ListingLoan', item)}
+                                        () => {this.props.navigation.navigate('ListingRent', item)}
                                     }
                                 />
                             )}
