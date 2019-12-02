@@ -5,8 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
-import myListings from "./myListings";
-
+import EStyleSheet from "react-native-extended-stylesheet";
 
 export default class viewListingsSeller extends React.Component {
 
@@ -25,7 +24,7 @@ export default class viewListingsSeller extends React.Component {
 
   updateListing(barcode, condition, email, price, type, clickerid) {
     const { currentUser } = firebase.auth();
-    firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).set({
+    firebase.database().ref(`users/${currentUser.uid}/Selling/${clickerid}`).set({
       Barcode: barcode,
       Condition: condition,
       Email: email,
@@ -42,7 +41,26 @@ export default class viewListingsSeller extends React.Component {
 
   deleteListing(clickerid) {
     const { currentUser } = firebase.auth();
-    firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).remove();
+    firebase.database().ref(`users/${currentUser.uid}/Selling/${clickerid}`).remove();
+  }
+
+  storeSale(clickerType, price, type, condition){
+    // Stores in database for price trends
+    alert("sale stored");
+    if(clickerType == 'iClicker 2'){
+      firebase.database().ref(`sales/`).push({
+        price,
+        timestamp: new Date().toLocaleString(),
+        type,
+        condition
+      }).then((data) => {
+        //success callback
+        console.log('data ', data)
+      }).catch((error) => {
+        //error callback
+        console.log('error ', error)
+      })
+    }
   }
 
   render() {
@@ -60,131 +78,132 @@ export default class viewListingsSeller extends React.Component {
 
     return (
 
-      <View style={styles.container}>
+        <View style={styles.container}>
 
-        <ScrollView>
+          <ScrollView>
 
-          {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
-          <View style={styles.inputContainer}>
-
-            <Text style={styles.text}>Email:</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Your Email"
-              maxLength={20}
-              keyboardType="email-address"
-              autoCorrect={false}
-              onChangeText={(email) => this.setState({ email })}
-              value={this.state.email}
-            />
-
-            <Text style={styles.text}>Barcode:</Text>
-            <TextInput
-              style={styles.textInput}
-              maxLength={8}
-              autoCorrect={false}
-              onChangeText={(barcode) => this.setState({ barcode })}
-              value={this.state.barcode}
-            />
-
-            <Text style={styles.text}>Price:</Text>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Price"
-              keyboardType="numeric"
-              onChangeText={(price) => this.setState({ price })}
-              value={this.state.price}
-            />
-
-            <Dropdown
-              label='Type of iClicker'
-              data={dd_type}
-              onChangeText={(type) => this.setState({ type })}
-              value={this.state.type}
-            />
-
-            <Dropdown
-              label='Condition of iClicker'
-              data={dd_cond}
-              onChangeText={(condition) => this.setState({ condition })}
-              value={this.state.condition}
-            />
-
-            {/* TODO Create Picture Input*/}
-
-            {/*Buttons go on the bottom */}
-            {/* To implement functionality */}
-           
+            {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
 
-              <TouchableOpacity style={styles.blueButton} backgroundColor='blue' borderColor='blue'
-                onPress={() => {
-                  Alert.alert(
-                    'Save',
-                    'Save your changes?',
-                    [
-                      {text: 'Cancel', style: 'cancel'},
-                      {text: 'OK', onPress: () =>{
-                        this.updateListing(this.state.barcode, this.state.condition,
-                                           this.state.email, this.state.price,
-                                           this.state.type, clickerid),
-                            this.props.navigation.navigate('Page') }
-                      }
-                    ]
-                  );
-                }}>
-                <Text style={styles.buttonText}>Save</Text>
-              </TouchableOpacity>
+              <Text style={styles.text}>Email:</Text>
+              <TextInput
+                  style={styles.textInput}
+                  placeholder="Your Email"
+                  maxLength={20}
+                  keyboardType="email-address"
+                  autoCorrect={false}
+                  onChangeText={(email) => this.setState({ email })}
+                  value={this.state.email}
+              />
+
+              <Text style={styles.text}>Barcode:</Text>
+              <TextInput
+                  style={styles.textInput}
+                  maxLength={8}
+                  autoCorrect={false}
+                  onChangeText={(barcode) => this.setState({ barcode })}
+                  value={this.state.barcode}
+              />
+
+              <Text style={styles.text}>Price:</Text>
+              <TextInput
+                  style={styles.textInput}
+                  placeholder="Price"
+                  keyboardType="numeric"
+                  onChangeText={(price) => this.setState({ price })}
+                  value={this.state.price}
+              />
+
+              <Dropdown
+                  label='Type of iClicker'
+                  data={dd_type}
+                  onChangeText={(type) => this.setState({ type })}
+                  value={this.state.type}
+              />
+
+              <Dropdown
+                  label='Condition of iClicker'
+                  data={dd_cond}
+                  onChangeText={(condition) => this.setState({ condition })}
+                  value={this.state.condition}
+              />
+
+              {/* TODO Create Picture Input*/}
+
+              {/*Buttons go on the bottom */}
+              {/* To implement functionality */}
+
+              <View style={styles.inputContainer}>
+
+                <TouchableOpacity style={styles.blueButton} backgroundColor='blue' borderColor='blue'
+                                  onPress={() => {
+                                    Alert.alert(
+                                        'Save',
+                                        'Save your changes?',
+                                        [
+                                          {text: 'Cancel', style: 'cancel'},
+                                          {text: 'OK', onPress: () =>{
+                                              this.updateListing(this.state.barcode, this.state.condition,
+                                                  this.state.email, this.state.price,
+                                                  this.state.type, clickerid),
+                                                  this.props.navigation.navigate('Page') }
+                                          }
+                                        ]
+                                    );
+                                  }}>
+                  <Text style={styles.buttonText}>Save</Text>
+                </TouchableOpacity>
 
 
-              <TouchableOpacity style={styles.greenButton} backgroundColor='green' borderColor='green'
-                onPress= {() => {
-                  Alert.alert(
-                    'Sold',
-                    'Confirm as sold?',
-                    [
-                      {text: 'Cancel', style: 'cancel'},
-                      {text: 'OK', onPress: () =>{
-                        this.deleteListing(clickerid),
-                            this.props.navigation.navigate('Page') }
-                      }
-                    ]
-                  );
-                }}>
-                <Text style={styles.buttonText}>Sold</Text>
-              </TouchableOpacity>
+                <TouchableOpacity style={styles.greenButton} backgroundColor='green' borderColor='green'
+                                  onPress= {() => {
+                                    Alert.alert(
+                                        'Sold',
+                                        'Confirm as sold?',
+                                        [
+                                          {text: 'Cancel', style: 'cancel'},
+                                          {text: 'OK', onPress: () =>{
+                                              this.deleteListing(clickerid),
+                                                  this.storeSale(this.state.type, this.state.price, this.state.ttype, this.state.condition),
+                                                  this.props.navigation.navigate('Page') }
+                                          }
+                                        ]
+                                    );
+                                  }}>
+                  <Text style={styles.buttonText}>Sold</Text>
+                </TouchableOpacity>
 
 
-              <TouchableOpacity style={styles.redButton} backgroundColor='red' borderColor='red'
-                onPress= {() => {
-                  this.deleteListing(clickerid );
-                  Alert.alert(
-                    'Delete',
-                    'Delete listing?',
-                    [
-                      {text: 'Cancel', style: 'cancel'},
-                      {text: 'OK', onPress: () =>{
-                        this.deleteListing(clickerid),
-                            this.props.navigation.navigate('Page') }
-                      }
-                    ]
-                  );
-                }}>
-                <Text style={styles.buttonText}>Delete</Text>
-              </TouchableOpacity>
-              
+                <TouchableOpacity style={styles.redButton} backgroundColor='red' borderColor='red'
+                                  onPress= {() => {
+                                    this.deleteListing(clickerid );
+                                    Alert.alert(
+                                        'Delete',
+                                        'Delete listing?',
+                                        [
+                                          {text: 'Cancel', style: 'cancel'},
+                                          {text: 'OK', onPress: () =>{
+                                              this.deleteListing(clickerid),
+                                                  this.props.navigation.navigate('Page') }
+                                          }
+                                        ]
+                                    );
+                                  }}>
+                  <Text style={styles.buttonText}>Delete</Text>
+                </TouchableOpacity>
+
+              </View>
+
             </View>
+          </ScrollView>
 
-          </View>
-        </ScrollView>
-
-      </View>
+        </View>
     );
   }
-  
+
 }
-  
-const styles = StyleSheet.create({
+
+const styles = EStyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 45,

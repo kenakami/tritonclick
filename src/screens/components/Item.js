@@ -19,7 +19,7 @@ export default class Item extends React.Component {
                     <View style={styles.whole}>
                         <View style={styles.pic}>
                             <Image
-                                source={{ uri: this.props.picture }}
+                                source={{ uri: this .props.picture }}
                                 style={{
                                     width: 50,
                                     height: 50,
@@ -53,7 +53,7 @@ const styles = EStyleSheet.create({
         height: 25,
     },
     price: {
-        width: 30,
+        width: 50,
         height: 25,
     },
     whole: {

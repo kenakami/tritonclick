@@ -20,10 +20,9 @@ export default class displayBuy extends React.Component {
             timePassed: false
         };
         /* Call to database */
-        let  storageRef;
-        let  currentUser = firebase.auth();
         let database = firebase.database();
         let fer = database.ref('users/');
+        let storageRef;
         fer.once('value', getUsers, errData)
 
         function getUsers(data) {
@@ -44,28 +43,25 @@ export default class displayBuy extends React.Component {
 
         function gotData(data) {
             let clicker = data.val();
-            let keys;
-            try {
-                keys = Object.keys(clicker);
-            } catch (Exception) { }
-            try {
-                for (var i = 0; i < keys.length; i++) {
-                    let k = keys[i];
-                    clicker[k].clickerId = k;
-                    storageRef = firebase.storage().ref(`/users/${clicker[k].Barcode}`);
-                    storageRef.getDownloadURL().then( function(please) {
-                            clicker[k].url = please;
-                            console.log((please));
-                        }, function(error) {
-                            clicker[k].url = 'https://facebook.github.io/react-native/img/tiny_logo.png';
-                            console.log(error);
-                        }
-                    )
-                    //dataArr[i] = clicker[k];
-                    dataArr.push(clicker[k]);
-                }
-            } catch (Exception) { }
-
+            if( clicker==null ) {
+                return;
+            }
+            keys = Object.keys(clicker);
+            for (var i = 0; i < keys.length; i++) {
+                let k = keys[i];
+                clicker[k].clickerId = k;
+                //dataArr[i] = clicker[k];
+                dataArr.push(clicker[k]);
+                storageRef = firebase.storage().ref(`/users/${currentUser.uid}/${clicker[k].Barcode}`);
+                storageRef.getDownloadURL().then( function(please) {
+                        clicker[k].url = please;
+                        console.log((please));
+                    }, function(error) {
+                        clicker[k].url = 'https://facebook.github.io/react-native/img/tiny_logo.png';
+                        console.log(error);
+                    }
+                )
+            }
         }
 
         function errData(err) {
@@ -120,7 +116,7 @@ export default class displayBuy extends React.Component {
 
         /* Options for each dropdown menu */
         let type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
-        let cond = [{ value: 'New', }, { value: 'Like New', }, { value: 'Used', }];
+        let cond = [{ value: 'Like New', }, { value: 'Used', }];
         let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }, { value: 'Condition', }, { value: 'Type', }];
 
 
@@ -137,7 +133,6 @@ export default class displayBuy extends React.Component {
                     <View style={styles.header}>
                         <Text style={{fontSize: 20}}>Buy</Text>
                     </View>
-                    <ScrollView>
                         <View style={styles.dropdown}>
                             <Dropdown
                                 containerStyle={{width: 120, top: 30}}
@@ -164,6 +159,7 @@ export default class displayBuy extends React.Component {
                                 dropdownPosition={-5}
                             />
                         </View>
+                    <ScrollView>
                         <FlatList
                             data={currData}
                             renderItem={({ item }) => (
@@ -172,12 +168,13 @@ export default class displayBuy extends React.Component {
                                     description={item.Condition + " " + item.Type}
                                     price={item.Price}
                                     toViewListing={
-                                        () => {this.props.navigation.navigate('ListingBuyer', item)}
+                                        () => {this.props.navigation.navigate('ListingLoan', item)}
                                     }
                                 />
                             )}
                             keyExtractor={(item) => item.clickerid}
                         >
+
                         </FlatList>
                     </ScrollView>
                 </View>
