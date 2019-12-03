@@ -115,8 +115,8 @@ export default class displayBuy extends React.Component {
         }
 
         /* Options for each dropdown menu */
-        let type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
-        let cond = [{ value: 'Like New', }, { value: 'Used', }];
+        let type = [{value: 'All'}, { value: 'iClicker 1', }, { value: 'iClicker 2', }];
+        let cond = [{value: 'All'}, { value: 'Like New', }, { value: 'Used', }];
         let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }, { value: 'Condition', }, { value: 'Type', }];
 
 
