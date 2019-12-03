@@ -47,11 +47,13 @@ export default class viewListingsSeller extends React.Component {
   storeSale(clickerType, price, type, condition){
     // Stores in database for price trends
     if(clickerType == 'iClicker 2'){
+      let date = new Date().toLocaleString().split(" ");
       firebase.database().ref(`sales/`).push({
         price,
         timestamp: new Date().toLocaleString(),
+        month: date[1],
         type,
-        condition
+        condition,
       }).then((data) => {
         //success callback
         console.log('data ', data)
