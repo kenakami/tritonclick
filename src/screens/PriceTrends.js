@@ -11,21 +11,21 @@ export default class PriceTrends extends React.Component {
 
         this.state = {
             time: '',
-			dataset: [-1, -1, -1, -1, -1, -1],
+			dataset: [0, 0, 0, 0, 0, 0],
 			labels: ['July', 'August', 'September', 'October', 'November', 'December'],
         };
 }
 
-
 setDataSet() {
-	let ref0 = firebase.database().ref('sales/' + this.state.labels[0]);
+	/*let ref0 = firebase.database().ref('sales/' + this.state.labels[0]);
 	let ref1 = firebase.database().ref('sales/' + this.state.labels[1]);
 	let ref2 = firebase.database().ref('sales/' + this.state.labels[2]);
 	let ref3 = firebase.database().ref('sales/' + this.state.labels[3]);
 	let ref4 = firebase.database().ref('sales/' + this.state.labels[4]);
 	let ref5 = firebase.database().ref('sales/' + this.state.labels[5]);
 	var that = this;
-	ref0.once("value")
+    
+    ref0.once("value")
 	 .then(function(snapshot) {
 	   const val = snapshot.val();
 
@@ -84,9 +84,83 @@ setDataSet() {
 		   that.setState({ dataset: data });
 
 
-		 });
+         });*/
+
+    const month0 = [];
+    const month1 = [];
+    const month2 = [];
+    const month3 = [];
+    const month4 = [];
+    const month5 = [];
+    firebase.database().ref('sales/').on('value', (snapshot) => {
+        let children = Object.keys(snapshot.val());
+        children.forEach((child) => {
+            //alert(child);
+            //alert(child);
+            firebase.database().ref('sales/' + child + '/month/').once('value', (snapshot) => {
+                if(snapshot.val() && snapshot.val() == 'Dec'){
+                    firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
+                        month5.push(parseFloat(snapshot.val()));
+                        
+                        this.state.dataset[5] = this.getAverage(month5);
+                        this.setState({dataset: this.state.dataset});
+
+                    });
+                }else if(snapshot.val() && snapshot.val() == 'Nov'){
+                    firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
+                        month4.push(parseFloat(snapshot.val()));
+                        
+                        this.state.dataset[4] = this.getAverage(month4);
+                        this.setState({dataset: this.state.dataset});
+
+                    });
+                }else if(snapshot.val() && snapshot.val() == 'Oct'){
+                    firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
+                        month3.push(parseFloat(snapshot.val()));
+                        
+                        this.state.dataset[3] = this.getAverage(month3);
+                        this.setState({dataset: this.state.dataset});
+
+                    });
+                }else if(snapshot.val() && snapshot.val() == 'Sep'){
+                    firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
+                        month2.push(parseFloat(snapshot.val()));
+                        this.state.dataset[2] = this.getAverage(month2);
+                        this.setState({dataset: this.state.dataset});
+
+                    });
+                }else if(snapshot.val() && snapshot.val() == 'Aug'){
+                    firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
+                        month1.push(parseFloat(snapshot.val()));
+                        this.state.dataset[1] = this.getAverage(month1);
+                        this.setState({dataset: this.state.dataset});
+
+                    });
+                }else if(snapshot.val() && snapshot.val() == 'Jul'){
+                    firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
+                        month0.push(parseFloat(snapshot.val()));
+                        this.state.dataset[0] = this.getAverage(month1);
+                        this.setState({dataset: this.state.dataset});
+
+                    });
+                }
+            });
+            
+        });
+    });
+    
 }
 
+getAverage(monthSales){
+    let average = 0;
+    if(monthSales.length == 0){
+        return 0;
+    }
+    for(let i = 0; i < monthSales.length; i++){
+        average += monthSales[i];
+    }
+    return average / monthSales.length;
+}
 
 componentDidMount() {
 
