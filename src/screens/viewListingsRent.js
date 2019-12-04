@@ -72,7 +72,7 @@ export default class viewListingsBuyer extends React.Component {
       borderTopWidth: 1,
       borderBottomWidth: 1,
       height: 50,
-      fontSize: 25,
+      fontSize: 20,
       paddingLeft: 20,
       paddingRight: 20,
       marginBottom: 20

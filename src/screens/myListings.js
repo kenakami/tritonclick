@@ -80,7 +80,7 @@ export default class myListings extends React.Component {
 
         setTimeout(() =>{
             this.setTimePassed();
-        }, 3000)
+        }, 1500)
     }
 
     setTimePassed() {

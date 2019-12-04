@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
 import { Dropdown } from "react-native-material-dropdown";
 import Item from "./components/Item";
+import EStyleSheet from "react-native-extended-stylesheet";
 
 var dataArr = []
 
@@ -68,7 +69,7 @@ export default class displayRent extends React.Component {
     componentDidMount() {
         setTimeout(() => {
             this.setTimePassed();
-        }, 1000);
+        }, 1500);
     }
 
     componentWillUnmount() {
@@ -214,5 +215,5 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 15,
         paddingRight: 15,
-    }
+    },
 })

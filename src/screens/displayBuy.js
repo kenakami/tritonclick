@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import { Card, ListItem } from 'react-native-elements';
 import { Dropdown } from "react-native-material-dropdown";
 import Item from "./components/Item";
+import EStyleSheet from "react-native-extended-stylesheet";
 
 /* Array of iCLickers */
 var dataArr = []
@@ -32,7 +33,7 @@ export default class displayBuy extends React.Component {
                 let k = keys[i]
                 if (users[k].Selling !== null) {
                     let userID = users[k].user_id;
-                    let ref = database.ref(`users/${userID}/Selling/`);
+                    let ref = database.ref(`/users/${userID}/Selling/`);
                     ref.once('value', gotData, errData);
                 }
             }
@@ -73,7 +74,7 @@ export default class displayBuy extends React.Component {
     componentDidMount() {
         setTimeout(() => {
             this.setTimePassed();
-        }, 1000);
+        }, 1500);
     }
 
     componentWillUnmount() {
@@ -172,7 +173,7 @@ export default class displayBuy extends React.Component {
                                     }
                                 />
                             )}
-                            keyExtractor={(item) => item.clickerid}
+                            keyExtractor={item => item.clickerid}
                         >
 
                         </FlatList>
@@ -199,7 +200,7 @@ export default class displayBuy extends React.Component {
     }
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     loadScreen: {
         alignSelf: "center"
     },
@@ -220,6 +221,5 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         paddingLeft: 15,
         paddingRight: 15,
-    }
-
+    },
 })
