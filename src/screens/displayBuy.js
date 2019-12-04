@@ -24,6 +24,8 @@ export default class displayBuy extends React.Component {
         let database = firebase.database();
         let fer = database.ref('users/');
         let storageRef;
+        let  currentUser = firebase.auth();
+
         fer.once('value', getUsers, errData)
 
         function getUsers(data) {
@@ -33,7 +35,7 @@ export default class displayBuy extends React.Component {
                 let k = keys[i]
                 if (users[k].Selling !== null) {
                     let userID = users[k].user_id;
-                    let ref = database.ref(`/users/${userID}/Selling/`);
+                    let ref = database.ref(`users/${userID}/Selling/`);
                     ref.once('value', gotData, errData);
                 }
             }
@@ -53,7 +55,7 @@ export default class displayBuy extends React.Component {
                 clicker[k].clickerId = k;
                 //dataArr[i] = clicker[k];
                 dataArr.push(clicker[k]);
-                storageRef = firebase.storage().ref(`/users/${currentUser.uid}/${clicker[k].Barcode}`);
+                storageRef = firebase.storage().ref(`users/${currentUser.uid}/${clicker[k].Barcode}`);
                 storageRef.getDownloadURL().then( function(please) {
                         clicker[k].url = please;
                         console.log((please));
@@ -116,8 +118,8 @@ export default class displayBuy extends React.Component {
         }
 
         /* Options for each dropdown menu */
-        let type = [{value: 'All'}, { value: 'iClicker 1', }, { value: 'iClicker 2', }];
-        let cond = [{value: 'All'}, { value: 'Like New', }, { value: 'Used', }];
+        let type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
+        let cond = [{ value: 'Like New', }, { value: 'Used', }];
         let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }, { value: 'Condition', }, { value: 'Type', }];
 
 

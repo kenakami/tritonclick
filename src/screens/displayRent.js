@@ -24,6 +24,8 @@ export default class displayRent extends React.Component {
         let database = firebase.database();
         let fer = database.ref('users/');
         let storageRef;
+        let  currentUser = firebase.auth();
+
         fer.once('value', getUsers, errData);
 
         function getUsers(data) {
