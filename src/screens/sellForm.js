@@ -5,7 +5,9 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import { Dropdown } from 'react-native-material-dropdown';
+import { getUnavailabilityReason } from 'expo/build/AR';
 
+var imageURI = "";
 
 export default class sellForm extends React.Component {
     constructor(props) {
@@ -24,7 +26,7 @@ export default class sellForm extends React.Component {
         image: null,
     };
 
-    writeUserData(Email, Barcode, Price, Type, Condition, Date) {
+    writeUserData(Email, Barcode, Price, Type, Condition, Date, Image) {
         const { currentUser } = firebase.auth();
         firebase.database().ref(`users/${currentUser.uid}/Selling/`).push({
             Email,
@@ -32,7 +34,8 @@ export default class sellForm extends React.Component {
             Price,
             Type,
             Condition,
-            Date
+            Date,
+            Image
 
         }).then((data) => {
             //success callback
@@ -42,6 +45,22 @@ export default class sellForm extends React.Component {
             console.log('error ', error)
         })
     }
+
+    //geturl(callback, Email, Barcode, Price, Type, Condition, Date){
+    geturl() {
+        let storageRef = firebase.storage().ref(`${this.state.barcode}`);
+        storageRef.getDownloadURL().then(function (please) {
+            imageURI = please;
+            console.log((please));
+        }, function (error) {
+            imageURI = 'https://facebook.github.io/react-native/img/tiny_logo.png';
+            console.log(error);
+        }
+        )
+    }
+
+
+
 
     render() {
         let { image } = this.state;
@@ -116,27 +135,33 @@ export default class sellForm extends React.Component {
                         <View style={styles.inputContainer}>
                             <TouchableOpacity
                                 style={styles.saveButton} onPress={() => {
-                                if (this.state.email === '') {
-                                    alert("All Fields Required!");
+                                    if (this.state.email === '') {
+                                        alert("All Fields Required!");
+                                    }
+                                    else if (this.state.barcode === '') {
+                                        alert("All Fields Required!");
+                                    }
+                                    else if (this.state.price === '') {
+                                        alert("All Fields Required!");
+                                    }
+                                    else if (this.state.type === '') {
+                                        alert("All Fields Required!");
+                                    }
+                                    else if (this.state.condition === '') {
+                                        alert("All Fields Required!");
+                                    }
+                                    else {
+                                        //this.geturl(this.writeUserData, this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now());
+                                        this.geturl()
+                                        setTimeout(() => {
+                                            this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI);
+                                          }, 2000);
+                                        
+                                        
+                                        this.props.navigation.goBack();
+                                    }
                                 }
-                                else if (this.state.barcode === '') {
-                                    alert("All Fields Required!");
                                 }
-                                else if (this.state.price === '') {
-                                    alert("All Fields Required!");
-                                }
-                                else if (this.state.type === '') {
-                                    alert("All Fields Required!");
-                                }
-                                else if (this.state.condition === '') {
-                                    alert("All Fields Required!");
-                                }
-                                else {
-                                    this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now());
-                                    this.props.navigation.goBack();
-                                }
-                            }
-                            }
                             >
                                 <Text style={styles.saveButtonText}>Save</Text>
                             </TouchableOpacity>
@@ -157,14 +182,15 @@ export default class sellForm extends React.Component {
     }
     getPermissionAsync = async () => {
         if (Constants.platform.ios) {
-            const { status } = await Permissions.askAsync(Permissions.CAMERA);
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
             if (status !== 'granted') {
                 alert('Sorry, we need camera roll permissions to make this work!');
             }
         }
     }
     _pickImage = async () => {
-        let result = await ImagePicker.launchCameraAsync({
+        let result = await ImagePicker.launchImageLibraryAsync({
+            //let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             aspect: [4, 3],
@@ -173,20 +199,32 @@ export default class sellForm extends React.Component {
 
         if (!result.cancelled) {
             this.uploadImage(result.uri, this.state.barcode)
+
+
+
             this.setState({ image: result.uri });
+
+
+            //imageURI = result.uri;
+
+
         }
     };
 
     uploadImage = async (uri, imageName) => {
         const { currentUser } = firebase.auth();
-        var str = "users/" + `${currentUser.uid}` + "/Sell/";
+        //var str = "users/" + `${currentUser.uid}` + "/Sell/";
 
         const response = await fetch(uri);
         const blob = await response.blob();
-        var ref = firebase.storage().ref().child(str + imageName);
+        var ref = firebase.storage().ref().child(imageName);
+        console.log(fetch(uri));
+        console.log(blob);
         return ref.put(blob);
     }
 }
+
+
 
 const styles = StyleSheet.create({
     container: {

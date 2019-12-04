@@ -6,6 +6,7 @@ import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import { Dropdown } from 'react-native-material-dropdown';
 
+var imageURI = "";
 
 export default class loanForm extends React.Component {
     constructor(props) {
@@ -23,14 +24,17 @@ export default class loanForm extends React.Component {
     state = {
         image: null,
     };
-    writeUserData(Email, Barcode, Price, Type, Condition) {
+
+    writeUserData(Email, Barcode, Price, Type, Condition, Date, Image) {
         const { currentUser } = firebase.auth();
         firebase.database().ref(`users/${currentUser.uid}/Loan/`).push({
-            Email,
+           Email,
             Barcode,
             Price,
             Type,
             Condition,
+            Date,
+            Image
 
         }).then((data) => {
             //success callback
@@ -41,6 +45,17 @@ export default class loanForm extends React.Component {
         })
     }
 
+    geturl() {
+        let storageRef = firebase.storage().ref(`${this.state.barcode}`);
+        storageRef.getDownloadURL().then(function (please) {
+            imageURI = please;
+            console.log((please));
+        }, function (error) {
+            imageURI = 'https://facebook.github.io/react-native/img/tiny_logo.png';
+            console.log(error);
+        }
+        )
+    }
     render() {
         let { image } = this.state;
 
@@ -115,28 +130,30 @@ export default class loanForm extends React.Component {
                         <View style={styles.inputContainer}>
                             <TouchableOpacity
                                 style={styles.saveButton} onPress={() => {
-                                if (this.state.email === '') {
-                                    alert("All Fields Required!");
+                                    if (this.state.email === '') {
+                                        alert("All Fields Required!");
+                                    }
+                                    else if (this.state.barcode === '') {
+                                        alert("All Fields Required!");
+                                    }
+                                    else if (this.state.price === '') {
+                                        alert("All Fields Required!");
+                                    }
+                                    else if (this.state.type === '') {
+                                        alert("All Fields Required!");
+                                    }
+                                    else if (this.state.condition === '') {
+                                        alert("All Fields Required!");
+                                    }
+                                    else {
+                                        this.geturl()
+                                        setTimeout(() => {
+                                            this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI);
+                                        }, 2000);
+                                        this.props.navigation.goBack();
+                                    }
                                 }
-                                else if (this.state.barcode === '') {
-                                    alert("All Fields Required!");
                                 }
-                                else if (this.state.price === '') {
-                                    alert("All Fields Required!");
-                                }
-                                else if (this.state.type === '') {
-                                    alert("All Fields Required!");
-                                }
-                                else if (this.state.condition === '') {
-                                    alert("All Fields Required!");
-                                }
-                                else {
-                                    this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition);
-                                    //Vibration.vibrate(1000);
-                                    this.props.navigation.goBack();
-                                }
-                            }
-                            }
                             >
                                 <Text style={styles.saveButtonText}>Save</Text>
                             </TouchableOpacity>
@@ -177,11 +194,11 @@ export default class loanForm extends React.Component {
 
     uploadImage = async (uri, imageName) => {
         const { currentUser } = firebase.auth();
-        var str = "users/" + `${currentUser.uid}` + "/Loan/";
+        //var str = "users/" + `${currentUser.uid}` + "/Loan/";
 
         const response = await fetch(uri);
         const blob = await response.blob();
-        var ref = firebase.storage().ref().child(str + imageName);
+        var ref = firebase.storage().ref().child(imageName);
         return ref.put(blob);
     }
 }
