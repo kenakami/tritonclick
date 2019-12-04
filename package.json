@@ -27,6 +27,7 @@
     "react-native-modal-dropdown": "^0.7.0",
     "react-native-pure-chart": "0.0.24",
     "react-native-simple-dialogs": "^1.2.0",
+    "react-native-switch": "^1.5.0",
     "react-native-web": "^0.11.4",
     "react-navigation": "^3.11.0"
   },
