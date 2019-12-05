@@ -3,6 +3,7 @@ import { Text, View, Button, TouchableOpacity,ScrollView } from 'react-native';
 import EStyleSheet from "react-native-extended-stylesheet";
 
 const HomePage = (props) => {
+
     return (
         <View style={{ justifyContent: "center", paddingHorizontal: 10, backgroundColor: color = '#6cb0d0', paddingTop: 20 }}>
             <ScrollView>
@@ -49,6 +50,19 @@ const HomePage = (props) => {
 
                     <TouchableOpacity style={styles.button} onPress={() => props.navigation.navigate('Rep')}>
                         <Text style={styles.text} >Settings</Text>
+                    </TouchableOpacity>
+
+					<TouchableOpacity style={styles.button} onPress={
+
+
+
+										() => props.navigation.navigate('chat')
+
+
+
+
+									}>
+                        <Text style={styles.text} >test</Text>
                     </TouchableOpacity>
 
 

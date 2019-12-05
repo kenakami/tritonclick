@@ -12,6 +12,7 @@ import myListings from "./src/screens/myListings";
 import Login from './src/screens/Login';
 import Item from './src/screens/components/Item';
 import Loan from './src/screens/loanForm';
+import Chat from './src/screens/Chat'
 import Sell from './src/screens/sellForm';
 import EStyleSheet from "react-native-extended-stylesheet";
 
@@ -48,6 +49,7 @@ const navigator = createStackNavigator(
         ListingLoan : viewListingsLoan,
         myListings: myListings,
         item: Item,
+		chat: Chat,
         loan: Loan,
         sell: Sell,
         displayBuy : DisplayBuy,

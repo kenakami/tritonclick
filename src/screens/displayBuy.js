@@ -11,6 +11,8 @@ var dataArr = []
 
 export default class displayBuy extends React.Component {
 
+
+
     constructor(props) {
         super(props)
 
@@ -70,6 +72,7 @@ export default class displayBuy extends React.Component {
         function errData(err) {
             console.log("error");
         }
+		
 
     }
 
