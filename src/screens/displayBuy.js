@@ -10,6 +10,8 @@ var dataArr = []
 
 export default class displayBuy extends React.Component {
 
+
+
     constructor(props) {
         super(props)
 
@@ -55,8 +57,9 @@ export default class displayBuy extends React.Component {
         }
 
         function errData(err) {
-            console.log("error");
+            console.log(err);
         }
+
 
     }
 
@@ -105,8 +108,8 @@ export default class displayBuy extends React.Component {
         }
 
         /* Options for each dropdown menu */
-        let type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
-        let cond = [{ value: 'Like New', }, { value: 'Used', }];
+        let type = [{ value: 'All' }, { value: 'iClicker 1', }, { value: 'iClicker 2', }];
+        let cond = [{ value: 'All' }, { value: 'Like New', }, { value: 'Used', }];
         let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }, { value: 'Condition', }, { value: 'Type', }];
 
 
@@ -118,7 +121,7 @@ export default class displayBuy extends React.Component {
 
         else {
             return (
-                /* Type, Condition, and Sort dropdown menusa */
+                /* Type, Condition, and Sort dropdown menus */
                 <View>
                     <View style={styles.header}>
                         <Text style={{fontSize: 20}}>Buy</Text>

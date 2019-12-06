@@ -3,6 +3,7 @@ import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity
 import { Dropdown } from 'react-native-material-dropdown';
 import { Dialog } from 'react-native-simple-dialogs';
 import * as firebase from 'firebase';
+import EStyleSheet from "react-native-extended-stylesheet";
 
 export default class Settings extends React.Component {
     constructor(props) {
@@ -18,7 +19,7 @@ export default class Settings extends React.Component {
         this.currentUser = firebase.auth().currentUser;
         firebase
             .database()
-            .ref('users/' + this.currentUser.uid + '/allow_notifications')
+            .ref('users/' + this.currentUser.uid + '/allow_notifications/')
             .set(AllowNotification);
     }
 
@@ -62,58 +63,22 @@ export default class Settings extends React.Component {
             <View style={styles.container}>
 
                 <ScrollView>
-                    <View style={styles.inputContainer}>
-
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder="Feedback"
-                            maxLength={100}
-                            keyboardType="default"
-                            autoCorrect={true}
-                            value={this.state.feedback}
-                            multiline={true}
-                            maxHeight={200}
-                            onChangeText={(feedback) => {
-                                this.setState({feedback})
-                            }}
-                        />
-                        <View style={styles.inputContainer}>
-                            <TouchableOpacity
-                                style={styles.saveButton}
-                            >
-                                <Text style={styles.saveButtonText} onPress={() => {this.submitFeedback(this.state.feedback)}} >Submit</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                        <View style={styles.inputContainer}>
-                            <TouchableOpacity
-                                style={styles.saveButton}
-                            >
-                                <Text style={styles.saveButtonText} onPress={() => this.setState({dialogVisible: true})} >View Terms and Conditions</Text>
-                            </TouchableOpacity>
-                        </View>
-
-
-                        <View style={styles.inputContainer}>
-                            <TouchableOpacity
-                                style={styles.saveButton}
-                            >
-                                <Text style={styles.saveButtonText} onPress={() => firebase.auth().signOut()} >Sign out</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                        <Dropdown
-                            label='Notifications'
-                            data={type}
-                            onChangeText={(allowNotification) => this.setState({ allowNotification })}
+                    <View style={styles.inputContainer}>  
+                        
+                          <Dropdown 
+                              label='Notifications'
+                              data={type}
+                              onChangeText={(allowNotification) => this.setState({ allowNotification })}
+                              allowNotification ={this.state.allowNotification}       
                             allowNotification ={this.state.allowNotification}
-                        />
+                              allowNotification ={this.state.allowNotification}       
+                          />
 
                         <View style={styles.inputContainer}>
                             <TouchableOpacity
-                                style={styles.saveButton}
+                                style={styles.submitButton}
                             >
-                                <Text style={styles.saveButtonText} onPress={() => {
+                                <Text style={styles.submitButtonText} onPress={() => {
 
                                     if (this.state.allowNotification === '') {
                                         alert("No changes made");
@@ -133,7 +98,38 @@ export default class Settings extends React.Component {
                             <TouchableOpacity
                                 style={styles.saveButton}
                             >
-                                <Text style={styles.saveButtonText} onPress={() => this.props.navigation.navigate('Page')} >Cancel</Text>
+                                <Text style={styles.saveButtonText} onPress={() => this.setState({dialogVisible: true})} >View Terms and Conditions</Text>
+                            </TouchableOpacity>
+                        </View>
+
+                        <Text style={styles.header}>Feedback</Text>
+                        <TextInput
+                            style={styles.textInput}
+                            placeholder="Feedback"
+                            maxLength={100}
+                            keyboardType="default"
+                            autoCorrect={true}
+                            value={this.state.feedback}
+                            multiline={true}
+                            maxHeight={200}
+                            onChangeText={(feedback) => {
+                                this.setState({feedback})
+                            }}
+                        />
+                        <View style={styles.inputContainer}>
+                            <TouchableOpacity
+                                style={styles.submitButton}
+                            >
+                                <Text style={styles.submitButtonText} onPress={() => {this.submitFeedback(this.state.feedback)}} >Submit</Text>
+                            </TouchableOpacity>
+                        </View>
+                        
+
+                        <View style={styles.inputContainer}>
+                            <TouchableOpacity
+                                style={styles.saveButton}
+                            >
+                                <Text style={styles.saveButtonText} onPress={() => firebase.auth().signOut()} >Sign out</Text>
                             </TouchableOpacity>
                         </View>
 
@@ -172,7 +168,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     inputContainer: {
-        paddingTop: 15
+        paddingTop: 15,
     },
     textInput: {
         borderColor: '#CCCCCC',
@@ -189,7 +185,7 @@ const styles = StyleSheet.create({
         borderColor: '#007BFF',
         backgroundColor: '#007BFF',
         padding: 15,
-        margin: 5
+        margin: 5,
     },
     saveButtonText: {
         color: '#FFFFFF',
@@ -198,6 +194,21 @@ const styles = StyleSheet.create({
     },
     text: {
         fontSize: 12
-    }
+    },
+    submitButton: {
+      borderWidth: 1,
+      alignContent: "center",
+      width: "30%",
+      borderColor: '#007BFF',
+      backgroundColor: '#007BFF',
+      padding: 15,
+      marginLeft: "35%",
+      marginBottom: 20,
+    },
+    submitButtonText: {
+      color: '#FFFFFF',
+      fontSize: 20,
+      textAlign: 'center'
+    },
 
 });

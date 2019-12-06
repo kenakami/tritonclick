@@ -9,11 +9,12 @@ export default class viewListingsBuyer extends React.Component {
 
     // Shortcut provided from Listing
     const { navigation } = this.props;
+	const clickerid = navigation.getParam('clickerid', 'default');
 
       return (
 
         <View style={styles.container}>
-  
+
           <ScrollView>
 
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
@@ -22,7 +23,7 @@ export default class viewListingsBuyer extends React.Component {
             <Text style={styles.header}>To Rent</Text>
 
             <Text style={styles.textInput}>Email: {JSON.stringify(navigation.getParam('Email', 'no email'))}</Text>
-  
+
             <Text style={styles.textInput}>Price: {JSON.stringify(navigation.getParam('Price', 'no price'))}</Text>
 
             <Text style={styles.textInput}>Type of iClicker: {JSON.stringify(navigation.getParam('Type', 'no type'))}</Text>
@@ -35,19 +36,27 @@ export default class viewListingsBuyer extends React.Component {
                 <TouchableOpacity
                   style={styles.saveButton}
                 >
-                  <Text style={styles.saveButtonText} onPress={() => alert("You have sent a message to the Loaner")} >Message</Text>
+                  <Text style={styles.saveButtonText} onPress={() => {
+					  this.props.navigation.navigate('chat', {
+		  listingId: clickerid,
+		 // sellerId:
+
+		});
+
+
+				  }} >Message</Text>
                 </TouchableOpacity>
 
               </View>
-  
+
             </View>
           </ScrollView>
-  
+
         </View>
       )
     }
   }
-  
+
   const styles = EStyleSheet.create({
     container: {
       flex: 1,
@@ -92,5 +101,5 @@ export default class viewListingsBuyer extends React.Component {
     text: {
       fontSize: 12
     }
-  
+
   });
