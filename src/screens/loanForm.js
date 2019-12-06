@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Image, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
@@ -28,7 +28,7 @@ export default class loanForm extends React.Component {
     writeUserData(Email, Barcode, Price, Type, Condition, Date, Image) {
         const { currentUser } = firebase.auth();
         firebase.database().ref(`users/${currentUser.uid}/Loan/`).push({
-           Email,
+            Email,
             Barcode,
             Price,
             Type,
@@ -50,15 +50,14 @@ export default class loanForm extends React.Component {
         storageRef.getDownloadURL().then(function (please) {
             imageURI = please;
             console.log((please));
-        }, function (error) {
+            }, function (error) {
             imageURI = 'https://facebook.github.io/react-native/img/tiny_logo.png';
             console.log(error);
         }
         )
     }
-    render() {
-        let { image } = this.state;
 
+    render() {
         let type = [{
             value: 'iClicker 1',
         }, {
@@ -107,7 +106,6 @@ export default class loanForm extends React.Component {
                             onChangeText={(price) => this.setState({ price })}
                             value={this.state.price}
                         />
-
 
                         <Dropdown
                             label='Type of iClicker'

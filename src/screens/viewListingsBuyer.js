@@ -9,28 +9,7 @@ export default class viewListingsBuyer extends React.Component {
 
     // Shortcut provided from Listing
     const { navigation } = this.props;
-/*
-    // Used for storage for picture
-    const { currentUser } = firebase.auth();
-
-    let storage = firebase.storage();
-    let storageRef = storage.ref(`users/${currentUser.uid}/`);
-    let picture = storageRef.child(`${navigation.getParam('Barcode')}.png`).getDownloadURL().then(function(url) {
-      // `url` is the download URL for 'images/stars.jpg'
-    
-      // This can be downloaded directly:
-      var xhr = new XMLHttpRequest();
-      xhr.responseType = 'blob';
-      xhr.onload = function(event) {
-        var blob = xhr.response;
-      };
-      xhr.open('GET', url);
-      xhr.send();
-
-    });*/
-
       return (
-
         <View style={styles.container}>
   
           <ScrollView>
@@ -39,6 +18,16 @@ export default class viewListingsBuyer extends React.Component {
             <View style={styles.inputContainer}>
   
               <Text style={styles.header}>To Buy</Text>
+
+
+              <Image
+                  source={{ uri: navigation.getParam() }}
+                  style={{
+                    width: 200,
+                    height: 200,
+                    resizeMode: 'center',
+                  }}
+              />
 
               <Text style={styles.textInput}>Email: {JSON.stringify(navigation.getParam('Email', 'no email'))}</Text>
   

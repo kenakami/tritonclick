@@ -1,6 +1,6 @@
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 
-
+import {Dimensions} from "react-native";
 import HomePage from './src/screens/HomePage';
 import Report from './src/screens/Report';
 import PriceTrends from './src/screens/PriceTrends';
@@ -19,10 +19,9 @@ import DisplayBuy from "./src/screens/displayBuy";
 import DisplayRent from "./src/screens/displayRent";
 
 
-
-
-
+var {height, width} = Dimensions.get('window')
 EStyleSheet.build({
+    $rem: width / 20
 });
 
 
@@ -65,7 +64,6 @@ const navigator = createStackNavigator(
           */
 
 //>>>>>>> login
-
     },
     {
         initialRouteName: 'Login', //What should show up first when app opens
@@ -73,7 +71,6 @@ const navigator = createStackNavigator(
             title: 'TritonClick',
             header: null,
         },
-
     }
 );
 

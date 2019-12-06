@@ -20,7 +20,6 @@ export default class myListings extends React.Component {
         let database = firebase.database();
         const { currentUser } = firebase.auth();
         let sellRef = database.ref(`users/${currentUser.uid}/Selling/`);
-        let  storageRef;
         let loanRef = database.ref(`users/${currentUser.uid}/Loan/`);
         sellRef.on('value', getSellData, errData);
         loanRef.on('value', getLoanData, errData);
@@ -35,15 +34,6 @@ export default class myListings extends React.Component {
                 let k = keys[i];
                 clicker[k].clickerid = k;
                 sellArr.push(clicker[k]);
-                storageRef = firebase.storage().ref(`/users/${currentUser.uid}/${clicker[k].Barcode}`);
-                storageRef.getDownloadURL().then( function(please) {
-                        clicker[k].url = please;
-                        console.log((please));
-                    }, function(error) {
-                        clicker[k].url = 'https://facebook.github.io/react-native/img/tiny_logo.png';
-                        console.log(error);
-                    }
-                )
 
                 //sellArr[i] = clicker[k];
             }
@@ -58,15 +48,6 @@ export default class myListings extends React.Component {
                 let k = keys[i];
                 clicker[k] .clickerid = k;
                 loanArr.push(clicker[k]);
-                storageRef = firebase.storage().ref(`/users/${currentUser.uid}/${clicker[k].Barcode}`);
-                storageRef.getDownloadURL().then( function(please) {
-                        clicker[k].url = please;
-                        console.log((please));
-                    }, function(error) {
-                        clicker[k].url = 'https://facebook.github.io/react-native/img/tiny_logo.png';
-                        console.log(error);
-                    }
-                )
                 //loanArr[i] = clicker[k];
             }
         }
@@ -102,7 +83,7 @@ export default class myListings extends React.Component {
                             data={sellArr}
                             renderItem={({ item }) => (
                                     <Item
-                                        picture={item.url}
+                                        picture={item.Image}
                                         description={item.Condition + " " + item.Type}
                                         price={item.Price}
                                         toViewListing={
@@ -119,7 +100,7 @@ export default class myListings extends React.Component {
                             data={loanArr}
                             renderItem={({ item }) => (
                                 <Item
-                                    picture={item.url}
+                                    picture={item.Image}
                                     description={item.Condition + " " + item.Type}
                                     price={item.Price}
                                     toViewListing={

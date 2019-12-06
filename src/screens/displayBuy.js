@@ -1,7 +1,6 @@
 import * as React from 'react';
-import { TouchableOpacity, StyleSheet, Text, View, ScrollView, FlatList, ActivityIndicator, TextInput} from 'react-native';
+import { TouchableOpacity, Text, View, ScrollView, FlatList, ActivityIndicator, TextInput} from 'react-native';
 import * as firebase from 'firebase';
-import { Card, ListItem } from 'react-native-elements';
 import { Dropdown } from "react-native-material-dropdown";
 import Item from "./components/Item";
 import EStyleSheet from "react-native-extended-stylesheet";
@@ -23,10 +22,8 @@ export default class displayBuy extends React.Component {
         /* Call to database */
         let database = firebase.database();
         let fer = database.ref('users/');
-        let storageRef;
-        let  currentUser = firebase.auth();
 
-        fer.once('value', getUsers, errData)
+        fer.on('value', getUsers, errData)
 
         function getUsers(data) {
             let users = data.val();
@@ -36,7 +33,7 @@ export default class displayBuy extends React.Component {
                 if (users[k].Selling !== null) {
                     let userID = users[k].user_id;
                     let ref = database.ref(`users/${userID}/Selling/`);
-                    ref.once('value', gotData, errData);
+                    ref.on('value', gotData, errData);
                 }
             }
             return dataArr;
@@ -49,21 +46,11 @@ export default class displayBuy extends React.Component {
             if( clicker==null ) {
                 return;
             }
-            keys = Object.keys(clicker);
+            let keys = Object.keys(clicker);
             for (var i = 0; i < keys.length; i++) {
                 let k = keys[i];
-                clicker[k].clickerId = k;
-                //dataArr[i] = clicker[k];
+                clicker[k].clickerid = k;
                 dataArr.push(clicker[k]);
-                storageRef = firebase.storage().ref(`users/${currentUser.uid}/${clicker[k].Barcode}`);
-                storageRef.getDownloadURL().then( function(please) {
-                        clicker[k].url = please;
-                        console.log((please));
-                    }, function(error) {
-                        clicker[k].url = 'https://facebook.github.io/react-native/img/tiny_logo.png';
-                        console.log(error);
-                    }
-                )
             }
         }
 
@@ -89,7 +76,7 @@ export default class displayBuy extends React.Component {
 
     render() {
 
-        var currData = []
+        var currData = [];
         for (var i = 0; i < dataArr.length; i++){
             if ((this.state.condition === 'All' || this.state.condition === dataArr[i].Condition) &&
                 (this.state.type === 'All' || this.state.type === dataArr[i].Type)) {
@@ -167,7 +154,7 @@ export default class displayBuy extends React.Component {
                             data={currData}
                             renderItem={({ item }) => (
                                 <Item
-                                    picture={item.url}
+                                    picture={item.Image}
                                     description={item.Condition + " " + item.Type}
                                     price={item.Price}
                                     toViewListing={

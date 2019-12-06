@@ -23,10 +23,8 @@ export default class displayRent extends React.Component {
 
         let database = firebase.database();
         let fer = database.ref('users/');
-        let storageRef;
-        let  currentUser = firebase.auth();
 
-        fer.once('value', getUsers, errData);
+        fer.on('value', getUsers, errData);
 
         function getUsers(data) {
             let users = data.val();
@@ -43,27 +41,19 @@ export default class displayRent extends React.Component {
         }
         function gotData(data) {
             let clicker = data.val();
+            if (clicker == null) {
+                return;
+            }
             let keys = Object.keys(clicker);
             for (var i = 0; i < keys.length; i++) {
                 let k = keys[i];
-                clicker[k].clickerId = k;
-                //dataArr[i] = clicker[k];
+                clicker[k].clickerid = k;
                 dataArr.push(clicker[k]);
-                console.log(dataArr[i]);
-                storageRef = firebase.storage().ref(`/users/${currentUser.uid}/${clicker[k].Barcode}`);
-                storageRef.getDownloadURL().then( function(please) {
-                        clicker[k].url = please;
-                        console.log((please));
-                    }, function(error) {
-                        clicker[k].url = 'https://facebook.github.io/react-native/img/tiny_logo.png';
-                        console.log(error);
-                    }
-                )
             }
 
         }
         function errData(err) {
-            console.log("error");
+            console.log(err);
         }
 
     }
@@ -161,7 +151,7 @@ export default class displayRent extends React.Component {
                             data={currData}
                             renderItem={({ item }) => (
                                 <Item
-                                    picture={item.url}
+                                    picture={item.Image}
                                     description={item.Condition + " " + item.Type}
                                     price={item.Price}
                                     toViewListing={

@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { Button, Image, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, Vibration } from 'react-native';
+import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import { Dropdown } from 'react-native-material-dropdown';
-import { getUnavailabilityReason } from 'expo/build/AR';
 
 var imageURI = "";
 
@@ -46,25 +45,19 @@ export default class sellForm extends React.Component {
         })
     }
 
-    //geturl(callback, Email, Barcode, Price, Type, Condition, Date){
     geturl() {
         let storageRef = firebase.storage().ref(`${this.state.barcode}`);
         storageRef.getDownloadURL().then(function (please) {
             imageURI = please;
             console.log((please));
-        }, function (error) {
+            }, function (error) {
             imageURI = 'https://facebook.github.io/react-native/img/tiny_logo.png';
             console.log(error);
         }
         )
     }
 
-
-
-
     render() {
-        let { image } = this.state;
-
         let type = [{
             value: 'iClicker 1',
         }, {
@@ -151,13 +144,10 @@ export default class sellForm extends React.Component {
                                         alert("All Fields Required!");
                                     }
                                     else {
-                                        //this.geturl(this.writeUserData, this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now());
                                         this.geturl()
                                         setTimeout(() => {
                                             this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI);
                                           }, 2000);
-                                        
-                                        
                                         this.props.navigation.goBack();
                                     }
                                 }
