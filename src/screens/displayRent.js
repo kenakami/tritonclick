@@ -46,7 +46,7 @@ export default class displayRent extends React.Component {
             let keys = Object.keys(clicker);
             for (var i = 0; i < keys.length; i++) {
                 let k = keys[i];
-                clicker[k].clickerId = k;
+                clicker[k].clickerid = k;
                 //dataArr[i] = clicker[k];
                 dataArr.push(clicker[k]);
                 console.log(dataArr[i]);

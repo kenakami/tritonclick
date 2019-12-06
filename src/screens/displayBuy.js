@@ -54,7 +54,7 @@ export default class displayBuy extends React.Component {
             keys = Object.keys(clicker);
             for (var i = 0; i < keys.length; i++) {
                 let k = keys[i];
-                clicker[k].clickerId = k;
+                clicker[k].clickerid = k;
                 //dataArr[i] = clicker[k];
                 dataArr.push(clicker[k]);
                 storageRef = firebase.storage().ref(`users/${currentUser.uid}/${clicker[k].Barcode}`);
@@ -72,7 +72,7 @@ export default class displayBuy extends React.Component {
         function errData(err) {
             console.log("error");
         }
-		
+
 
     }
 

@@ -8,11 +8,15 @@ export default class Chat extends React.Component {
 		name: '123',
 	  };
 
+
 	  get uid() {
    return (firebase.auth().currentUser || {}).uid;
  }
  get ref() {
-   return firebase.database().ref('messages');
+	 const { navigation } = this.props;
+	 console.log(navigation.getParam('listingId', 'NO-ID'));
+	 const listing = navigation.getParam('listingId', 'NO-ID');
+   return firebase.database().ref('messages/' + listing);
  }
 
  get timestamp() {
@@ -88,6 +92,7 @@ get user() {
 
 
 componentDidMount() {
+
 this.setName();
 
 
@@ -113,6 +118,7 @@ this.setName();
 	  }
 
 	  render() {
+
 	    return (
 	      <GiftedChat
 	        messages={this.state.messages}

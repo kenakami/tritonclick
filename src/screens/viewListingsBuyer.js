@@ -9,6 +9,8 @@ export default class viewListingsBuyer extends React.Component {
 
     // Shortcut provided from Listing
     const { navigation } = this.props;
+	const clickerid = navigation.getParam('clickerid', 'default');
+	
 /*
     // Used for storage for picture
     const { currentUser } = firebase.auth();
@@ -17,7 +19,7 @@ export default class viewListingsBuyer extends React.Component {
     let storageRef = storage.ref(`users/${currentUser.uid}/`);
     let picture = storageRef.child(`${navigation.getParam('Barcode')}.png`).getDownloadURL().then(function(url) {
       // `url` is the download URL for 'images/stars.jpg'
-    
+
       // This can be downloaded directly:
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'blob';
@@ -32,42 +34,50 @@ export default class viewListingsBuyer extends React.Component {
       return (
 
         <View style={styles.container}>
-  
+
           <ScrollView>
 
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
-  
+
               <Text style={styles.header}>To Buy</Text>
 
               <Text style={styles.textInput}>Email: {JSON.stringify(navigation.getParam('Email', 'no email'))}</Text>
-  
+
               <Text style={styles.textInput}>Price: {JSON.stringify(navigation.getParam('Price', 'no price'))}</Text>
 
               <Text style={styles.textInput}>Type of iClicker: {JSON.stringify(navigation.getParam('Type', 'no type'))}</Text>
-  
+
               <Text style={styles.textInput}>Condition: {JSON.stringify(navigation.getParam('Condition', 'no condition'))}</Text>
-  
+
               {/* TODO Display Picture*/}
               {/*<Image source={{uri:picture}}/>*/}
-              
+
               <View style={styles.inputContainer}>
                 <TouchableOpacity
                   style={styles.saveButton}
                 >
-                  <Text style={styles.saveButtonText} onPress={() => alert("You have sent a message to Seller")} >Message</Text>
+                  <Text style={styles.saveButtonText}
+					  onPress={() => {
+						  this.props.navigation.navigate('chat', {
+              listingId: clickerid
+
+            });
+
+
+					  }} >Message</Text>
                 </TouchableOpacity>
 
               </View>
-  
+
             </View>
           </ScrollView>
-  
+
         </View>
       )
     }
   }
-  
+
   const styles = EStyleSheet.create({
     container: {
       flex: 1,
@@ -112,5 +122,5 @@ export default class viewListingsBuyer extends React.Component {
     text: {
       fontSize: 12
     }
-  
+
   });
