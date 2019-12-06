@@ -10,7 +10,7 @@ export default class viewListingsBuyer extends React.Component {
     // Shortcut provided from Listing
     const { navigation } = this.props;
 	const clickerid = navigation.getParam('clickerid', 'default');
-	
+
 /*
     // Used for storage for picture
     const { currentUser } = firebase.auth();
@@ -60,7 +60,8 @@ export default class viewListingsBuyer extends React.Component {
                   <Text style={styles.saveButtonText}
 					  onPress={() => {
 						  this.props.navigation.navigate('chat', {
-              listingId: clickerid
+              listingId: clickerid,
+			 // sellerId:
 
             });
 

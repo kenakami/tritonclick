@@ -48,9 +48,12 @@ export default class displayBuy extends React.Component {
 
         function gotData(data) {
             let clicker = data.val();
+
+
             if( clicker==null ) {
                 return;
             }
+			console.log('data.val():' + data.key.ref);
             keys = Object.keys(clicker);
             for (var i = 0; i < keys.length; i++) {
                 let k = keys[i];

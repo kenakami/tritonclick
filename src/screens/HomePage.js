@@ -52,18 +52,6 @@ const HomePage = (props) => {
                         <Text style={styles.text} >Settings</Text>
                     </TouchableOpacity>
 
-					<TouchableOpacity style={styles.button} onPress={
-
-
-
-										() => props.navigation.navigate('chat')
-
-
-
-
-									}>
-                        <Text style={styles.text} >test</Text>
-                    </TouchableOpacity>
 
 
                 </View>
