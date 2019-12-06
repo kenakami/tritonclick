@@ -38,8 +38,6 @@ const navigator = createStackNavigator(
             }
         },
 
-//<<<<<<< HEAD
-
         Rep : Report,
         Price : PriceTrends,
         ListingBuyer : viewListingsBuyer,
@@ -53,19 +51,7 @@ const navigator = createStackNavigator(
         sell: Sell,
         displayBuy : DisplayBuy,
         displayRent : DisplayRent
-//=======
-        /*
-            Login: Login,
-            Page: HomePage,
-            SR : SellRent,
-            Rep : Report,
-            Price : PriceTrends,
-            Current : currListings,
-            BR : BuyRent,
-            form : Form,
-          */
 
-//>>>>>>> login
     },
     {
         initialRouteName: 'Login', //What should show up first when app opens

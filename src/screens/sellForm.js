@@ -27,6 +27,7 @@ export default class sellForm extends React.Component {
 
     writeUserData(Email, Barcode, Price, Type, Condition, Date, Image) {
         const { currentUser } = firebase.auth();
+        let UserID = currentUser.uid;
         firebase.database().ref(`users/${currentUser.uid}/Selling/`).push({
             Email,
             Barcode,
@@ -34,7 +35,8 @@ export default class sellForm extends React.Component {
             Type,
             Condition,
             Date,
-            Image
+            Image,
+            UserID
 
         }).then((data) => {
             //success callback
