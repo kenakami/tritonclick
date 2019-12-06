@@ -128,7 +128,7 @@ export default class displayBuy extends React.Component {
                     </View>
                         <View style={styles.dropdown}>
                             <Dropdown
-                                containerStyle={{width: 120, top: 30}}
+                                containerStyle={{width: 120, top: 10}}
                                 autosize={false}
                                 label='Type'
                                 data={type}
@@ -136,7 +136,7 @@ export default class displayBuy extends React.Component {
                                 value = {this.state.type}
                             />
                             <Dropdown
-                                containerStyle={{width: 120, top: 30}}
+                                containerStyle={{width: 120, top: 10}}
                                 autosize={false}
                                 label='Condition'
                                 data={cond}
@@ -144,7 +144,7 @@ export default class displayBuy extends React.Component {
                                 value = {this.state.condition}
                             />
                             <Dropdown
-                                containerStyle={{width: 120, top: 30}}
+                                containerStyle={{width: 120, top: 10}}
                                 autosize={false}
                                 label='Sort By'
                                 data={sortConditions}
@@ -155,6 +155,7 @@ export default class displayBuy extends React.Component {
                     <ScrollView>
                         <FlatList
                             data={currData}
+                            contentContainerStyle = {{justifyContent:'center',}}
                             renderItem={({ item }) => (
                                 <Item
                                     picture={item.Image}
