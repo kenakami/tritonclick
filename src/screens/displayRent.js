@@ -102,8 +102,8 @@ export default class displayRent extends React.Component {
 
         }
 
-        let type = [{ value: 'iClicker 1', }, { value: 'iClicker 2', }];
-        let cond = [{ value: 'Like New', }, { value: 'Used', }];
+        let type = [{ value: 'All' }, { value: 'iClicker 1', }, { value: 'iClicker 2', }];
+        let cond = [{ value: 'All' }, { value: 'Like New', }, { value: 'Used', }];
         let sortConditions = [{ value: 'Price', }, { value: 'Posted Date', }, { value: 'Condition', }, { value: 'Type', }];
 
 
@@ -121,7 +121,7 @@ export default class displayRent extends React.Component {
                     </View>
                         <View style={styles.dropdown}>
                             <Dropdown
-                                containerStyle={{width: 120, top: 30}}
+                                containerStyle={{width: 120, top: 10}}
                                 autosize={false}
                                 label='Type'
                                 data={type}
@@ -129,7 +129,7 @@ export default class displayRent extends React.Component {
                                 value = {this.state.type}
                             />
                             <Dropdown
-                                containerStyle={{width: 120, top: 30}}
+                                containerStyle={{width: 120, top: 10}}
                                 autosize={false}
                                 label='Condition'
                                 data={cond}
@@ -137,7 +137,7 @@ export default class displayRent extends React.Component {
                                 value = {this.state.condition}
                             />
                             <Dropdown
-                                containerStyle={{width: 120, top: 30}}
+                                containerStyle={{width: 120, top: 10}}
                                 autosize={false}
                                 label='Sort By'
                                 data={sortConditions}
