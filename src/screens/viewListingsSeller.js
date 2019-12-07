@@ -41,18 +41,18 @@ export default class viewListingsSeller extends React.Component {
 
   deleteListing(clickerid) {
     const { currentUser } = firebase.auth();
+    firebase.storage().ref(`${this.state.barcode}`).remove();
     firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).remove();
   }
 
-  storeSale(clickerType, price, type, condition){
+  storeSale(clickerType, price, condition){
     // Stores in database for price trends
     if(clickerType == 'iClicker 2'){
-      let date = new Date().toLocaleString().split(" ");
       firebase.database().ref(`sales/`).push({
         price,
         timestamp: new Date().toLocaleString(),
-        month: date[1],
-        type,
+        month: new Date().getMonth()+1,
+        clickerType,
         condition,
       }).then((data) => {
         //success callback
@@ -165,7 +165,7 @@ export default class viewListingsSeller extends React.Component {
                                           {text: 'Cancel', style: 'cancel'},
                                           {text: 'OK', onPress: () =>{
                                               this.deleteListing(clickerid),
-                                                  this.storeSale(this.state.type, this.state.price, this.state.type, this.state.condition),
+                                                  this.storeSale(this.state.type, this.state.price, this.state.condition),
                                                   this.props.navigation.navigate('Page') }
                                           }
                                         ]

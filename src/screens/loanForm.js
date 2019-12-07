@@ -193,9 +193,6 @@ export default class loanForm extends React.Component {
     };
 
     uploadImage = async (uri, imageName) => {
-        const { currentUser } = firebase.auth();
-        //var str = "users/" + `${currentUser.uid}` + "/Loan/";
-
         const response = await fetch(uri);
         const blob = await response.blob();
         var ref = firebase.storage().ref().child(imageName);
