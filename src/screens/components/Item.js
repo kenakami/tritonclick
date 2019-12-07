@@ -4,14 +4,6 @@ import EStyleSheet from "react-native-extended-stylesheet";
 import * as firebase from "firebase";
 
 export default class Item extends React.Component {
-/*
-    componentDidMount() {
-        const db = firebase.firestore();
-        let dRef = db.collection("users");
-        const currUser = firebase.auth;
-        dref.get(`${currUser.uid}`).then()
-    }
-*/
     render() {
         return(
             <View>
