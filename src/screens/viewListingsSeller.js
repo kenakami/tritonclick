@@ -68,6 +68,7 @@ export default class viewListingsSeller extends React.Component {
     // Get listing information through param
     const { navigation } = this.props;
     const clickerid = navigation.getParam('clickerid', 'default');
+    const image = navigation.getParam('Image', 'default');
 
 	this.currentUser =  firebase.auth().currentUser;
 

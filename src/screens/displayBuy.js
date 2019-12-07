@@ -9,9 +9,6 @@ import EStyleSheet from "react-native-extended-stylesheet";
 var dataArr = []
 
 export default class displayBuy extends React.Component {
-
-
-
     constructor(props) {
         super(props)
 
@@ -35,7 +32,7 @@ export default class displayBuy extends React.Component {
                 if (users[k].Selling !== null) {
                     let userID = users[k].user_id;
                     let ref = database.ref(`users/${userID}/Selling/`);
-                    ref.on('value', gotData, errData);
+                    ref.once('value', gotData, errData);
                 }
             }
             return dataArr;
@@ -155,7 +152,6 @@ export default class displayBuy extends React.Component {
                     <ScrollView>
                         <FlatList
                             data={currData}
-                            contentContainerStyle = {{justifyContent:'center',}}
                             renderItem={({ item }) => (
                                 <Item
                                     picture={item.Image}

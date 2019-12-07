@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import { Alert, Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { Alert, Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, Image} from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
+import EStyleSheet from "react-native-extended-stylesheet";
 
 
 export default class viewListingsLoan extends React.Component {
@@ -42,6 +43,7 @@ export default class viewListingsLoan extends React.Component {
 
   deleteListing(clickerid) {
     const { currentUser } = firebase.auth();
+    firebase.storage().ref(`${this.state.barcode}`).remove();
     firebase.database().ref(`/users/${currentUser.uid}/Loan/${clickerid}`).remove();
   }
 
@@ -50,6 +52,8 @@ export default class viewListingsLoan extends React.Component {
     const { navigation } = this.props;
     const clickerid = navigation.getParam('clickerid', 'default');
 	this.currentUser =  firebase.auth().currentUser;
+    const image = navigation.getParam('Image', 'default');
+
     function Separator() {
       return <View style={styles.separator} />;
     }
@@ -62,6 +66,9 @@ export default class viewListingsLoan extends React.Component {
       <View style={styles.container}>
 
         <ScrollView>
+          <View style={styles.imageContainer}>
+            <Image source={{uri: image}} style={styles.image}/>
+          </View>
 
           {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
           <View style={styles.inputContainer}>
@@ -218,7 +225,17 @@ export default class viewListingsLoan extends React.Component {
 
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
+  image: {
+    flex: 1,
+    width: '20rem',
+    height: '16rem',
+    resizeMode: 'contain',
+  },
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     paddingTop: 45,

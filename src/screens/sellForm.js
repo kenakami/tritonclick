@@ -191,27 +191,14 @@ export default class sellForm extends React.Component {
 
         if (!result.cancelled) {
             this.uploadImage(result.uri, this.state.barcode)
-
-
-
             this.setState({ image: result.uri });
-
-
-            //imageURI = result.uri;
-
-
         }
     };
 
     uploadImage = async (uri, imageName) => {
-        const { currentUser } = firebase.auth();
-        //var str = "users/" + `${currentUser.uid}` + "/Sell/";
-
         const response = await fetch(uri);
         const blob = await response.blob();
         var ref = firebase.storage().ref().child(imageName);
-        console.log(fetch(uri));
-        console.log(blob);
         return ref.put(blob);
     }
 }
