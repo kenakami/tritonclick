@@ -25,7 +25,8 @@ export default class sellForm extends React.Component {
         image: null,
     };
 
-    writeUserData(Email, Barcode, Price, Type, Condition, Date, Image) {
+
+    writeUserData(Email, Barcode, Price, Type, Condition, Date, Image, Name) {
         const { currentUser } = firebase.auth();
         let UserID = currentUser.uid;
         firebase.database().ref(`users/${currentUser.uid}/Selling/`).push({
@@ -36,7 +37,8 @@ export default class sellForm extends React.Component {
             Condition,
             Date,
             Image,
-            UserID
+            UserID,
+            Name
 
         }).then((data) => {
             //success callback
@@ -148,7 +150,9 @@ export default class sellForm extends React.Component {
                                     else {
                                         this.geturl()
                                         setTimeout(() => {
-                                            this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI);
+                                            const {currentUser} = firebase.auth();
+                                            console.log(currentUser);
+                                            this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI, currentUser.displayName );
                                           }, 2000);
                                         this.props.navigation.goBack();
                                     }
@@ -174,15 +178,15 @@ export default class sellForm extends React.Component {
     }
     getPermissionAsync = async () => {
         if (Constants.platform.ios) {
-            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            const { status } = await Permissions.askAsync(Permissions.CAMERA);
             if (status !== 'granted') {
                 alert('Sorry, we need camera roll permissions to make this work!');
             }
         }
     }
     _pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            //let result = await ImagePicker.launchCameraAsync({
+        //let result = await ImagePicker.launchImageLibraryAsync({
+            let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             aspect: [4, 3],
@@ -199,6 +203,7 @@ export default class sellForm extends React.Component {
         const response = await fetch(uri);
         const blob = await response.blob();
         var ref = firebase.storage().ref().child(imageName);
+        alert("Image uploaded");
         return ref.put(blob);
     }
 }

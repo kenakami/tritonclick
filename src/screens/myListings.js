@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, FlatList, ScrollView} from 'react-native';
+import {Text, View, FlatList, ScrollView, ActivityIndicator} from 'react-native';
 import Item from "./components/Item";
 import EStyleSheet, {child} from "react-native-extended-stylesheet";
 import * as firebase from 'firebase';
@@ -69,11 +69,10 @@ export default class myListings extends React.Component {
     }
 
     render() {
-        if( !this.state.timePassed ) {
-            return (
-                <View style={styles.container}>
-                    <Text>Loading...</Text>
-                </View>)
+        if (!this.state.timePassed) {
+            return <View style={styles.loadScreen}>
+                <ActivityIndicator size="large" style={styles.wheel} />
+            </View>;
         } else {
             return(
                 <View nestedScrollEnabled={true}>
@@ -130,5 +129,11 @@ const styles = EStyleSheet.create({
     button: {
         backgroundColor: '#DDDDDD',
         padding: 10,
-    }
+    },
+    loadScreen: {
+        alignSelf: "center"
+    },
+    wheel: {
+        marginTop: "50%"
+    },
 });

@@ -21,18 +21,21 @@ export default class displayBuy extends React.Component {
         /* Call to database */
         let database = firebase.database();
         let fer = database.ref('users/');
-
-        fer.on('value', getUsers, errData)
+        let { currentUser } = firebase.auth();
+        fer.once('value', getUsers, errData)
 
         function getUsers(data) {
             let users = data.val();
             let keys = Object.keys(users);
             for (var i = 0; i < keys.length; i++) {
-                let k = keys[i]
+                let k = keys[i];
+                let userID = users[k].user_id;
+                if ( userID == currentUser.uid ) {
+                    continue;
+                }
                 if (users[k].Selling !== null) {
-                    let userID = users[k].user_id;
                     let ref = database.ref(`users/${userID}/Selling/`);
-                    ref.on('value', gotData, errData);
+                    ref.once('value', gotData, errData);
                 }
             }
             return dataArr;

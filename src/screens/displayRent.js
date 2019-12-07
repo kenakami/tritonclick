@@ -24,17 +24,20 @@ export default class displayRent extends React.Component {
         let database = firebase.database();
         let fer = database.ref('users/');
 
-        fer.on('value', getUsers, errData);
+        fer.once('value', getUsers, errData);
 
         function getUsers(data) {
             let users = data.val();
             let keys = Object.keys(users);
             for (var i = 0; i < keys.length; i++) {
-                let k = keys[i]
+                let k = keys[i];
+                let userID = users[k].user_id;
+                if ( userID == currentUser.uid ) {
+                    continue;
+                }
                 if (users[k].Loan != null) {
-                    let userID = users[k].user_id;
                     let ref = database.ref(`users/${userID}/Loan/`);
-                    ref.on('value', gotData, errData);
+                    ref.once('value', gotData, errData);
                 }
             }
             return dataArr;

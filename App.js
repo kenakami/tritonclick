@@ -26,19 +26,27 @@ EStyleSheet.build({
 });
 
 
-
-
 const navigator = createStackNavigator(
     {
-        Login: Login,
+        Login: {
+            screen: Login,
+            navigationOptions: {
+                header: null,
+            }
+        },
         Page: {
             screen: HomePage,
             navigationOptions: {
                 gesturesEnabled: false,
+                header: null,
             }
         },
-
-        Rep : Report,
+        Rep : {
+            screen: Report,
+            navigationOptions: {
+                header: null,
+            }
+        },
         Price : PriceTrends,
         ListingBuyer : viewListingsBuyer,
         ListingRent : viewListingsRent,
@@ -57,7 +65,6 @@ const navigator = createStackNavigator(
         initialRouteName: 'Login', //What should show up first when app opens
         defaultNavigationOptions: {
             title: 'TritonClick',
-            header: null,
         },
     }
 );

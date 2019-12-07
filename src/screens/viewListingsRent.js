@@ -26,13 +26,13 @@ export default class viewListingsBuyer extends React.Component {
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
 
-            <Text style={styles.textInput}>Email: {JSON.stringify(navigation.getParam('Email', 'no email'))}</Text>
+            <Text style={styles.textInput}>Created By: {navigation.getParam('Email', 'no email')}</Text>
 
-            <Text style={styles.textInput}>Price: {JSON.stringify(navigation.getParam('Price', 'no price'))}</Text>
+            <Text style={styles.textInput}>Price: {navigation.getParam('Price', 'no price')}</Text>
 
-            <Text style={styles.textInput}>Type of iClicker: {JSON.stringify(navigation.getParam('Type', 'no type'))}</Text>
+            <Text style={styles.textInput}>Type of iClicker: {navigation.getParam('Type', 'no type')}</Text>
 
-            <Text style={styles.textInput}>Condition: {JSON.stringify(navigation.getParam('Condition', 'no condition'))}</Text>
+            <Text style={styles.textInput}>Condition: {navigation.getParam('Condition', 'no condition')}</Text>
 
             {/* TODO Display Picture*/}
 

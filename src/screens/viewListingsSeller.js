@@ -46,6 +46,7 @@ export default class viewListingsSeller extends React.Component {
     }, function(error) {
       console.log(error);
     });
+    firebase.database().ref(`/messages/${clickerid}/`).remove();
     firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).remove();
   }
 

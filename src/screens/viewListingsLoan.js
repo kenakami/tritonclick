@@ -48,6 +48,7 @@ export default class viewListingsLoan extends React.Component {
     }, function(error) {
       console.log(error);
     });
+    firebase.database().ref(`/messages/${clickerid}`).remove();
     firebase.database().ref(`/users/${currentUser.uid}/Loan/${clickerid}`).remove();
   }
 

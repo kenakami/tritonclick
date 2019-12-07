@@ -25,7 +25,7 @@ export default class loanForm extends React.Component {
         image: null,
     };
 
-    writeUserData(Email, Barcode, Price, Type, Condition, Date, Image) {
+    writeUserData(Email, Barcode, Price, Type, Condition, Date, Image, Name) {
         const { currentUser } = firebase.auth();
         let UserID = currentUser.uid;
         firebase.database().ref(`users/${currentUser.uid}/Loan/`).push({
@@ -36,7 +36,8 @@ export default class loanForm extends React.Component {
             Condition,
             Date,
             Image,
-            UserID
+            UserID,
+            Name
 
         }).then((data) => {
             //success callback
@@ -147,8 +148,9 @@ export default class loanForm extends React.Component {
                                     }
                                     else {
                                         this.geturl()
+                                        const {currentUser} = firebase.auth();
                                         setTimeout(() => {
-                                            this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI);
+                                            this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI, currentUser.displayName);
                                         }, 2000);
                                         this.props.navigation.goBack();
                                     }
