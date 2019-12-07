@@ -43,7 +43,11 @@ export default class viewListingsLoan extends React.Component {
 
   deleteListing(clickerid) {
     const { currentUser } = firebase.auth();
-    firebase.storage().ref(`${this.state.barcode}`).remove();
+    firebase.storage().ref(`${this.state.barcode}`).delete().then( function() {
+      console.log("Delete Successful");
+    }, function(error) {
+      console.log(error);
+    });
     firebase.database().ref(`/users/${currentUser.uid}/Loan/${clickerid}`).remove();
   }
 
