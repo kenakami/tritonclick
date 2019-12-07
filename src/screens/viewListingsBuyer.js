@@ -11,7 +11,7 @@ export default class viewListingsBuyer extends React.Component {
     const { navigation } = this.props;
 	const clickerid = navigation.getParam('clickerid', 'default');
 	const sellerid = navigation.getParam('UserID' , 'default');
-	console.log(sellerid);
+	
 
       return (
         <View style={styles.container}>
