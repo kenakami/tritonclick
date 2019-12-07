@@ -49,7 +49,7 @@ export default class viewListingsLoan extends React.Component {
     // Get listing information through param
     const { navigation } = this.props;
     const clickerid = navigation.getParam('clickerid', 'default');
-
+	this.currentUser =  firebase.auth().currentUser;
     function Separator() {
       return <View style={styles.separator} />;
     }
@@ -113,7 +113,7 @@ export default class viewListingsLoan extends React.Component {
 
             {/*Buttons go on the bottom */}
             {/* To implement functionality */}
-           
+
             <View style={styles.inputContainer}>
 
               <TouchableOpacity style={styles.blueButton} backgroundColor='blue' borderColor='blue'
@@ -161,7 +161,7 @@ export default class viewListingsLoan extends React.Component {
                     [
                       {text: 'Cancel', style: 'cancel'},
                       {text: 'OK', onPress: () =>{
-                        this.deleteListing(clickerid), 
+                        this.deleteListing(clickerid),
                         this.props.navigation.navigate('Page') }
                       }
                     ]
@@ -179,7 +179,7 @@ export default class viewListingsLoan extends React.Component {
                     [
                       {text: 'Cancel', style: 'cancel'},
                       {text: 'OK', onPress: () =>{
-                        this.deleteListing(clickerid), 
+                        this.deleteListing(clickerid),
                         this.props.navigation.navigate('Page') }
                       }
                     ]
@@ -188,12 +188,25 @@ export default class viewListingsLoan extends React.Component {
                 <Text style={styles.buttonText}>Delete</Text>
               </TouchableOpacity>
 
+
+			  <TouchableOpacity style={styles.redButton} backgroundColor='red' borderColor='red'
+				onPress= {() => {
+
+				  this.props.navigation.navigate('chat', {
+				  listingId: clickerid,
+				   sellerId: this.currentUser.uid,
+
+				  });
+				}}>
+				<Text style={styles.buttonText}>Messages</Text>
+			  </TouchableOpacity>
+
               {/* TODO
                 More functionality needed:
                   - Rental start/end - keep track?
                   - Pictures
               */}
-              
+
             </View>
 
           </View>
@@ -202,9 +215,9 @@ export default class viewListingsLoan extends React.Component {
       </View>
     );
   }
-  
+
 }
-  
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

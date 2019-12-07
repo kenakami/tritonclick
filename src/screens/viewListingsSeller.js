@@ -68,7 +68,7 @@ export default class viewListingsSeller extends React.Component {
     // Get listing information through param
     const { navigation } = this.props;
     const clickerid = navigation.getParam('clickerid', 'default');
-
+	this.currentUser =  firebase.auth().currentUser;
     function Separator() {
       return <View style={styles.separator} />;
     }
@@ -154,6 +154,18 @@ export default class viewListingsSeller extends React.Component {
                                   }}>
                   <Text style={styles.buttonText}>Save</Text>
                 </TouchableOpacity>
+
+				<TouchableOpacity style={styles.redButton} backgroundColor='red' borderColor='red'
+				  onPress= {() => {
+
+					this.props.navigation.navigate('chat', {
+					listingId: clickerid,
+					 sellerId: this.currentUser.uid,
+
+					});
+				  }}>
+				  <Text style={styles.buttonText}>Messages</Text>
+				</TouchableOpacity>
 
 
                 <TouchableOpacity style={styles.greenButton} backgroundColor='green' borderColor='green'

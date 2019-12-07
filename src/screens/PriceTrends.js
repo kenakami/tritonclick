@@ -24,7 +24,7 @@ setDataSet() {
 	let ref4 = firebase.database().ref('sales/' + this.state.labels[4]);
 	let ref5 = firebase.database().ref('sales/' + this.state.labels[5]);
 	var that = this;
-    
+
     ref0.once("value")
 	 .then(function(snapshot) {
 	   const val = snapshot.val();
@@ -101,7 +101,7 @@ setDataSet() {
                 if(snapshot.val() && snapshot.val() == 'Dec'){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                         month5.push(parseFloat(snapshot.val()));
-                        
+
                         this.state.dataset[5] = this.getAverage(month5);
                         this.setState({dataset: this.state.dataset});
 
@@ -109,7 +109,7 @@ setDataSet() {
                 }else if(snapshot.val() && snapshot.val() == 'Nov'){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                         month4.push(parseFloat(snapshot.val()));
-                        
+
                         this.state.dataset[4] = this.getAverage(month4);
                         this.setState({dataset: this.state.dataset});
 
@@ -117,7 +117,7 @@ setDataSet() {
                 }else if(snapshot.val() && snapshot.val() == 'Oct'){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                         month3.push(parseFloat(snapshot.val()));
-                        
+
                         this.state.dataset[3] = this.getAverage(month3);
                         this.setState({dataset: this.state.dataset});
 
@@ -145,10 +145,10 @@ setDataSet() {
                     });
                 }
             });
-            
+
         });
     });
-    
+
 }
 
 getAverage(monthSales){
