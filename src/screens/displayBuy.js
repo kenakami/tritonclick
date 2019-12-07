@@ -155,7 +155,6 @@ export default class displayBuy extends React.Component {
                     <ScrollView>
                         <FlatList
                             data={currData}
-                            contentContainerStyle = {{justifyContent:'center',}}
                             renderItem={({ item }) => (
                                 <Item
                                     picture={item.Image}
