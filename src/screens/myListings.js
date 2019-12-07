@@ -120,12 +120,12 @@ export default class myListings extends React.Component {
 
 const styles = EStyleSheet.create({
     container:{
-        paddingTop: '3rem',
+        paddingTop: '2rem',
         width: '20rem',
         height: '15rem',
     },
     text: {
-        fontSize: 20,
+        fontSize: '1.5rem',
     },
     button: {
         backgroundColor: '#DDDDDD',

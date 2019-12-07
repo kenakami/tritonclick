@@ -32,7 +32,7 @@ export default class displayBuy extends React.Component {
                 if (users[k].Selling !== null) {
                     let userID = users[k].user_id;
                     let ref = database.ref(`users/${userID}/Selling/`);
-                    ref.once('value', gotData, errData);
+                    ref.on('value', gotData, errData);
                 }
             }
             return dataArr;
@@ -75,7 +75,6 @@ export default class displayBuy extends React.Component {
     }
 
     render() {
-
         var currData = [];
         for (var i = 0; i < dataArr.length; i++){
             if ((this.state.condition === 'All' || this.state.condition === dataArr[i].Condition) &&
