@@ -41,15 +41,11 @@ export default class viewListingsSeller extends React.Component {
 
   deleteListing(clickerid) {
     const { currentUser } = firebase.auth();
-<<<<<<< HEAD
-    firebase.storage().ref(`${this.state.barcode}`).delete();
-=======
     firebase.storage().ref(`${this.state.barcode}`).delete().then( function() {
       console.log("Delete Successful");
     }, function(error) {
       console.log(error);
     });
->>>>>>> ab2d8cabb86dcac6fe468566a68dd81dcf845c31
     firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).remove();
   }
 

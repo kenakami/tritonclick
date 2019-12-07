@@ -43,15 +43,11 @@ export default class viewListingsLoan extends React.Component {
 
   deleteListing(clickerid) {
     const { currentUser } = firebase.auth();
-<<<<<<< HEAD
-    firebase.storage().ref(`${this.state.barcode}`).delete();
-=======
     firebase.storage().ref(`${this.state.barcode}`).delete().then( function() {
       console.log("Delete Successful");
     }, function(error) {
       console.log(error);
     });
->>>>>>> ab2d8cabb86dcac6fe468566a68dd81dcf845c31
     firebase.database().ref(`/users/${currentUser.uid}/Loan/${clickerid}`).remove();
   }
 
@@ -59,12 +55,8 @@ export default class viewListingsLoan extends React.Component {
     // Get listing information through param
     const { navigation } = this.props;
     const clickerid = navigation.getParam('clickerid', 'default');
-<<<<<<< HEAD
+	  this.currentUser =  firebase.auth().currentUser;
     const image = navigation.getParam('Image', 'https://facebook.github.io/react-native/img/tiny_logo.png');
-=======
-	this.currentUser =  firebase.auth().currentUser;
-    const image = navigation.getParam('Image', 'default');
->>>>>>> ab2d8cabb86dcac6fe468566a68dd81dcf845c31
 
     function Separator() {
       return <View style={styles.separator} />;
