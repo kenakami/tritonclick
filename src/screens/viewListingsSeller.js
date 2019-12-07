@@ -72,7 +72,7 @@ export default class viewListingsSeller extends React.Component {
 
 	this.currentUser =  firebase.auth().currentUser;
 
-    const image = navigation.getParam('Image', 'default');
+    
 
 
     function Separator() {
