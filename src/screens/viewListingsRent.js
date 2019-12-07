@@ -9,8 +9,13 @@ export default class viewListingsBuyer extends React.Component {
 
     // Shortcut provided from Listing
     const { navigation } = this.props;
+<<<<<<< HEAD
     const clickerid = navigation.getParam('clickerid', 'default');
     const image = navigation.getParam('Image', 'https://facebook.github.io/react-native/img/tiny_logo.png');
+=======
+	const clickerid = navigation.getParam('clickerid', 'default');
+	const sellerid = navigation.getParam('UserID' , 'default');
+>>>>>>> ab2d8cabb86dcac6fe468566a68dd81dcf845c31
 
       return (
 
@@ -41,7 +46,7 @@ export default class viewListingsBuyer extends React.Component {
                   <Text style={styles.saveButtonText} onPress={() => {
 					  this.props.navigation.navigate('chat', {
 		  listingId: clickerid,
-		 // sellerId:
+		 sellerId: sellerid,
 
 		});
 

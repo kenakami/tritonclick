@@ -1,6 +1,7 @@
 import React from 'react';
 import { GiftedChat } from 'react-native-gifted-chat';
 import * as firebase from 'firebase';
+import * as fromNotification from "../Notification";
 
 export default class Chat extends React.Component {
 	state = {
@@ -14,7 +15,6 @@ export default class Chat extends React.Component {
  }
  get ref() {
 	 const { navigation } = this.props;
-	 console.log(navigation.getParam('listingId', 'NO-ID'));
 	 const listing = navigation.getParam('listingId', 'NO-ID');
    return firebase.database().ref('messages/' + listing);
  }
@@ -64,8 +64,16 @@ setName() {
 	          user,
 	          timestamp: this.timestamp,
 	        };
+			var body = message.text
 	        this.append(message);
 	      }
+
+		  const { navigation } = this.props;
+		  const seller = navigation.getParam('sellerId', 'NO-ID');
+		  if(this.uid != seller )
+		  {
+			  fromNotification.sendPushNotification(this.state.name + ' says:', body, seller );
+		  }
 	    };
 
 		append = message => this.ref.push(message);
@@ -83,24 +91,9 @@ get user() {
   };
 }
 
-
-
-
-
-
-
-
-
 componentDidMount() {
 
 this.setName();
-
-
-
-
-
-
-
 
 
 
@@ -112,9 +105,11 @@ this.setName();
 }
 
 	  onSend(messages = []) {
+
 	    this.setState((previousState) => ({
 	      messages: GiftedChat.append(previousState.messages, messages),
 	    }));
+
 	  }
 
 	  render() {

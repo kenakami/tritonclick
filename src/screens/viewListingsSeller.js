@@ -41,7 +41,15 @@ export default class viewListingsSeller extends React.Component {
 
   deleteListing(clickerid) {
     const { currentUser } = firebase.auth();
+<<<<<<< HEAD
     firebase.storage().ref(`${this.state.barcode}`).delete();
+=======
+    firebase.storage().ref(`${this.state.barcode}`).delete().then( function() {
+      console.log("Delete Successful");
+    }, function(error) {
+      console.log(error);
+    });
+>>>>>>> ab2d8cabb86dcac6fe468566a68dd81dcf845c31
     firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).remove();
   }
 
@@ -69,6 +77,11 @@ export default class viewListingsSeller extends React.Component {
     const { navigation } = this.props;
     const clickerid = navigation.getParam('clickerid', 'default');
     const image = navigation.getParam('Image', 'https://facebook.github.io/react-native/img/tiny_logo.png');
+
+	this.currentUser =  firebase.auth().currentUser;
+
+    
+
 
     function Separator() {
       return <View style={styles.separator} />;
@@ -157,6 +170,18 @@ export default class viewListingsSeller extends React.Component {
                                   }}>
                   <Text style={styles.buttonText}>Save</Text>
                 </TouchableOpacity>
+
+				<TouchableOpacity style={styles.redButton} backgroundColor='red' borderColor='red'
+				  onPress= {() => {
+
+					this.props.navigation.navigate('chat', {
+					listingId: clickerid,
+					 sellerId: this.currentUser.uid,
+
+					});
+				  }}>
+				  <Text style={styles.buttonText}>Messages</Text>
+				</TouchableOpacity>
 
 
                 <TouchableOpacity style={styles.greenButton} backgroundColor='green' borderColor='green'

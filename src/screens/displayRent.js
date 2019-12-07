@@ -34,7 +34,7 @@ export default class displayRent extends React.Component {
                 if (users[k].Loan != null) {
                     let userID = users[k].user_id;
                     let ref = database.ref(`users/${userID}/Loan/`);
-                    ref.once('value', gotData, errData);
+                    ref.on('value', gotData, errData);
                 }
             }
             return dataArr;
