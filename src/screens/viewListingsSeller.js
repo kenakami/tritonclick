@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import { Alert, Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, Image} from 'react-native';
 import { Dropdown } from 'react-native-material-dropdown';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
@@ -68,6 +68,7 @@ export default class viewListingsSeller extends React.Component {
     // Get listing information through param
     const { navigation } = this.props;
     const clickerid = navigation.getParam('clickerid', 'default');
+    const image = navigation.getParam('Image', 'default');
 
     function Separator() {
       return <View style={styles.separator} />;
@@ -75,13 +76,15 @@ export default class viewListingsSeller extends React.Component {
 
     const dd_type = [{value: 'iClicker 1',}, {value: 'iClicker 2',}];
     const dd_cond = [{value: 'Like New',}, {value: 'Used',}];
-    const trans = [{value: 'Selling',}, {value: 'Renting Out',}];
 
     return (
 
         <View style={styles.container}>
 
           <ScrollView>
+            <View style={styles.imageContainer}>
+              <Image source={{uri: image}} style={styles.image}/>
+            </View>
 
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
@@ -205,6 +208,16 @@ export default class viewListingsSeller extends React.Component {
 }
 
 const styles = EStyleSheet.create({
+  image: {
+    flex: 1,
+    width: '20rem',
+    height: '16rem',
+    resizeMode: 'contain',
+  },
+  imageContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     flex: 1,
     paddingTop: 45,
