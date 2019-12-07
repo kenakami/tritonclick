@@ -41,7 +41,7 @@ export default class viewListingsSeller extends React.Component {
 
   deleteListing(clickerid) {
     const { currentUser } = firebase.auth();
-    firebase.storage().ref(`${this.state.barcode}`).remove();
+    firebase.storage().ref(`${this.state.barcode}`).delete();
     firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).remove();
   }
 
@@ -68,7 +68,7 @@ export default class viewListingsSeller extends React.Component {
     // Get listing information through param
     const { navigation } = this.props;
     const clickerid = navigation.getParam('clickerid', 'default');
-    const image = navigation.getParam('Image', 'default');
+    const image = navigation.getParam('Image', 'https://facebook.github.io/react-native/img/tiny_logo.png');
 
     function Separator() {
       return <View style={styles.separator} />;

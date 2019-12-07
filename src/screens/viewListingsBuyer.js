@@ -9,27 +9,20 @@ export default class viewListingsBuyer extends React.Component {
 
     // Shortcut provided from Listing
     const { navigation } = this.props;
-	const clickerid = navigation.getParam('clickerid', 'default');
+    const clickerid = navigation.getParam('clickerid', 'default');
+    const image = navigation.getParam('Image', 'https://facebook.github.io/react-native/img/tiny_logo.png');
 
       return (
         <View style={styles.container}>
 
           <ScrollView>
 
+            <View style={styles.imageContainer}>
+              <Image source={{uri: image}} style={styles.image}/>
+            </View>
+
             {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
             <View style={styles.inputContainer}>
-
-              <Text style={styles.header}>To Buy</Text>
-
-
-              <Image
-                  source={{ uri: navigation.getParam('Image', 'https://facebook.github.io/react-native/img/tiny_logo.png') }}
-                  style={{
-                    width: 200,
-                    height: 200,
-                    resizeMode: 'center',
-                  }}
-              />
 
               <Text style={styles.textInput}>Email: {JSON.stringify(navigation.getParam('Email', 'no email'))}</Text>
 
@@ -69,6 +62,16 @@ export default class viewListingsBuyer extends React.Component {
   }
 
   const styles = EStyleSheet.create({
+    image: {
+      flex: 1,
+      width: '20rem',
+      height: '16rem',
+      resizeMode: 'contain',
+    },
+    imageContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     container: {
       flex: 1,
       paddingTop: 45,
