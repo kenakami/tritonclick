@@ -120,7 +120,11 @@ const navigator = createStackNavigator(
         initialRouteName: 'Login', //What should show up first when app opens
         defaultNavigationOptions: {
             title: 'TritonClick',
-            headerBackTitle: 'Back'
+            headerBackTitle: 'Back',
+            headerStyle: {
+                backgroundColor: '#6CB0D0',
+            },
+
         },
     }
 );

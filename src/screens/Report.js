@@ -62,9 +62,6 @@ export default class Settings extends React.Component {
 
             <View>
                 <ScrollView>
-                    <View style={styles.header}>
-                            <Text style={{fontSize: 20}}>Settings</Text>
-                    </View>
                     <View style={styles.inputContainer}>  
                         
                           <Dropdown 
