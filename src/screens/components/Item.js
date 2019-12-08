@@ -63,7 +63,7 @@ const styles = EStyleSheet.create({
     container: {
         paddingVertical: '0.05rem',
         alignItems: 'center',
-        justifycontent: 'center',
+        justifyContent: 'center',
     },
     whole: {
         paddingHorizontal: '0.5rem',
