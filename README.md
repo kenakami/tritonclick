@@ -1,11 +1,10 @@
 # tritonclick
-Install the following libraries to use Login.js:<br />
-npm -S react-native-simple-dialogs<br />
-npm install firebase<br />
-npm install react-native-chart-kit<br />
-expo install expo-google-app-auth<br />
-To fix the warning issue after loggin in, here are the steps:<br />
-1. Go to node_modules/react-native/Libraries/Core/Timer/JSTimers.js<br />
-2. Look for the variable MAX_TIMER_DURATION_MS<br />
-3. Change 60 * 1000 to 10000 * 1000<br />
-4. Save the changes and re-build the app.
+Test User 1:
+  Username: tritonclick.user1@gmail.com
+  Password: tritonclick
+  Device: Android
+<tr>
+Test User 2:
+  Username: tritonclick.user2@gmail.com
+  Password: tritonclick123
+  Device: iOS
