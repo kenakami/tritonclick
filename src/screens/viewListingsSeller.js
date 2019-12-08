@@ -73,7 +73,7 @@ export default class viewListingsSeller extends React.Component {
         // Get listing information through param
         const {navigation} = this.props;
         const clickerid = navigation.getParam('clickerid', 'default');
-        const image = navigation.getParam('Image', 'https://facebook.github.io/react-native/img/tiny_logo.png');
+        const image = navigation.getParam('Image', 'https://firebasestorage.googleapis.com/v0/b/tritonclick.appspot.com/o/Default.jpg.png?alt=media&token=5b8e5d3c-b55b-4ec1-be6d-21928bf4b9cc');
 
         this.currentUser = firebase.auth().currentUser;
 

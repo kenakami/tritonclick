@@ -133,7 +133,7 @@ export default class displayRent extends React.Component {
                     <View style={styles.dropdownContainer}>
                         <Dropdown
                             containerStyle={styles.dropdown}
-                            autosize={false}
+                            autosize={true}
                             label='Type'
                             data={type}
                             onChangeText={(value) => this.changeType(value)}
@@ -141,7 +141,7 @@ export default class displayRent extends React.Component {
                         />
                         <Dropdown
                             containerStyle={styles.dropdown}
-                            autosize={false}
+                            autosize={true}
                             label='Condition'
                             data={cond}
                             onChangeText={(value) => this.changeCond(value)}
@@ -149,7 +149,7 @@ export default class displayRent extends React.Component {
                         />
                         <Dropdown
                             containerStyle={styles.dropdown}
-                            autosize={false}
+                            autosize={true}
                             label='Sort By'
                             data={sortConditions}
                             onChangeText={(value) => this.changeSort(value)}
@@ -209,12 +209,12 @@ const styles = EStyleSheet.create({
     },
     dropdown:{
         width: '5rem',
-        height: '1rem',
+        height: '3rem',
     },
     dropdownContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        paddingBottom: '3rem',
+        paddingBottom: '1.5rem',
         paddingLeft : '1rem',
         paddingRight: '1rem',
     },

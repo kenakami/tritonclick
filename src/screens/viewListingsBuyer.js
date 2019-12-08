@@ -11,13 +11,11 @@ export default class viewListingsBuyer extends React.Component {
         const {navigation} = this.props;
         const clickerid = navigation.getParam('clickerid', 'default');
         const sellerid = navigation.getParam('UserID', 'default');
-        const image = navigation.getParam('Image', 'https://facebook.github.io/react-native/img/tiny_logo.png');
+        const image = navigation.getParam('Image', 'https://firebasestorage.googleapis.com/v0/b/tritonclick.appspot.com/o/Default.jpg.png?alt=media&token=5b8e5d3c-b55b-4ec1-be6d-21928bf4b9cc');
 
         return (
             <View style={styles.container}>
-
                 <ScrollView>
-
                     <View style={styles.imageContainer}>
                         <Image source={{uri: image}} style={styles.image}/>
                     </View>
@@ -86,14 +84,15 @@ const styles = EStyleSheet.create({
         justifyContent: 'space-between'
     },
     saveButton: {
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#007BFF',
-        backgroundColor: '#007BFF',
+        backgroundColor: 'rgb(184,221,252)',
         padding: 15,
-        margin: 5
+        margin: 5,
+        borderRadius: 10,
     },
     saveButtonText: {
-        color: '#FFFFFF',
+        color: '#000000',
         fontSize: 20,
         textAlign: 'center'
     },

@@ -119,6 +119,7 @@ export default class myListings extends React.Component {
 
 const styles = EStyleSheet.create({
     container:{
+        paddingTop: '1rem',
         width: '20rem',
         height: '16.2rem',
     },

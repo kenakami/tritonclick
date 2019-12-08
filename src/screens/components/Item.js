@@ -3,6 +3,8 @@ import {View, Text, TouchableOpacity, Image} from 'react-native';
 import EStyleSheet from "react-native-extended-stylesheet";
 import * as firebase from "firebase";
 
+let pic = "";
+
 export default class Item extends React.Component {
     render() {
         return(
