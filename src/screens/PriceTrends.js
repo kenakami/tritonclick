@@ -273,7 +273,7 @@ Should go before time dropdown in return statement
 
 
 return(
-	<View style={{ justifyContent: "center", paddingHorizontal: 10, backgroundColor: color = '#6cb0d0', paddingTop: 20 }}>
+	<View style={{ justifyContent: "center", paddingHorizontal: 10, backgroundColor: color = 'white', paddingTop: 20 }}>
 
 	  <ScrollView>
 		   <View style={styles.iclicker}>
@@ -309,12 +309,12 @@ return(
 <View>
 	<View style={styles.inputContainer}>
 		<TouchableOpacity
-			style={styles.leftBox}
+			style={styles.rightBox}
 		>
 			<Text style={styles.saveButtonText} onPress={() => {this.shiftLabels(false);
 
 																this.setDataSet();
-															}} >forward</Text>
+															}} > FWD </Text>
 		</TouchableOpacity>
 	</View>
 
@@ -322,13 +322,13 @@ return(
 
 	<View style={styles.inputContainer}>
 		<TouchableOpacity
-			style={styles.rightBox}
+			style={styles.leftBox}
 		>
 			<Text style={styles.saveButtonText} onPress={() => {this.shiftLabels(true);
 
 
 																this.setDataSet();
-															}} >back</Text>
+															}} > BACK </Text>
 		</TouchableOpacity>
 	</View>
 
@@ -476,6 +476,7 @@ rightBox:{
 
 	position: 'absolute',
 	right: -10,
+	bottom: -54,
 	backgroundColor: '#DDDDDD',
 	marginRight: 50,
 	marginBottom: 10,
@@ -489,7 +490,7 @@ rightBox:{
   	flex: 1,
   	height: "100%",
   	width: "80%",
-  	backgroundColor: 'black',
+  	backgroundColor: '#474747',
   	borderRadius:10,
 
   }
