@@ -25,9 +25,8 @@ export default class viewListingsBuyer extends React.Component {
                     {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
                     <View style={styles.inputContainer}>
                         <Text style={styles.text}>Created by: {navigation.getParam('Name')}</Text>
-                        <Text style={styles.price}>${navigation.getParam('Price', 'no price')}</Text>
-                        <Text style={styles.text}>Condition: {navigation.getParam('Condition', 'no condition')}</Text>
-                        <Text style={styles.text}>Type of iClicker: {navigation.getParam('Type', 'no type')}</Text>
+                        <Text style={styles.price}>${navigation.getParam('Price')}</Text>
+                        <Text style={styles.desc}>{navigation.getParam('Condition') + " " + navigation.getParam('Type')}</Text>
                         <View style={styles.inputContainer}>
                             <TouchableOpacity
                                 style={styles.saveButton}
@@ -57,18 +56,17 @@ export default class viewListingsBuyer extends React.Component {
 const styles = EStyleSheet.create({
     image: {
         flex: 1,
-        width: '11rem',
-        height: '11rem',
+        width: '14rem',
+        height: '14rem',
         resizeMode: 'contain',
-
     },
     imageContainer: {
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
         borderWidth: 1,
-        height: '12rem',
-        width: '12rem',
+        height: '15rem',
+        width: '15rem',
     },
     container: {
         flex: 1,
@@ -81,7 +79,7 @@ const styles = EStyleSheet.create({
         fontWeight: 'bold'
     },
     inputContainer: {
-        paddingTop: '1.5rem'
+        paddingTop: '3rem'
     },
     buttonContainer: {
         flexDirection: 'row',
@@ -101,12 +99,21 @@ const styles = EStyleSheet.create({
     },
     price: {
         position: 'absolute',
-        left: "75%",
+        top: '1.5rem',
+        left: '16rem',
+        fontSize: '1.5rem',
+        fontWeight: 'bold',
+    },
+    desc: {
+        position: 'absolute',
+        top: '1.5rem',
+        left: '0.5rem',
         fontSize: '1.5rem',
         fontWeight: 'bold',
     },
     text: {
         fontSize: '1rem',
+        paddingTop: '1rem',
         paddingLeft: '0.5rem',
         paddingBottom: '0.5rem',
     }

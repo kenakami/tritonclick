@@ -37,8 +37,8 @@ const styles = EStyleSheet.create({
         height: '5rem',
     },
     image: {
-        width: "100%",
-        height:  "100%",
+        width: "5rem",
+        height:  "5rem",
         resizeMode: 'contain',
     },
     desc: {
