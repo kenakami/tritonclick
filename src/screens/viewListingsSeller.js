@@ -22,10 +22,9 @@ export default class viewListingsSeller extends React.Component {
         };
     }
 
-    updateListing(barcode, condition, email, price, type, clickerid) {
+    updateListing(condition, email, price, type, clickerid) {
         const {currentUser} = firebase.auth();
-        firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).set({
-            Barcode: barcode,
+        firebase.database().ref(`/users/${currentUser.uid}/Selling/${clickerid}`).update({
             Condition: condition,
             Email: email,
             Price: price,
@@ -101,7 +100,7 @@ export default class viewListingsSeller extends React.Component {
                         <TextInput
                             style={styles.textInput}
                             placeholder="Your Email"
-                            maxLength={20}
+                            maxLength={30}
                             keyboardType="email-address"
                             autoCorrect={false}
                             onChangeText={(email) => this.setState({email})}
@@ -113,6 +112,7 @@ export default class viewListingsSeller extends React.Component {
                             style={styles.textInput}
                             maxLength={8}
                             autoCorrect={false}
+                            editable={false}
                             onChangeText={(barcode) => this.setState({barcode})}
                             value={this.state.barcode}
                         />

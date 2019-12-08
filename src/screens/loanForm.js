@@ -83,7 +83,7 @@ export default class loanForm extends React.Component {
                         <TextInput
                             style={styles.textInput}
                             placeholder="Your Email"
-                            maxLength={20}
+                            maxLength={30}
                             keyboardType="email-address"
                             autoCorrect={false}
                             onChangeText={(email) => this.setState({ email })}
@@ -153,7 +153,7 @@ export default class loanForm extends React.Component {
                                         setTimeout(() => {
                                             this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI, currentUser.displayName);
                                         }, 1000);
-                                        //alert("Saved");
+                                        alert("Saved");
                                         this.props.navigation.goBack();
                                     }
                                 }

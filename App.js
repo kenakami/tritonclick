@@ -25,6 +25,7 @@ EStyleSheet.build({
     $rem: width / 20
 });
 
+console.disableYellowBox = true;
 
 const navigator = createStackNavigator(
     {

@@ -83,7 +83,7 @@ export default class sellForm extends React.Component {
                         <TextInput
                             style={styles.textInput}
                             placeholder="Your Email"
-                            maxLength={20}
+                            maxLength={30}
                             keyboardType="email-address"
                             autoCorrect={false}
                             onChangeText={(email) => this.setState({email})}
@@ -149,7 +149,7 @@ export default class sellForm extends React.Component {
                                         console.log(currentUser);
                                         this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI, currentUser.displayName);
                                     }, 1000);
-                                   // alert("Saved");
+                                    alert("Saved");
                                     this.props.navigation.goBack();
                                 }
                             }
@@ -175,7 +175,7 @@ export default class sellForm extends React.Component {
 
     getPermissionAsync = async () => {
         if (Constants.platform.ios) {
-            const {status} = await Permissions.askAsync(Permissions.CAMERA);
+            const {status} = await Permissions.askAsync(Permissions.CAMERA_ROLL);
             if (status !== 'granted') {
                 alert('Sorry, we need camera roll permissions to make this work!');
             }
