@@ -12,11 +12,69 @@ export default class PriceTrends extends React.Component {
         this.state = {
             time: '',
 			dataset: [0, 0, 0, 0, 0, 0],
-			labels: ['7', '8', '9', '10', '11', '12'],
+			labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+			months: ['7', '8', '9', '10', '11', '12'],
+			index: 6,
         };
 }
+shiftLabels(left) {
+var allLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var newmonths = this.state.months;
+var currLabels = this.state.labels;
+var newindex = this.state.index;
+if(left)
+{
 
+	if(this.state.index == 0)
+	{
+
+	}
+	else
+	{
+	for( var i = 0; i < newmonths.length; i++)
+	{
+		newmonths[i] -= 1;
+	}
+	let month = allLabels[newindex - 1];
+	currLabels.pop();
+	currLabels.unshift(month);
+	this.setState({ months: newmonths });
+	newindex -= 1;
+	this.setState({ labels: currLabels });
+	}
+}
+
+else
+{
+	if(this.state.index == 6)
+	{
+		return;
+	}
+	else
+	{
+
+
+		for( var i = 0; i < newmonths.length; i++)
+		{
+			newmonths[i] += 1;
+		}
+		let month = allLabels[newindex + 6];
+
+		currLabels.shift();
+		currLabels.push(month);
+		this.setState({ months: newmonths });
+		newindex += 1;
+		this.setState({ labels: currLabels });
+
+
+
+	}
+}
+this.setState({ index: newindex });
+}
 setDataSet() {
+
+	this.setState({ dataset: [0, 0, 0, 0, 0, 0] });
 	/*let ref0 = firebase.database().ref('sales/' + this.state.labels[0]);
 	let ref1 = firebase.database().ref('sales/' + this.state.labels[1]);
 	let ref2 = firebase.database().ref('sales/' + this.state.labels[2]);
@@ -98,15 +156,16 @@ setDataSet() {
             //alert(child);
             //alert(child);
             firebase.database().ref('sales/' + child + '/month/').once('value', (snapshot) => {
-                if(snapshot.val() && snapshot.val() == '12'){
+                if(snapshot.val() && snapshot.val() == this.state.months[5]){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                         month5.push(parseFloat(snapshot.val()));
 
                         this.state.dataset[5] = this.getAverage(month5);
                         this.setState({dataset: this.state.dataset});
 
+
                     });
-                }else if(snapshot.val() && snapshot.val() == '11'){
+                }else if(snapshot.val() && snapshot.val() == this.state.months[4]){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                         month4.push(parseFloat(snapshot.val()));
 
@@ -114,7 +173,7 @@ setDataSet() {
                         this.setState({dataset: this.state.dataset});
 
                     });
-                }else if(snapshot.val() && snapshot.val() == '10'){
+                }else if(snapshot.val() && snapshot.val() == this.state.months[3]){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                         month3.push(parseFloat(snapshot.val()));
 
@@ -122,21 +181,21 @@ setDataSet() {
                         this.setState({dataset: this.state.dataset});
 
                     });
-                }else if(snapshot.val() && snapshot.val() == '9'){
+                }else if(snapshot.val() && snapshot.val() == this.state.months[2]){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                         month2.push(parseFloat(snapshot.val()));
                         this.state.dataset[2] = this.getAverage(month2);
                         this.setState({dataset: this.state.dataset});
 
                     });
-                }else if(snapshot.val() && snapshot.val() == '8'){
+                }else if(snapshot.val() && snapshot.val() == this.state.months[1]){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                         month1.push(parseFloat(snapshot.val()));
                         this.state.dataset[1] = this.getAverage(month1);
                         this.setState({dataset: this.state.dataset});
 
                     });
-                }else if(snapshot.val() && snapshot.val() == '7'){
+                }else if(snapshot.val() && snapshot.val() == this.state.months[0]){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                         month0.push(parseFloat(snapshot.val()));
                         this.state.dataset[0] = this.getAverage(month1);
@@ -221,7 +280,7 @@ return(
 
 
 			     <Text>
-			          Iclicker 2 Price Trends
+			          2019 Iclicker 2 Price Trends
 			     </Text>
 			     <LineChart
 			       data={linedata}
@@ -248,6 +307,36 @@ return(
 
 
 	</View>
+	<View style={styles.inputContainer}>
+		<TouchableOpacity
+			style={styles.saveButton}
+		>
+			<Text style={styles.saveButtonText} onPress={() => {this.shiftLabels(false);
+
+																this.setDataSet();
+															}} >forward</Text>
+		</TouchableOpacity>
+	</View>
+
+
+
+	<View style={styles.inputContainer}>
+		<TouchableOpacity
+			style={styles.saveButton}
+		>
+			<Text style={styles.saveButtonText} onPress={() => {this.shiftLabels(true);
+
+
+																this.setDataSet();
+															}} >back</Text>
+		</TouchableOpacity>
+	</View>
+
+
+
+
+
+
 	  </ScrollView>
 
 	</View>
