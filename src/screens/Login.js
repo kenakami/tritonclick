@@ -6,14 +6,24 @@ import * as fromNotification from "../Notification";
 import EStyleSheet from "react-native-extended-stylesheet";
 
 const firebaseConfig = {
+    /*
     apiKey: "AIzaSyCHuRSYZ34XPBwUC1lS8n8mUQDroo_wiW4",
     authDomain: "tritonclick.firebaseapp.com",
     databaseURL: "https://tritonclick.firebaseio.com",
     projectId: "tritonclick",
     storageBucket: "tritonclick.appspot.com",
     messagingSenderId: "612202041368",
-      //appId: "1:612202041368:web:c65cb675a6da23404ff36d",
-      //measurementId: "G-DN5HSXKVV0"
+    appId: "1:612202041368:web:c65cb675a6da23404ff36d",
+    measurementId: "G-DN5HSXKVV0"
+    */
+    apiKey: "AIzaSyA58E91RMwqa1my-Ov_0mYg7X7FUGiDmVU",
+    authDomain: "tritonclick2.firebaseapp.com",
+    databaseURL: "https://tritonclick2.firebaseio.com",
+    projectId: "tritonclick2",
+    storageBucket: "tritonclick2.appspot.com",
+    messagingSenderId: "729639828305",
+    appId: "1:729639828305:web:3e3cfe797bbe7d48db7170",
+    measurementId: "G-Y068K911RV"
 };
 
 class Login extends React.Component {
@@ -44,7 +54,7 @@ class Login extends React.Component {
           var index = user.email.indexOf("@");
           var domain = user.email.substring(index + 1);
           console.log(domain);
-          if(!(domain === "ucsd.edu")) {
+          if(!(domain === "ucsd.edu") && !(user.email == "tritonclick.user1@gmail.com") && !(user.email == "tritonclick.user2@gmail.com")) {
             firebase.database().ref('/users/' + user.uid).remove();
             firebase.auth().signOut();
             alert("Please sign in with your UCSD email.");
