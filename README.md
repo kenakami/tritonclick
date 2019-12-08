@@ -3,7 +3,7 @@ Test User 1:
 Username: tritonclick.user1@gmail.com 
 Password: tritonclick 
 Device: Android
-PIN: 
+PIN: 0000
 
 <tr>
   
