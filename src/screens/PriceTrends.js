@@ -74,76 +74,12 @@ this.setState({ index: newindex });
 }
 setDataSet() {
 
-	this.setState({ dataset: [0, 0, 0, 0, 0, 0] });
-	/*let ref0 = firebase.database().ref('sales/' + this.state.labels[0]);
-	let ref1 = firebase.database().ref('sales/' + this.state.labels[1]);
-	let ref2 = firebase.database().ref('sales/' + this.state.labels[2]);
-	let ref3 = firebase.database().ref('sales/' + this.state.labels[3]);
-	let ref4 = firebase.database().ref('sales/' + this.state.labels[4]);
-	let ref5 = firebase.database().ref('sales/' + this.state.labels[5]);
-	var that = this;
-
-    ref0.once("value")
-	 .then(function(snapshot) {
-	   const val = snapshot.val();
-
-	   let data = that.state.dataset;
-	   data[0]  = val;
-	   that.setState({ dataset: data });
-
-
-	 });
-	 ref1.once("value")
- 	 .then(function(snapshot) {
- 	   const val = snapshot.val();
-
- 	   let data = that.state.dataset;
- 	   data[1]  = val;
- 	   that.setState({ dataset: data });
-
-
- 	 });
-	 ref2.once("value")
-	  .then(function(snapshot) {
-		const val = snapshot.val();
-
-		let data = that.state.dataset;
-		data[2]  = val;
-		that.setState({ dataset: data });
-
-
-	  });
-	  ref3.once("value")
-	   .then(function(snapshot) {
-		 const val = snapshot.val();
-
-		 let data = that.state.dataset;
-		 data[3]  = val;
-		 that.setState({ dataset: data });
-
-
-	   });
-	   ref4.once("value")
-		.then(function(snapshot) {
-		  const val = snapshot.val();
-
-		  let data = that.state.dataset;
-		  data[4]  = val;
-		  that.setState({ dataset: data });
-
-
-		});
-		ref5.once("value")
-		 .then(function(snapshot) {
-		   const val = snapshot.val();
-
-		   let data = that.state.dataset;
-		   data[5]  = val;
-		   that.setState({ dataset: data });
-
-
-         });*/
-
+	let zeros = [0, 0, 0, 0, 0, 0];
+	console.log('zeros:')
+	this.setState({ dataset: zeros });
+	console.log('dataset: ' + this.state.dataset);
+	console.log('label ' + this.state.labels);
+	console.log('label ' + this.state.months);
     const month0 = [];
     const month1 = [];
     const month2 = [];
@@ -153,8 +89,8 @@ setDataSet() {
     firebase.database().ref('sales/').on('value', (snapshot) => {
         let children = Object.keys(snapshot.val());
         children.forEach((child) => {
-            //alert(child);
-            //alert(child);
+
+
             firebase.database().ref('sales/' + child + '/month/').once('value', (snapshot) => {
                 if(snapshot.val() && snapshot.val() == this.state.months[5]){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
@@ -168,7 +104,8 @@ setDataSet() {
                 }else if(snapshot.val() && snapshot.val() == this.state.months[4]){
                     firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                         month4.push(parseFloat(snapshot.val()));
-
+						console.log('i entered here with number ' + this.state.months[4]);
+						console.log('i entered here with label ' + this.state.labels[4]);
                         this.state.dataset[4] = this.getAverage(month4);
                         this.setState({dataset: this.state.dataset});
 
@@ -241,35 +178,7 @@ render() {
         },
       ],
     };
-	/*
-Should go before time dropdown in return statement
-<Dropdown
-    label='Type of iClicker'
-    data={type}
-    onChangeText={(type) => this.setState({ type })}
-    value={this.state.type}
-  />
-  <Dropdown
-    label='Condition of iClicker'
-    data={condition}
-    onChangeText={(condition) => this.setState({ condition })}
-    value={this.state.condition}
-  />
-   <View style={styles.inputContainer}>
-       <TouchableOpacity style={styles.saveButton} onPress={() => {
-           if (this.state.time === '') {
-                           alert("All Fields Required!");
-           }else if (this.state.condition === '') {
-                           alert("All Fields Required!");
-           }else if (this.state.type === '') {
-                           alert("All Fields Required!");
-           }else{
-               // Call on function that creates graph based on the fields that they put.
-           }}}>
-           <Text style={styles.saveButtonText}>Show Graph</Text>
-       </TouchableOpacity>
-   </View>
-*/
+
 
 
 return(
@@ -312,7 +221,7 @@ return(
 			style={styles.rightBox}
 		>
 			<Text style={styles.saveButtonText} onPress={() => {this.shiftLabels(false);
-				alert(1)
+
 																this.setDataSet();
 															}} > FWD </Text>
 		</TouchableOpacity>
@@ -326,7 +235,7 @@ return(
 		>
 			<Text style={styles.saveButtonText} onPress={() => {this.shiftLabels(true);
 
-			alert(2);
+
 																this.setDataSet();
 															}} > BACK </Text>
 		</TouchableOpacity>
