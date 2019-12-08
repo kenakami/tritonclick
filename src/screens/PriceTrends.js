@@ -312,7 +312,7 @@ return(
 			style={styles.rightBox}
 		>
 			<Text style={styles.saveButtonText} onPress={() => {this.shiftLabels(false);
-
+				alert(1)
 																this.setDataSet();
 															}} > FWD </Text>
 		</TouchableOpacity>
@@ -326,7 +326,7 @@ return(
 		>
 			<Text style={styles.saveButtonText} onPress={() => {this.shiftLabels(true);
 
-
+			alert(2);
 																this.setDataSet();
 															}} > BACK </Text>
 		</TouchableOpacity>

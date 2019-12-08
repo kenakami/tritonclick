@@ -55,7 +55,7 @@ export default class sellForm extends React.Component {
                 imageURI = please;
                 console.log((please));
             }, function (error) {
-                imageURI = 'https://facebook.github.io/react-native/img/tiny_logo.png';
+                imageURI = 'https://firebasestorage.googleapis.com/v0/b/tritonclick.appspot.com/o/Default.jpg.png?alt=media&token=5b8e5d3c-b55b-4ec1-be6d-21928bf4b9cc';
                 console.log(error);
             }
         )
