@@ -279,13 +279,13 @@ return(
 		   <View style={styles.iclicker}>
 
 
-			     <Text>
+			     <Text style={styles.headertext} >
 			          2019 Iclicker 2 Price Trends
 			     </Text>
 			     <LineChart
 			       data={linedata}
 			       width={313}
-			       height={220}
+			       height={320}
 			       yAxisLabel={'$'}
 			       chartConfig={{
 			         //backgroundColor: '#e26a00',
@@ -344,15 +344,16 @@ return(
 	<View style={styles.delRight} />
 </View>
 
-<Text  >A</Text>
-<TouchableOpacity style={styles.button} >
+<Text style ={styles.text}  >A</Text>
+<View style={styles.button} >
 	<Text style={styles.text} ></Text>
-</TouchableOpacity>
+</View>
 
-<Text  >B</Text>
-<TouchableOpacity style={styles.button} >
+
+<Text style ={styles.text}  >B</Text>
+<View style={styles.button} >
 	<Text style={styles.text} ></Text>
-</TouchableOpacity>
+</View>
 
 
 
@@ -381,7 +382,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   text: {
-	  fontSize: 30
+	  fontSize: 30,
+	  textAlign: 'center'
+
+  },
+  headertext: {
+	fontSize: 22,
+	textAlign: 'center'
+
   },
   header: {
     fontSize: 25,
@@ -428,9 +436,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center'
   },
-  text: {
-    fontSize: 12
-},
+
 cross: {
 	alignSelf: "center",
 	paddingBottom: 10
