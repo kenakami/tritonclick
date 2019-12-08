@@ -4,7 +4,9 @@ Username: tritonclick.user1@gmail.com
 Password: tritonclick 
 Device: Android
 PIN: 
+
 <tr>
+  
 Test User 2: 
 Username: tritonclick.user2@gmail.com 
 Password: tritonclick123 
@@ -15,6 +17,7 @@ PIN: 0000
   
 Username: not.a.ucsd.email@gmail.com
 Password: ucsd123
+
 <tr>
   
 Laptop Password: 0906
