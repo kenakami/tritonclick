@@ -55,7 +55,7 @@ export default class loanForm extends React.Component {
             imageURI = please;
             console.log((please));
             }, function (error) {
-            imageURI = 'https://firebasestorage.googleapis.com/v0/b/tritonclick.appspot.com/o/Default.jpg.png?alt=media&token=5b8e5d3c-b55b-4ec1-be6d-21928bf4b9cc';
+            imageURI = 'https://firebasestorage.googleapis.com/v0/b/tritonclick2.appspot.com/o/Default.jpg.png?alt=media&token=ea144d17-19c3-4738-a137-251b3cb49ce4';
             console.log(error);
         }
         )

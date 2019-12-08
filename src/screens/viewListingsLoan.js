@@ -57,7 +57,7 @@ export default class viewListingsLoan extends React.Component {
         const {navigation} = this.props;
         const clickerid = navigation.getParam('clickerid', 'default');
         this.currentUser = firebase.auth().currentUser;
-        const image = navigation.getParam('Image', 'https://firebasestorage.googleapis.com/v0/b/tritonclick.appspot.com/o/Default.jpg.png?alt=media&token=5b8e5d3c-b55b-4ec1-be6d-21928bf4b9cc');
+        const image = navigation.getParam('Image', 'https://firebasestorage.googleapis.com/v0/b/tritonclick2.appspot.com/o/Default.jpg.png?alt=media&token=ea144d17-19c3-4738-a137-251b3cb49ce4');
 
         function Separator() {
             return <View style={styles.separator}/>;
