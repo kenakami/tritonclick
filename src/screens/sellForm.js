@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity } from 'react-native';
+import {Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, ActivityIndicator} from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
-import { Dropdown } from 'react-native-material-dropdown';
+import {Dropdown} from 'react-native-material-dropdown';
 
 var imageURI = "";
 
@@ -27,7 +27,7 @@ export default class sellForm extends React.Component {
 
 
     writeUserData(Email, Barcode, Price, Type, Condition, Date, Image, Name) {
-        const { currentUser } = firebase.auth();
+        const {currentUser} = firebase.auth();
         let UserID = currentUser.uid;
         firebase.database().ref(`users/${currentUser.uid}/Selling/`).push({
             Email,
@@ -52,12 +52,12 @@ export default class sellForm extends React.Component {
     geturl() {
         let storageRef = firebase.storage().ref(`${this.state.barcode}`);
         storageRef.getDownloadURL().then(function (please) {
-            imageURI = please;
-            console.log((please));
+                imageURI = please;
+                console.log((please));
             }, function (error) {
-            imageURI = 'https://facebook.github.io/react-native/img/tiny_logo.png';
-            console.log(error);
-        }
+                imageURI = 'https://facebook.github.io/react-native/img/tiny_logo.png';
+                console.log(error);
+            }
         )
     }
 
@@ -86,7 +86,7 @@ export default class sellForm extends React.Component {
                             maxLength={20}
                             keyboardType="email-address"
                             autoCorrect={false}
-                            onChangeText={(email) => this.setState({ email })}
+                            onChangeText={(email) => this.setState({email})}
                             value={this.state.email}
                         />
 
@@ -97,7 +97,7 @@ export default class sellForm extends React.Component {
                                 placeholder="Barcode"
                                 maxLength={8}
                                 autoCorrect={false}
-                                onChangeText={(barcode) => this.setState({ barcode })}
+                                onChangeText={(barcode) => this.setState({barcode})}
                                 value={this.state.barcode}
                             />
                         </View>
@@ -106,58 +106,54 @@ export default class sellForm extends React.Component {
                         <TextInput
                             style={styles.textInput}
                             placeholder="Price"
-                            keyboardType="numeric"
-                            onChangeText={(price) => this.setState({ price })}
+                            keyboardType="number-pad"
+                            onChangeText={(price) => this.setState({price})}
                             value={this.state.price}
                         />
 
                         <Dropdown
                             label='Type of iClicker'
                             data={type}
-                            onChangeText={(type) => this.setState({ type })}
+                            onChangeText={(type) => this.setState({type})}
                             value={this.state.type}
                         />
 
                         <Dropdown
                             label='Condition of iClicker'
                             data={cond}
-                            onChangeText={(condition) => this.setState({ condition })}
+                            onChangeText={(condition) => this.setState({condition})}
                             value={this.state.condition}
                         />
                         <Button
-                            title="Choose an image from camera roll"
+                            title="Upload Image"
                             onPress={this._pickImage}
                         />
 
                         <View style={styles.inputContainer}>
                             <TouchableOpacity
                                 style={styles.saveButton} onPress={() => {
-                                    if (this.state.email === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.barcode === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.price === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.type === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else if (this.state.condition === '') {
-                                        alert("All Fields Required!");
-                                    }
-                                    else {
-                                        this.geturl()
-                                        setTimeout(() => {
-                                            const {currentUser} = firebase.auth();
-                                            console.log(currentUser);
-                                            this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI, currentUser.displayName );
-                                          }, 2000);
-                                        this.props.navigation.goBack();
-                                    }
+                                if (this.state.email === '') {
+                                    alert("All Fields Required!");
+                                } else if (this.state.barcode === '') {
+                                    alert("All Fields Required!");
+                                } else if (this.state.price === '') {
+                                    alert("All Fields Required!");
+                                } else if (this.state.type === '') {
+                                    alert("All Fields Required!");
+                                } else if (this.state.condition === '') {
+                                    alert("All Fields Required!");
+                                } else {
+                                    this.geturl()
+                                    setTimeout(() => {
+                                        const {currentUser} = firebase.auth();
+                                        console.log(currentUser);
+                                        this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI, currentUser.displayName);
+                                    }, 1000);
+                                   // alert("Saved");
+                                    this.props.navigation.goBack();
                                 }
-                                }
+                            }
+                            }
                             >
                                 <Text style={styles.saveButtonText}>Save</Text>
                             </TouchableOpacity>
@@ -176,9 +172,10 @@ export default class sellForm extends React.Component {
     componentDidMount() {
         this.getPermissionAsync();
     }
+
     getPermissionAsync = async () => {
         if (Constants.platform.ios) {
-            const { status } = await Permissions.askAsync(Permissions.CAMERA);
+            const {status} = await Permissions.askAsync(Permissions.CAMERA);
             if (status !== 'granted') {
                 alert('Sorry, we need camera roll permissions to make this work!');
             }
@@ -186,7 +183,7 @@ export default class sellForm extends React.Component {
     }
     _pickImage = async () => {
         //let result = await ImagePicker.launchImageLibraryAsync({
-            let result = await ImagePicker.launchCameraAsync({
+        let result = await ImagePicker.launchCameraAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
             aspect: [4, 3],
@@ -195,7 +192,7 @@ export default class sellForm extends React.Component {
 
         if (!result.cancelled) {
             this.uploadImage(result.uri, this.state.barcode)
-            this.setState({ image: result.uri });
+            this.setState({image: result.uri});
         }
     };
 
@@ -203,17 +200,15 @@ export default class sellForm extends React.Component {
         const response = await fetch(uri);
         const blob = await response.blob();
         var ref = firebase.storage().ref().child(imageName);
-        alert("Image uploaded");
+        alert("Image Uploaded");
         return ref.put(blob);
     }
 }
 
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 45,
         backgroundColor: '#F5FCFF',
     },
     header: {

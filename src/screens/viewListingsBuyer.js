@@ -1,120 +1,113 @@
-import React, { Component } from 'react';
-import { Button, Text, View, Image, ScrollView, TextInput, TouchableOpacity, ImageBackgroundBase } from 'react-native';
+import React, {Component} from 'react';
+import {Button, Text, View, Image, ScrollView, TextInput, TouchableOpacity, ImageBackgroundBase} from 'react-native';
 import EStyleSheet, {child} from "react-native-extended-stylesheet";
 import * as firebase from 'firebase';
 
 export default class viewListingsBuyer extends React.Component {
 
-  render() {
+    render() {
 
-    // Shortcut provided from Listing
-    const { navigation } = this.props;
-    const clickerid = navigation.getParam('clickerid', 'default');
-    const sellerid = navigation.getParam('UserID' , 'default');
-    const image = navigation.getParam('Image', 'https://facebook.github.io/react-native/img/tiny_logo.png');
+        // Shortcut provided from Listing
+        const {navigation} = this.props;
+        const clickerid = navigation.getParam('clickerid', 'default');
+        const sellerid = navigation.getParam('UserID', 'default');
+        const image = navigation.getParam('Image', 'https://facebook.github.io/react-native/img/tiny_logo.png');
 
-      return (
-        <View style={styles.container}>
+        return (
+            <View style={styles.container}>
 
-          <ScrollView>
+                <ScrollView>
 
-            <View style={styles.imageContainer}>
-              <Image source={{uri: image}} style={styles.image}/>
-            </View>
+                    <View style={styles.imageContainer}>
+                        <Image source={{uri: image}} style={styles.image}/>
+                    </View>
 
-            {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
-            <View style={styles.inputContainer}>
+                    {/* Inputs for Email, Barcode, Price, iClicker, Sell Option, Picture, */}
+                    <View style={styles.inputContainer}>
+                        <Text style={styles.text}>Created by: {navigation.getParam('Name')}</Text>
+                        <Text style={styles.price}>${navigation.getParam('Price', 'no price')}</Text>
+                        <Text style={styles.text}>Condition: {navigation.getParam('Condition', 'no condition')}</Text>
+                        <Text style={styles.text}>Type of iClicker: {navigation.getParam('Type', 'no type')}</Text>
+                        <View style={styles.inputContainer}>
+                            <TouchableOpacity
+                                style={styles.saveButton}
+                            >
+                                <Text style={styles.saveButtonText}
+                                      onPress={() => {
+                                          this.props.navigation.navigate('chat', {
+                                              listingId: clickerid,
+                                              sellerId: sellerid,
 
-              <Text style={styles.textInput}>Created By: {navigation.getParam('Name')}</Text>
-
-              <Text style={styles.textInput}>Price: {navigation.getParam('Price', 'no price')}</Text>
-
-              <Text style={styles.textInput}>Type of iClicker: {navigation.getParam('Type', 'no type')}</Text>
-
-              <Text style={styles.textInput}>Condition: {navigation.getParam('Condition', 'no condition')}</Text>
-
-              {/* TODO Display Picture*/}
-              {/*<Image source={{uri:picture}}/>*/}
-
-              <View style={styles.inputContainer}>
-                <TouchableOpacity
-                  style={styles.saveButton}
-                >
-                  <Text style={styles.saveButtonText}
-					  onPress={() => {
-						  this.props.navigation.navigate('chat', {
-              listingId: clickerid,
-			  sellerId: sellerid,
-
-            });
+                                          });
 
 
-					  }} >Message</Text>
-                </TouchableOpacity>
+                                      }}>Message</Text>
+                            </TouchableOpacity>
 
-              </View>
+                        </View>
+
+                    </View>
+                </ScrollView>
 
             </View>
-          </ScrollView>
-
-        </View>
-      )
+        )
     }
-  }
+}
 
-  const styles = EStyleSheet.create({
+const styles = EStyleSheet.create({
     image: {
-      flex: 1,
-      width: '20rem',
-      height: '16rem',
-      resizeMode: 'contain',
+        flex: 1,
+        width: '11rem',
+        height: '11rem',
+        resizeMode: 'contain',
+
     },
     imageContainer: {
-      justifyContent: 'center',
-      alignItems: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        borderWidth: 1,
+        height: '12rem',
+        width: '12rem',
     },
     container: {
-      flex: 1,
-      paddingTop: 45,
-      backgroundColor: '#F5FCFF',
+        flex: 1,
+        backgroundColor: '#F5FCFF',
     },
     header: {
-      fontSize: 25,
-      textAlign: 'center',
-      margin: 10,
-      fontWeight: 'bold'
+        fontSize: 25,
+        textAlign: 'center',
+        margin: 10,
+        fontWeight: 'bold'
     },
     inputContainer: {
-      paddingTop: 15
+        paddingTop: '1.5rem'
     },
     buttonContainer: {
-      flexDirection: 'row',
-      justifyContent: 'space-between'
-    },
-    textInput: {
-      borderColor: '#CCCCCC',
-      borderTopWidth: 1,
-      borderBottomWidth: 1,
-      height: 50,
-      fontSize: 20,
-      paddingLeft: 20,
-      paddingRight: 20,
-      marginBottom: 20
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     saveButton: {
-      borderWidth: 1,
-      borderColor: '#007BFF',
-      backgroundColor: '#007BFF',
-      padding: 15,
-      margin: 5
+        borderWidth: 1,
+        borderColor: '#007BFF',
+        backgroundColor: '#007BFF',
+        padding: 15,
+        margin: 5
     },
     saveButtonText: {
-      color: '#FFFFFF',
-      fontSize: 20,
-      textAlign: 'center'
+        color: '#FFFFFF',
+        fontSize: 20,
+        textAlign: 'center'
+    },
+    price: {
+        position: 'absolute',
+        left: "75%",
+        fontSize: '1.5rem',
+        fontWeight: 'bold',
     },
     text: {
-      fontSize: 12
+        fontSize: '1rem',
+        paddingLeft: '0.5rem',
+        paddingBottom: '0.5rem',
     }
-
-  });
+});

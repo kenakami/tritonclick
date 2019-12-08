@@ -6,25 +6,22 @@ import * as firebase from "firebase";
 export default class Item extends React.Component {
     render() {
         return(
-            <View>
+            <View style ={styles.container}>
                 <TouchableOpacity onPress={this.props.toViewListing}>
                     <View style={styles.whole}>
                         <View style={styles.pic}>
                             <Image
                                 source={{ uri: this.props.picture }}
-                                style={{
-                                    width: 50,
-                                    height: 50,
-                                    resizeMode: 'center',}}
+                                style={styles.image}
                             />
                         </View>
                         <View style={styles.desc}>
-                            <Text>
+                            <Text style={styles.word}>
                                 {this.props.description}
                             </Text>
                         </View>
                         <View style={styles.price}>
-                            <Text>
+                            <Text style={styles.textPrice}>
                                 ${this.props.price}
                             </Text>
                         </View>
@@ -36,20 +33,44 @@ export default class Item extends React.Component {
 }
 const styles = EStyleSheet.create({
     pic: {
-        width: 50,
-        height: 50,
-        resizeMode: 'center',
+        width: '5rem',
+        height: '5rem',
+    },
+    image: {
+        width: "100%",
+        height:  "100%",
+        resizeMode: 'contain',
     },
     desc: {
-        width: 150,
-        height: 25,
+        marginLeft: '1rem',
+        marginTop: '2rem',
+        width: '7rem',
+        height: '1.5rem',
+    },
+    word: {
+        fontSize: '0.75rem'
+    },
+    textPrice: {
+        fontSize: '1rem',
+        fontWeight: 'bold',
     },
     price: {
-        width: 50,
-        height: 25,
+        marginLeft: '0.75rem',
+        marginTop: '0.5rem',
+        width: '3rem',
+        height: '2rem',
+    },
+    container: {
+        paddingVertical: '0.05rem',
+        alignItems: 'center',
+        justifycontent: 'center',
     },
     whole: {
-        paddingHorizontal: '1rem',
-        flexDirection: 'row'
+        paddingHorizontal: '0.5rem',
+        paddingVertical: '0.25rem',
+        flexDirection: 'row',
+        width: '17.5rem',
+        borderWidth: 1,
+
     }
 })

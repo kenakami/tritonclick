@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, TouchableOpacity} from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import * as firebase from 'firebase';
 import * as fromNotification from "../Notification";
+import EStyleSheet from "react-native-extended-stylesheet";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCHuRSYZ34XPBwUC1lS8n8mUQDroo_wiW4",
@@ -188,7 +189,7 @@ class Login extends React.Component {
 
 export default Login;
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
     flex: 1,
     justifyContent: "center",

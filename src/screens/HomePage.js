@@ -68,7 +68,7 @@ const styles = EStyleSheet.create({
     button: {
         alignSelf: 'center',
         alignItems: 'center',
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#B0B0B0',
         padding: 10,
         marginBottom: 20,
         width: "70%",
@@ -85,7 +85,7 @@ const styles = EStyleSheet.create({
     },
 
     crossUp: {
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#B0B0B0',
         height: 100,
         width: 20,
 
@@ -94,7 +94,7 @@ const styles = EStyleSheet.create({
         shadowOpacity: 1.0,
     },
     crossFlat: {
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#B0B0B0',
         height: 20,
         width: 100,
         position: 'absolute',
@@ -109,7 +109,7 @@ const styles = EStyleSheet.create({
         borderRadius: 50/2,
         height: 50,
         width: 50,
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#278191',
         marginLeft: 50,
         marginBottom: 20,
 
@@ -123,7 +123,7 @@ const styles = EStyleSheet.create({
         width: 50,
         position: 'absolute',
         right: -10,
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#BF7104',
         marginRight: 50,
         marginBottom: 20,
 
@@ -137,7 +137,7 @@ const styles = EStyleSheet.create({
         height: 30,
         width: 70,
 
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#B0B0B0',
         marginLeft: 50,
         marginBottom: 10,
 
@@ -152,7 +152,7 @@ const styles = EStyleSheet.create({
 
         position: 'absolute',
         right: -10,
-        backgroundColor: '#DDDDDD',
+        backgroundColor: '#B0B0B0',
         marginRight: 50,
         marginBottom: 10,
 
@@ -165,7 +165,7 @@ const styles = EStyleSheet.create({
         flex: 1,
         height: "100%",
         width: "80%",
-        backgroundColor: 'black',
+        backgroundColor: '#D0D0D0',
         borderRadius:10,
 
     }

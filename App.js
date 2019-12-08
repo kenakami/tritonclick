@@ -44,27 +44,83 @@ const navigator = createStackNavigator(
         Rep : {
             screen: Report,
             navigationOptions: {
-                header: null,
+                title: "Settings",
             }
         },
-        Price : PriceTrends,
-        ListingBuyer : viewListingsBuyer,
-        ListingRent : viewListingsRent,
-        ListingSeller : viewListingsSeller,
-        ListingLoan : viewListingsLoan,
-        myListings: myListings,
+        Price : {
+            screen: PriceTrends,
+            navigationOptions: {
+                title: "Price Trends"
+            }
+        },
+        ListingBuyer : {
+            screen: viewListingsBuyer,
+            navigationOptions: {
+                title: "Buy"
+            }
+        },
+        ListingRent : {
+            screen: viewListingsRent,
+            navigationOptions: {
+                title: "Rent"
+            }
+        },
+        ListingSeller : {
+            screen: viewListingsSeller,
+            navigationOptions: {
+                title: "Sell Listing"
+            }
+        },
+        ListingLoan : {
+            screen: viewListingsLoan,
+            navigationOptions: {
+                title: "Loan Listing"
+            }
+        },
+        myListings: {
+            screen: myListings,
+            navigationOptions: {
+                title: "My Listings"
+            }
+        },
         item: Item,
-		chat: Chat,
-        loan: Loan,
-        sell: Sell,
-        displayBuy : DisplayBuy,
-        displayRent : DisplayRent
+		chat: {
+            screen: Chat,
+            navigationOptions: {
+                title: "Messages"
+            }
+        },
+        loan: {
+            screen: Loan,
+            navigationOptions: {
+                title: "Loan Form"
+            }
+        },
+        sell: {
+            screen: Sell,
+            navigationOptions: {
+                title: "Sell Form"
+            }
+        },
+        displayBuy : {
+            screen: DisplayBuy,
+            navigationOptions: {
+                title: "Buy"
+            }
+        },
+        displayRent : {
+            screen: DisplayRent,
+            navigationOptions: {
+                title: "Rent"
+            }
+        }
 
     },
     {
         initialRouteName: 'Login', //What should show up first when app opens
         defaultNavigationOptions: {
             title: 'TritonClick',
+            headerBackTitle: 'Back'
         },
     }
 );

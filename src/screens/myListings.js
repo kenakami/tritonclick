@@ -21,8 +21,8 @@ export default class myListings extends React.Component {
         const { currentUser } = firebase.auth();
         let sellRef = database.ref(`users/${currentUser.uid}/Selling/`);
         let loanRef = database.ref(`users/${currentUser.uid}/Loan/`);
-        sellRef.on('value', getSellData, errData);
-        loanRef.on('value', getLoanData, errData);
+        sellRef.once('value', getSellData, errData);
+        loanRef.once('value', getLoanData, errData);
 
         function getSellData(data) {
             let clicker = data.val();
@@ -61,7 +61,7 @@ export default class myListings extends React.Component {
 
         setTimeout(() =>{
             this.setTimePassed();
-        }, 1500)
+        }, 2000)
     }
 
     setTimePassed() {
@@ -119,12 +119,11 @@ export default class myListings extends React.Component {
 
 const styles = EStyleSheet.create({
     container:{
-        paddingTop: '2rem',
         width: '20rem',
-        height: '15rem',
+        height: '16.2rem',
     },
     text: {
-        fontSize: '1.5rem',
+        fontSize: '1rem',
     },
     button: {
         backgroundColor: '#DDDDDD',

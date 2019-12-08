@@ -5,6 +5,7 @@ import Constants from 'expo-constants';
 import * as Permissions from 'expo-permissions';
 import * as firebase from 'firebase';
 import { Dropdown } from 'react-native-material-dropdown';
+import EStyleSheet from "react-native-extended-stylesheet";
 
 var imageURI = "";
 
@@ -105,7 +106,7 @@ export default class loanForm extends React.Component {
                         <TextInput
                             style={styles.textInput}
                             placeholder="Price"
-                            keyboardType="numeric"
+                            keyboardType="number-pad"
                             onChangeText={(price) => this.setState({ price })}
                             value={this.state.price}
                         />
@@ -124,7 +125,7 @@ export default class loanForm extends React.Component {
                             value={this.state.condition}
                         />
                         <Button
-                            title="Choose an image from camera roll"
+                            title="Upload Image"
                             onPress={this._pickImage}
                         />
 
@@ -151,7 +152,8 @@ export default class loanForm extends React.Component {
                                         const {currentUser} = firebase.auth();
                                         setTimeout(() => {
                                             this.writeUserData(this.state.email, this.state.barcode, this.state.price, this.state.type, this.state.condition, Date.now(), imageURI, currentUser.displayName);
-                                        }, 2000);
+                                        }, 1000);
+                                        //alert("Saved");
                                         this.props.navigation.goBack();
                                     }
                                 }
@@ -198,14 +200,14 @@ export default class loanForm extends React.Component {
         const response = await fetch(uri);
         const blob = await response.blob();
         var ref = firebase.storage().ref().child(imageName);
+        alert("Image Uploaded");
         return ref.put(blob);
     }
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 45,
         backgroundColor: '#F5FCFF',
     },
     header: {
