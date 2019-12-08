@@ -60,9 +60,11 @@ export default class Settings extends React.Component {
 
         return (
 
-            <View style={styles.container}>
-
+            <View>
                 <ScrollView>
+                    <View style={styles.header}>
+                            <Text style={{fontSize: 20}}>Settings</Text>
+                    </View>
                     <View style={styles.inputContainer}>  
                         
                           <Dropdown 
@@ -94,28 +96,21 @@ export default class Settings extends React.Component {
                             </TouchableOpacity>
                         </View>
 
-                        <View style={styles.inputContainer}>
-                            <TouchableOpacity
-                                style={styles.saveButton}
-                            >
-                                <Text style={styles.saveButtonText} onPress={() => this.setState({dialogVisible: true})} >View Terms and Conditions</Text>
-                            </TouchableOpacity>
+                        <Text style={styles.heading}>Feedback</Text>
+                        <View style={styles.feedback}>
+                            <TextInput
+                                style={styles.textInput}
+                                maxLength={100}
+                                keyboardType="default"
+                                autoCorrect={true}
+                                value={this.state.feedback}
+                                multiline={true}
+                                maxHeight={200}
+                                onChangeText={(feedback) => {
+                                    this.setState({feedback})
+                                }}
+                            />
                         </View>
-
-                        <Text style={styles.header}>Feedback</Text>
-                        <TextInput
-                            style={styles.textInput}
-                            placeholder="Feedback"
-                            maxLength={100}
-                            keyboardType="default"
-                            autoCorrect={true}
-                            value={this.state.feedback}
-                            multiline={true}
-                            maxHeight={200}
-                            onChangeText={(feedback) => {
-                                this.setState({feedback})
-                            }}
-                        />
                         <View style={styles.inputContainer}>
                             <TouchableOpacity
                                 style={styles.submitButton}
@@ -123,7 +118,14 @@ export default class Settings extends React.Component {
                                 <Text style={styles.submitButtonText} onPress={() => {this.submitFeedback(this.state.feedback)}} >Submit</Text>
                             </TouchableOpacity>
                         </View>
-                        
+
+                        <View style={styles.inputContainer}>
+                            <TouchableOpacity
+                                style={styles.saveButton}
+                            >
+                                <Text style={styles.saveButtonText} onPress={() => this.setState({dialogVisible: true})} >View Terms and Conditions</Text>
+                            </TouchableOpacity>
+                        </View>
 
                         <View style={styles.inputContainer}>
                             <TouchableOpacity
@@ -162,10 +164,16 @@ const styles = EStyleSheet.create({
         backgroundColor: '#F5FCFF',
     },
     header: {
-        fontSize: 25,
-        textAlign: 'center',
+        paddingTop: 50,
+        paddingBottom: 15,
+        alignItems: "center",
+        justifyContent: "center",
+        borderBottomWidth: 1,
+        borderBottomColor: "#EBECF4"
+    },
+    heading: {
         margin: 10,
-        fontWeight: 'bold'
+        fontSize:20,
     },
     inputContainer: {
         paddingTop: 15,
@@ -174,6 +182,8 @@ const styles = EStyleSheet.create({
         borderColor: '#CCCCCC',
         borderTopWidth: 1,
         borderBottomWidth: 1,
+        borderRightWidth: 1,
+        borderLeftWidth: 1,
         height: 125,
         fontSize: 25,
         paddingLeft: 20,
@@ -209,6 +219,11 @@ const styles = EStyleSheet.create({
       color: '#FFFFFF',
       fontSize: 20,
       textAlign: 'center'
+    },
+    feedback:{
+        paddingLeft:10,
+        paddingRight:10, 
+        paddingTop:10,
     },
 
 });

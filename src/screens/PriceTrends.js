@@ -1,20 +1,8 @@
-import React, {Component} from 'react';
-import {
-    Button,
-    StyleSheet,
-    Text,
-    View,
-    ScrollView,
-    TextInput,
-    TouchableOpacity,
-    Modal,
-    TouchableHighlight,
-    Alert
-} from 'react-native';
-import {Dropdown} from 'react-native-material-dropdown';
+import React, { Component } from 'react';
+import { Button, StyleSheet, Text, View, ScrollView, TextInput, TouchableOpacity, Modal, TouchableHighlight, Alert } from 'react-native';
+import { Dropdown } from 'react-native-material-dropdown';
 import * as firebase from 'firebase';
-import {LineChart} from 'react-native-chart-kit';
-import EStyleSheet from "react-native-extended-stylesheet";
+import { LineChart } from 'react-native-chart-kit';
 
 
 export default class PriceTrends extends React.Component {
@@ -24,11 +12,69 @@ export default class PriceTrends extends React.Component {
         this.state = {
             time: '',
             dataset: [0, 0, 0, 0, 0, 0],
-            labels: ['7', '8', '9', '10', '11', '12'],
+            labels: ['Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            months: ['7', '8', '9', '10', '11', '12'],
+            index: 6,
         };
     }
+    shiftLabels(left) {
+        var allLabels = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        var newmonths = this.state.months;
+        var currLabels = this.state.labels;
+        var newindex = this.state.index;
+        if(left)
+        {
 
+            if(this.state.index == 0)
+            {
+
+            }
+            else
+            {
+                for( var i = 0; i < newmonths.length; i++)
+                {
+                    newmonths[i] -= 1;
+                }
+                let month = allLabels[newindex - 1];
+                currLabels.pop();
+                currLabels.unshift(month);
+                this.setState({ months: newmonths });
+                newindex -= 1;
+                this.setState({ labels: currLabels });
+            }
+        }
+
+        else
+        {
+            if(this.state.index == 6)
+            {
+                return;
+            }
+            else
+            {
+
+
+                for( var i = 0; i < newmonths.length; i++)
+                {
+                    newmonths[i] += 1;
+                }
+                let month = allLabels[newindex + 6];
+
+                currLabels.shift();
+                currLabels.push(month);
+                this.setState({ months: newmonths });
+                newindex += 1;
+                this.setState({ labels: currLabels });
+
+
+
+            }
+        }
+        this.setState({ index: newindex });
+    }
     setDataSet() {
+
+        this.setState({ dataset: [0, 0, 0, 0, 0, 0] });
         /*let ref0 = firebase.database().ref('sales/' + this.state.labels[0]);
         let ref1 = firebase.database().ref('sales/' + this.state.labels[1]);
         let ref2 = firebase.database().ref('sales/' + this.state.labels[2]);
@@ -110,15 +156,16 @@ export default class PriceTrends extends React.Component {
                 //alert(child);
                 //alert(child);
                 firebase.database().ref('sales/' + child + '/month/').once('value', (snapshot) => {
-                    if (snapshot.val() && snapshot.val() == '12') {
+                    if(snapshot.val() && snapshot.val() == this.state.months[5]){
                         firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                             month5.push(parseFloat(snapshot.val()));
 
                             this.state.dataset[5] = this.getAverage(month5);
                             this.setState({dataset: this.state.dataset});
 
+
                         });
-                    } else if (snapshot.val() && snapshot.val() == '11') {
+                    }else if(snapshot.val() && snapshot.val() == this.state.months[4]){
                         firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                             month4.push(parseFloat(snapshot.val()));
 
@@ -126,7 +173,7 @@ export default class PriceTrends extends React.Component {
                             this.setState({dataset: this.state.dataset});
 
                         });
-                    } else if (snapshot.val() && snapshot.val() == '10') {
+                    }else if(snapshot.val() && snapshot.val() == this.state.months[3]){
                         firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                             month3.push(parseFloat(snapshot.val()));
 
@@ -134,21 +181,21 @@ export default class PriceTrends extends React.Component {
                             this.setState({dataset: this.state.dataset});
 
                         });
-                    } else if (snapshot.val() && snapshot.val() == '9') {
+                    }else if(snapshot.val() && snapshot.val() == this.state.months[2]){
                         firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                             month2.push(parseFloat(snapshot.val()));
                             this.state.dataset[2] = this.getAverage(month2);
                             this.setState({dataset: this.state.dataset});
 
                         });
-                    } else if (snapshot.val() && snapshot.val() == '8') {
+                    }else if(snapshot.val() && snapshot.val() == this.state.months[1]){
                         firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                             month1.push(parseFloat(snapshot.val()));
                             this.state.dataset[1] = this.getAverage(month1);
                             this.setState({dataset: this.state.dataset});
 
                         });
-                    } else if (snapshot.val() && snapshot.val() == '7') {
+                    }else if(snapshot.val() && snapshot.val() == this.state.months[0]){
                         firebase.database().ref('sales/' + child + '/price/').once('value', (snapshot) => {
                             month0.push(parseFloat(snapshot.val()));
                             this.state.dataset[0] = this.getAverage(month1);
@@ -163,12 +210,12 @@ export default class PriceTrends extends React.Component {
 
     }
 
-    getAverage(monthSales) {
+    getAverage(monthSales){
         let average = 0;
-        if (monthSales.length == 0) {
+        if(monthSales.length == 0){
             return 0;
         }
-        for (let i = 0; i < monthSales.length; i++) {
+        for(let i = 0; i < monthSales.length; i++){
             average += monthSales[i];
         }
         return average / monthSales.length;
@@ -225,19 +272,19 @@ export default class PriceTrends extends React.Component {
     */
 
 
-        return (
-            <View style={styles.container}>
+        return(
+            <View style={{ justifyContent: "center", paddingHorizontal: 10, backgroundColor: color = 'white', paddingTop: 20 }}>
 
                 <ScrollView>
-                    <View style={styles.inputContainer}>
+                    <View style={styles.iclicker}>
 
 
                         <Text>
-                            Iclicker 2 Price Trends
+                            2019 Iclicker 2 Price Trends
                         </Text>
                         <LineChart
                             data={linedata}
-                            width={412}
+                            width={313}
                             height={440}
                             yAxisLabel={'$'}
                             chartConfig={{
@@ -259,20 +306,64 @@ export default class PriceTrends extends React.Component {
                         />
 
 
+                        <View>
+                            <View style={styles.inputContainer}>
+                                <TouchableOpacity
+                                    style={styles.rightBox}
+                                >
+                                    <Text style={styles.saveButtonText} onPress={() => {this.shiftLabels(false);
+
+                                        this.setDataSet();
+                                    }} > FWD </Text>
+                                </TouchableOpacity>
+                            </View>
+
+
+
+                            <View style={styles.inputContainer}>
+                                <TouchableOpacity
+                                    style={styles.leftBox}
+                                >
+                                    <Text style={styles.saveButtonText} onPress={() => {this.shiftLabels(true);
+
+
+                                        this.setDataSet();
+                                    }} > BACK </Text>
+                                </TouchableOpacity>
+                            </View>
+
+                        </View>
+
+                        <View style={styles.cross}>
+                            <View style={styles.crossUp} />
+                            <View style={styles.crossFlat} />
+                        </View>
+
+                        <View>
+                            <View style={styles.del} />
+                            <View style={styles.delRight} />
+                        </View>
+
+
+
+
                     </View>
+
                 </ScrollView>
 
             </View>
 
 
+
         );
+
 
 
     }
 }
 
 
-const styles = EStyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 45,
@@ -311,6 +402,96 @@ const styles = EStyleSheet.create({
     },
     text: {
         fontSize: 12
-    }
+    },
+    cross: {
+        alignSelf: "center",
+        paddingBottom: 10
+    },
 
+    crossUp: {
+        backgroundColor: '#DDDDDD',
+        height: 100,
+        width: 20,
+
+        shadowOffset: { width: 3, height: 6, },
+        shadowColor: '#9A9A9A',
+        shadowOpacity: 1.0,
+    },
+    crossFlat: {
+        backgroundColor: '#DDDDDD',
+        height: 20,
+        width: 100,
+        position: 'absolute',
+        left: -40,
+        top: 40,
+
+        shadowOffset: { width: 3, height: 6, },
+        shadowColor: '#9A9A9A',
+        shadowOpacity: 1.0,
+    },
+    del: {
+        borderRadius: 50/2,
+        height: 50,
+        width: 50,
+        backgroundColor: '#DDDDDD',
+        marginLeft: 50,
+        marginBottom: 20,
+
+        shadowOffset: { width: 3, height: 6, },
+        shadowColor: '#9A9A9A',
+        shadowOpacity: 1.0,
+    },
+    delRight: {
+        borderRadius: 50 / 2,
+        height: 50,
+        width: 50,
+        position: 'absolute',
+        right: -10,
+        backgroundColor: '#DDDDDD',
+        marginRight: 50,
+        marginBottom: 20,
+
+        shadowOffset: { width: 3, height: 6, },
+        shadowColor: '#9A9A9A',
+        shadowOpacity: 1.0,
+
+    },
+    leftBox:{
+        borderRadius: 10,
+        height: 30,
+        width: 70,
+
+        backgroundColor: '#DDDDDD',
+        marginLeft: 50,
+        marginBottom: 10,
+
+        shadowOffset: { width: 3, height: 6, },
+        shadowColor: '#9A9A9A',
+        shadowOpacity: 1.0,
+    },
+    rightBox:{
+        borderRadius: 10,
+        height: 30,
+        width: 70,
+
+        position: 'absolute',
+        right: -10,
+        bottom: -54,
+        backgroundColor: '#DDDDDD',
+        marginRight: 50,
+        marginBottom: 10,
+
+        shadowOffset: { width: 3, height: 6, },
+        shadowColor: '#9A9A9A',
+        shadowOpacity: 1.0,
+    },
+    iclicker:{
+        alignSelf:'center',
+        flex: 1,
+        height: "100%",
+        width: "80%",
+        backgroundColor: '#474747',
+        borderRadius:10,
+
+    }
 });
