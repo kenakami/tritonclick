@@ -11,7 +11,9 @@ Password: tritonclick123
 Device: iOS
 PIN: 0000
 <tr>
+  
 Username: not.a.ucsd.email@gmail.com
 Password: ucsd123
 <tr>
+  
 Laptop Password: 0906
