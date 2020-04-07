@@ -19,5 +19,3 @@ Username: not.a.ucsd.email@gmail.com
 Password: ucsd123
 
 <tr>
-  
-Laptop Password: 0906
